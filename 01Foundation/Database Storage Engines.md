@@ -1,11 +1,9 @@
-# Storage Engines
 ---
 type: concept
 domain: database
-summary:
+summary: Database storage engines is the layer that manages the persistence of data on disk.
 ---
 
+# Storage Engines
 
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM2OTcwOTQ2MF19
--->
+
