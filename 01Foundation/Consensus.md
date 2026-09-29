@@ -30,10 +30,9 @@ summary: Establishing consensus between multiple nodes of distributed system to 
   - it sends election messages to higher-ranked processes
   - If no other process responds to its message, it assumes leadership and notifies all lower-ranked processes.
   - If some other processes responds, it sends acknowledgement to highest-rank process among them and then, that process assumes leadership and notifies all lower-ranked processes about the election result. 
-
-**Issues with algorithm**
-- In case of network partitions, the system can reach state of split brain: each partition will have its leader.
-- An unstable high rank process can be stuck into reelection and failure cycle.
+  - Issues with algorithm  
+    - In case of network partitions, the system can reach state of split brain: each partition will have its leader.
+    - An unstable high rank process can be stuck into reelection and failure cycle.
 
 #### Next In-line failover
 - It is a variation of bully algorithm
@@ -41,4 +40,15 @@ summary: Establishing consensus between multiple nodes of distributed system to 
 - When a process needs to start the leader election, it sends message directly to highest-rank process in the failover list of the failing leader. If it does not respond, it tries the next one and so on.
 - When the process itself is the candidate, it assumes leadership and notifies all other processes.
 - The advantage is that less number of steps are required if next in-line process is alive.
+
+#### Candidate/Ordinary
+- Processes are split into two categories: Candidate and Ordinary.
+- The ordinary process starts the algorithm by sending messages to all candidates.
+- The candidates respond to the ordinary process. It selects the highest rank candidate as the new leader and notifies all other processes about the election result.
+
+#### Invitation Algorithm
+- It allows processes to invite other processes to join their groups.
+- Each process starts as a leader of its own group.
+- It contacts other peer process, inviting it to join.
+- If the peer process is leader, the two groups are joined. Otherwise, it sends back the id of its group leader, allowing group leaders to merge.
 
