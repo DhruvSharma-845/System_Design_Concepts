@@ -9,4 +9,4 @@ It is the property of a system to continue operating correctly in the presence o
 
 # How it can be achieved
 - Remove single point of failure  
-  - By introducing redundancy: [Replication](./Redundancy.md)
+  - By introducing redundancy: [Replication](./Replication.md)
