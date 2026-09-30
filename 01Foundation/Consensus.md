@@ -10,6 +10,7 @@ summary: Establishing consensus between multiple nodes of distributed system to 
 # Real-world application
 
 ## Electing leader
+It is a consensus problem. To elect a leader, we need to reach a consensus about its identity.
 
 ### Why leader is needed
 - The leader can help reaching a decision with reduced synchronisation overhead
@@ -19,7 +20,7 @@ summary: Establishing consensus between multiple nodes of distributed system to 
 ### When leader election is triggered
 - System is started and leader is selected for the first time
 - Existing leader crashes or fails to communicate  
-  - The system must have failure detection mechanisms
+  - The system must have failure detection mechanisms to detect if the existing leader is alive.
 
 ### Leader election algorithms
 
@@ -51,4 +52,13 @@ summary: Establishing consensus between multiple nodes of distributed system to 
 - Each process starts as a leader of its own group.
 - It contacts other peer process, inviting it to join.
 - If the peer process is leader, the two groups are joined. Otherwise, it sends back the id of its group leader, allowing group leaders to merge.
+
+#### Ring Algorithm
+- All nodes form a ring.
+- The election message is forwarded across the ring: each node contacting its successor.
+- When the message comes back to node that initiated the election, the highest-rank node collected in the message becomes the leader.
+
+### Single leader issues
+- The leader can become bottleneck.  
+  - Possible Solution: Partion the system and have each partition a separate leader
 
