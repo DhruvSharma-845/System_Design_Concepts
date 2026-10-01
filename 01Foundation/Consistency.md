@@ -76,6 +76,6 @@ Focuses on how single client interacts with system. Client can connect to any av
 - Having `n` copy and `m` witness replicas has same availability guarantees as `n + m` copies,
 ## Strong Eventual Consistency
  - Under this model, updates are allowed to propagate to servers late or out of order, but when all updates finally propagate to target nodes, conflicts between them can be resolved and they can be merged to produce the same valid state  
- - Implementation approach to reconcile after divergence: Conflict-Free Replicated Data Types. 
-	 - CRDTs are specialized data structures that preclude the existence of conflict and allow operations on these data types to be applied in any order without changing the result.
+ - Implementation approach to reconcile after divergence: Conflict-Free Replicated Data Types.  
+	 - CRDTs are specialized data structures that preclude the existence of conflict and allow operations on these data types to be applied in any order without changing the result.  
 	 - Replicas can execute operations locally, without prior synchronization with other nodes, and operations eventually propagate to all other replicas, potentially out of order. CRDTs allow us to reconstruct the complete system state from local individual states or operation sequences.
