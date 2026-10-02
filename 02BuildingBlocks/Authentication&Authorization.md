@@ -29,6 +29,7 @@ Bearer Tokens(JWT) are the default access token type.
 ### Refresh token
 A refresh token is a long-lived credential that clients use to obtain new access tokens when the current one expires — without requiring the user to re-authorize.  
 Refresh tokens are issued alongside access tokens in the Authorization Code flow. Use them to silently renew access tokens in the background so users stay logged in across sessions.
+
 ### Scope
 It limits the third-party application's access to the resource.   
 The application can request one or more scopes. This information is presented to the user in consent screen. The access token issued to the third-party application will be limited to the scopes granted.
@@ -57,12 +58,17 @@ The application can request one or more scopes. This information is presented to
 	- The user is displayed with code and URL.
 	- The user opens the URL and approves the request on a separate device like their phone.
 	- The app polls the token endpoint until the user completes authorization, at that time, the app gets the access token.
+
 ### Creating client
 Registering a new app with the service: When registering a new app, you usually register basic information such as application name, website, a logo, etc. In addition, you must register a redirect URI to be used for redirecting users to.  
 After registering your app, you will receive a client ID and optionally a client secret.
+
 ### Dynamic Client Registration
 It lets the third-party apps register themselves programmatically, submitting their metadata and receiving client_id and client_secret.
 Use when clients need to register at runtime — for example, 
 - in open ecosystems where any developer can build a client against your API, 
 - in federated identity deployments where clients are registered automatically during federation, or 
 - in multi-tenant platforms where each tenant gets its own client credentials.
+
+### Token Exchange
+Token exchange can be done at the API gateway so downstream services get scoped, audience-restricted tokens rather than the user's raw token.
