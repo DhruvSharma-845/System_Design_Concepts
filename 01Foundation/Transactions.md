@@ -15,6 +15,11 @@ A _transaction_ is a set of operations, an atomic unit of execution.
 	- Implementation Approaches
 		- Lock-based(pessimistic)
 		- Try and validate(optimistic)
+		- Snapshot Isolation
+			- Snapshot isolation guarantees that all reads made within the transaction are consistent with a snapshot of the database.
+			- The snapshot contains all values that were _committed before_ the transaction’s start timestamp.
+			- If there’s a _write-write conflict_ (i.e., when two concurrently running transactions attempt to make a write to the same cell), only one of them will commit.
+			- Prevents read skew: In between the transaction, cannot see the updated values by some other concurrent committed transaction. can only see the snapshot of the database.
 - Durability
 # Distributed Transactions
 ## Atomicity 
@@ -23,7 +28,7 @@ Changes have to be durably propagated to all of the nodes involved in the transa
 ## Atomic Commitment algorithms
 Atomic commitment doesn’t allow disagreements between the participants: a transaction _will not_ commit if even one of the participants votes against it.
 ### Two-phase commit
-- Assumes the presence of leader that holds state, collects votes. It can be picked by [Leader Election Algorithm](./Consensus.md#Electing Leader) or assigned manually.
+- Assumes the presence of leader that holds state, collects votes. It can be picked by [Leader Election Algorithm](./Consensus.md) or assigned manually.
 - Phase 1(Prepare)
 	- the decided value is distributed, and votes are collected
 	- The coordinator notifies cohorts about the new transaction
