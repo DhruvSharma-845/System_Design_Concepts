@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "06d21fc2cfc09808",
+        "id": "34259789c4897672",
         "type": "tabs",
         "children": [
           {
-            "id": "c41c97adb3f6f6be",
+            "id": "98260a858315d62a",
             "type": "leaf",
             "state": {
               "type": "split-diff-view",
@@ -206,7 +206,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c41c97adb3f6f6be",
+  "active": "98260a858315d62a",
   "lastOpenFiles": [
     "02BuildingBlocks/Authentication&Authorization.md",
     "03Patterns/IdentityAndAccessManagement.md",
