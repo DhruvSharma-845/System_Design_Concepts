@@ -37,7 +37,7 @@ Workflow:
 - The third-party app(Service Provider) sends the user back to authorization server with a SAML Request that asks authorization server to authenticate the user. 
 - Since the user has already authenticated, authorization server verifies that the session is still valid and sends the user back to third-party app with a SAML Response(User identity information). 
 - The third-party app checks this response, and if it looks good, the user is granted access.
-- ![[saml.png]]
+- ![[../assets/saml.png]]
 
 # Authorization
 It is the process of determining what resources a user can access based on identity. Verifies whether access is allowed through policies and rules.  
@@ -80,7 +80,7 @@ The application can request one or more scopes. This information is presented to
 		- and the code verifier is sent when exchanging the authorization code for a token. 
 		- The authorization server will hash the code verifier and compare it to the challenge sent in the authorization request, and only issue the access token if they match.
 		- This ensures only the client that started the flow can complete it.
-		- ![[oauth2authcodewithpkce.png]]
+		- ![[../assets/oauth2authcodewithpkce.png]]
 - Password
 	- For first party apps
 - Client credentials
