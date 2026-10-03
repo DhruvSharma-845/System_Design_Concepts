@@ -12,14 +12,14 @@
             "id": "78fdd2a2b3f6e326",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "01Foundation/Security.md",
-                "mode": "source",
-                "source": false
+                "aFile": "01Foundation/Consensus.md",
+                "bFile": "01Foundation/Consensus.md",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "Security"
+              "icon": "diff",
+              "title": "Diff: Consensus  (Working Tree)"
             }
           }
         ]
@@ -219,20 +219,20 @@
   },
   "active": "78fdd2a2b3f6e326",
   "lastOpenFiles": [
-    "02BuildingBlocks/Authentication&Authorization.md",
-    "04Architectures/SecurityArchitectures.md",
-    "01Foundation/Security.md",
-    "Welcome.md",
-    "04Architectures",
+    "01Foundation/Fault Tolerance.md",
+    "01Foundation/Replication.md",
     "01Foundation/Consensus.md",
     "01Foundation/Consistency.md",
+    "01Foundation/Transactions.md",
+    "01Foundation/Security.md",
+    "02BuildingBlocks/Authentication&Authorization.md",
+    "04Architectures/SecurityArchitectures.md",
+    "Welcome.md",
+    "04Architectures",
     "01Foundation/DatabaseStorageEngines.md",
-    "01Foundation/Fault Tolerance.md",
     "02BuildingBlocks",
     "Untitled.md",
-    "01Foundation/Transactions.md",
     "01Foundation/Sharding.md",
-    "01Foundation/Replication.md",
     "01Foundation/Caching.md",
     "Untitled 1.md",
     "04Designs",

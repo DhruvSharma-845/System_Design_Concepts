@@ -5,8 +5,21 @@ summary: Establishing consensus between multiple nodes of distributed system to 
 ---
 
 # What it is
+It allows multiple processes to reach an agreement on a value.
+**FLP Impossibility** says that it is impossible to get consensus in an asynchronous system in bounded time.
+**Role of failure detection**
+Since failure detection is not always accurate, it is possible that the consensus algorithm is restarted because a process is incorrectly reported as faulty.
 
+# How to achieve consensus
+## Broadcast
+It is used to disseminate information among a set of processes.
 
+## Atomic Broadcast
+If we need to deliver messages in order, we have to use the atomic broadcast.
+- Virtual Synchrony delivers totally ordered messages to a _dynamic_ group of peers.
+# Use-cases
+- putting events in particular order
+- ensuring consistency among participants
 # Real-world application
 
 ## Electing leader
