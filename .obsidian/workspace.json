@@ -4,39 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "7cb970c4976a1d95",
-        "type": "tabs",
-        "dimension": 69.7111631537861,
-        "children": [
-          {
-            "id": "78fdd2a2b3f6e326",
-            "type": "leaf",
-            "state": {
-              "type": "split-diff-view",
-              "state": {
-                "aFile": "01Foundation/Consensus.md",
-                "bFile": "01Foundation/Consensus.md",
-                "aRef": ""
-              },
-              "icon": "diff",
-              "title": "Diff: Consensus  (Working Tree)"
-            }
-          }
-        ]
-      },
-      {
         "id": "e0c37db0278dc763",
         "type": "tabs",
-        "dimension": 30.288836846213897,
         "children": [
           {
             "id": "5909f5ffe23da8da",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "split-diff-view",
+              "state": {
+                "aFile": "01Foundation/StorageEngines.md",
+                "bFile": "01Foundation/StorageEngines.md",
+                "aRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: StorageEngines  (Working Tree)"
             }
           }
         ]
@@ -217,19 +199,23 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "78fdd2a2b3f6e326",
+  "active": "5909f5ffe23da8da",
   "lastOpenFiles": [
-    "01Foundation/Fault Tolerance.md",
+    "01Foundation/FaultTolerance.md",
     "01Foundation/Replication.md",
-    "01Foundation/Consensus.md",
-    "01Foundation/Consistency.md",
-    "01Foundation/Transactions.md",
+    "01Foundation/StorageEngines.md",
     "01Foundation/Security.md",
-    "02BuildingBlocks/Authentication&Authorization.md",
+    "04Architectures/Microservices.md",
+    "02BuildingBlocks/StreamProcessing.md",
     "04Architectures/SecurityArchitectures.md",
+    "01Foundation/DataSerialization&Evolution.md",
+    "01Foundation/DataModels.md",
+    "01Foundation/Transactions.md",
+    "01Foundation/Consistency.md",
+    "01Foundation/Consensus.md",
+    "02BuildingBlocks/Authentication&Authorization.md",
     "Welcome.md",
     "04Architectures",
-    "01Foundation/DatabaseStorageEngines.md",
     "02BuildingBlocks",
     "Untitled.md",
     "01Foundation/Sharding.md",
