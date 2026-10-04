@@ -9,6 +9,7 @@ It is a model to store multiple copies of data so that when one machine fails, t
 
 # Why it is needed
 - To ensure availability: Gracefully handling failures
+- To handle the increased rate of queries
 
 # Where it is needed
 - Multi datacenter deployments  
