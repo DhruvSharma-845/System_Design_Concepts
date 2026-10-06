@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "34259789c4897672",
+        "id": "9b26afa5ae4b6ebf",
         "type": "tabs",
         "children": [
           {
-            "id": "98260a858315d62a",
+            "id": "d0f169b5e994d40f",
             "type": "leaf",
             "state": {
               "type": "split-diff-view",
               "state": {
-                "aFile": "02BuildingBlocks/Authentication&Authorization.md",
-                "bFile": "02BuildingBlocks/Authentication&Authorization.md",
+                "aFile": "01Foundation/DataModels.md",
+                "bFile": "01Foundation/DataModels.md",
                 "aRef": ""
               },
               "icon": "diff",
-              "title": "Diff: Authentication&Authorization  (Working Tree)"
+              "title": "Diff: DataModels  (Working Tree)"
             }
           }
         ]
@@ -83,7 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 359.25
+    "width": 276.75
   },
   "right": {
     "id": "aed9bfafb33dc225",
@@ -99,6 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "02BuildingBlocks/Authentication&Authorization.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -117,6 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "02BuildingBlocks/Authentication&Authorization.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -169,6 +171,7 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "02BuildingBlocks/Authentication&Authorization.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -206,32 +209,32 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "98260a858315d62a",
+  "active": "d0f169b5e994d40f",
   "lastOpenFiles": [
+    "01Foundation/DataModels.md",
     "02BuildingBlocks/Authentication&Authorization.md",
+    "01Foundation/Transactions.md",
+    "01Foundation/StorageEngines.md",
+    "01Foundation/Sharding.md",
+    "01Foundation/Security.md",
+    "01Foundation/Replication.md",
+    "01Foundation/FaultTolerance.md",
+    "01Foundation/DataSerialization&Evolution.md",
+    "01Foundation/Consistency.md",
+    "01Foundation/Consensus.md",
+    "01Foundation/Caching.md",
+    "02BuildingBlocks/StreamProcessing.md",
     "03Patterns/IdentityAndAccessManagement.md",
+    "04Architectures/Microservices.md",
+    "04Architectures/SecurityArchitectures.md",
     "assets/saml.png",
     "assets/oauth2authcodewithpkce.png",
     "assets",
-    "01Foundation/Security.md",
-    "04Architectures/SecurityArchitectures.md",
     "Welcome.md",
     "03Patterns",
-    "01Foundation/FaultTolerance.md",
-    "01Foundation/Replication.md",
-    "01Foundation/StorageEngines.md",
-    "04Architectures/Microservices.md",
-    "02BuildingBlocks/StreamProcessing.md",
-    "01Foundation/DataSerialization&Evolution.md",
-    "01Foundation/DataModels.md",
-    "01Foundation/Transactions.md",
-    "01Foundation/Consistency.md",
-    "01Foundation/Consensus.md",
     "04Architectures",
     "02BuildingBlocks",
     "Untitled.md",
-    "01Foundation/Sharding.md",
-    "01Foundation/Caching.md",
     "Untitled 1.md",
     "04Designs",
     "03Patterns",
