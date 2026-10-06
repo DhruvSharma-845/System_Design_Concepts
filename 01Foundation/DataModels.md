@@ -16,6 +16,11 @@ Each layer hides the complexity of the layer below it.
 ## Relational
 - Data is organized into tables
 - A table is unordered collection of tuples(rows)
+
+### Object Relational Mapping
+There is inherent disconnect between object oriented models and relational model(called as Impedance Mismatch) because of which a translation layer is required between them.  
+ORMs serve the purpose.  
+
 ## Document
 - Represents data as interconnected graph of JSON
  
