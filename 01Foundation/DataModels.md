@@ -53,3 +53,24 @@ SQL
 - Many-to-many: Does not fit in self-contained JSON document model. Normalisation is required in the form where the source JSON contains partial one-to-many part that in turn contains the references to other JSON document.
 ### Query Language
 JSONPath, $lookup etc.
+
+## Graph
+- Suitable for complex many-to-many relationships 
+- Can store heterogeneous data types as vertices in single database
+
+### Types of storage structure 
+- Property Graph Model
+  - Has two relational table: vertices and edges
+  - edges table is like join table in Many-to-many relationship in relational data model
+  - Query Languages
+    - Cypher: In a graph query, number of joins can be variable and might not be known in advance.
+- Triple Stores Graph model
+  - Every information is stored in three-part statements: Subject, predicate and object
+  - Query Languages
+    - SPARQL: Uses RDF data model
+
+# GraphQL
+It is a query language that allows the clients to request the data from server with a specific JSON structure.  
+Clients can rapidly change queries based on the requirement changes.
+This flexibilty comes with a cost: need a transformation layer that converts the graphql query to the backend APIs.  
+Can be built over any data model - relational, document or graph
