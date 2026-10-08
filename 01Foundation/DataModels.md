@@ -41,12 +41,12 @@ Normalization and denormalization has trade-offs and they have to be carefully c
 SQL
 
 ## Document
-- Represents data as interconnected graph of JSON
+- Represents data as interconnected graph of self-contained JSON
 - Fits more naturally to represent the object structure graph(especially one-to-many relationships), thus, reducing the impedance mismatch.
 - Relaxed schema constraints(schemaless) but more appropriately, it is schema on read(interpreted only when the data is read)
 	- Advantageous if the items in the collection don’t all have the same structure
 - Better performance due to data locality
-- Most often, denormalized data schema is used.
+- Most often, denormalized data schema is used. And relationships are rare.
 
 ### Types of relationship
 - One-to-many: Fits naturally
@@ -57,6 +57,7 @@ JSONPath, $lookup etc.
 ## Graph
 - Suitable for complex many-to-many relationships 
 - Can store heterogeneous data types as vertices in single database
+- queries potentially need to traverse multiple hops to find the data of interest
 
 ### Types of storage structure 
 - Property Graph Model

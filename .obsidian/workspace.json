@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "9b26afa5ae4b6ebf",
+        "id": "41c149dffdfaeb7d",
         "type": "tabs",
         "children": [
           {
-            "id": "d0f169b5e994d40f",
+            "id": "5d8f5c03e8686cc3",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "01Foundation/DataModels.md",
-                "bFile": "01Foundation/DataModels.md",
-                "aRef": ""
+                "file": "01Foundation/StorageEngines.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: DataModels  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "StorageEngines"
             }
           }
         ]
@@ -209,12 +209,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d0f169b5e994d40f",
+  "active": "5d8f5c03e8686cc3",
   "lastOpenFiles": [
-    "01Foundation/DataModels.md",
-    "02BuildingBlocks/Authentication&Authorization.md",
     "01Foundation/Transactions.md",
     "01Foundation/StorageEngines.md",
+    "03Patterns/EventSourcingAndCQRS.md",
+    "01Foundation/DataModels.md",
+    "02BuildingBlocks/Authentication&Authorization.md",
     "01Foundation/Sharding.md",
     "01Foundation/Security.md",
     "01Foundation/Replication.md",
