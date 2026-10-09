@@ -5,6 +5,7 @@ summary: Database storage engines is the layer that manages the persistence of d
 ---
 
 # What it is
+Data model is the high-level format that is an interface exposed by the database. The actual storage format that the database employs can be entirely different. That storage mechanisms are covered in this article.
 
 # Storage Structures
 
@@ -25,7 +26,13 @@ summary: Database storage engines is the layer that manages the persistence of d
 - During the range scan, iteration starts from the closest found key-value pair and continues by following sibling pointers until the end of the range is reached or the range predicate is exhausted
 - Node splitting: If the target node doesn’t have enough room available, we say that the node has overflowed and has to be split in two to fit the new data. If the parent node is full and does not have space available for the promoted key and pointer to the newly created node, it has to be split as well. This operation might propagate recursively all the way to the root.
 - Node merging: If neighboring nodes have too few values (i.e., their occupancy falls under a threshold), the sibling nodes are merged. This situation is called _underflow_
+
 ## Log Structure Storage
+- Writes out immutable files
+
+# Index
+It is an additional structure that is derived from the primary data and helps in efficiently find the value for a particular key.
+Maintaining index incurs overhead during writes.
 
 # Disk Storage and File Formats
 
