@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01Foundation/StorageEngines.md",
+                "file": "04Architectures/EventDrivenArchitecture.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "StorageEngines"
+              "title": "EventDrivenArchitecture"
             }
           }
         ]
@@ -211,23 +211,25 @@
   },
   "active": "5d8f5c03e8686cc3",
   "lastOpenFiles": [
-    "01Foundation/Transactions.md",
-    "01Foundation/StorageEngines.md",
-    "03Patterns/EventSourcingAndCQRS.md",
+    "04Architectures/Microservices.md",
+    "04Architectures/EventDrivenArchitecture.md",
+    "03Patterns/WorkflowEngines.md",
+    "01Foundation/NetworkCommunication.md",
+    "04Architectures/SecurityArchitectures.md",
     "01Foundation/DataModels.md",
+    "01Foundation/StorageEngines.md",
+    "01Foundation/Transactions.md",
+    "03Patterns/EventSourcingAndCQRS.md",
     "02BuildingBlocks/Authentication&Authorization.md",
     "01Foundation/Sharding.md",
     "01Foundation/Security.md",
     "01Foundation/Replication.md",
     "01Foundation/FaultTolerance.md",
-    "01Foundation/DataSerialization&Evolution.md",
     "01Foundation/Consistency.md",
     "01Foundation/Consensus.md",
     "01Foundation/Caching.md",
     "02BuildingBlocks/StreamProcessing.md",
     "03Patterns/IdentityAndAccessManagement.md",
-    "04Architectures/Microservices.md",
-    "04Architectures/SecurityArchitectures.md",
     "assets/saml.png",
     "assets/oauth2authcodewithpkce.png",
     "assets",
