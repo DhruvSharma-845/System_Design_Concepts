@@ -57,13 +57,13 @@ Focuses on how single client interacts with system. Client can connect to any av
 ## Types of models for asynchronous replication in single leader replication
 - Read-own-writes
 	 - For a user, every read operation following the write on the same or the other replica has to observe the updated value. It does not make any guarantees about other users.
-  - Read user's own data from the leader.
+	 - Read user's own data from the leader.
 - Monotonic reads
 	 - if the `read(x)` has observed the value `V`, the following reads have to observe a value at least as recent as `V` or some later value.
-  - can happen when the first request goes to a follower with lower lag and the second request goes to a follower with larger lag
-  - for a user, the read requests always go to the same follower
+	 - can happen when the first request goes to a follower with lower lag and the second request goes to a follower with larger lag
+	 - for a user, the read requests always go to the same follower
 - Consistent Prefix Reads
-  - Causal consistency: The readers would see the events happening in the same order as the writes happened.
+	- Causal consistency: The readers would see the events happening in the same order as the writes happened.
 - Monotonic writes
 	- writes originating from the same client appear in the order this client has executed them.
 - Write-follow-reads
