@@ -5,20 +5,71 @@ summary: Introducing redundancy by maintaining multiple copies of data.
 ---
 
 # What it is
-It is a model to store multiple copies of data so that when one machine fails, the other ones can serve as failover.
+It is a model to store multiple copies of data on more than one machines so that when one machine fails, the other ones can serve as failover.
+**Note**: If the data fits on single machine, replication is enough. Otherwise, [Sharding](./Partitioning.md) must be employed
 
 # Why it is needed
-- To ensure availability: Gracefully handling failures
-- To handle the increased rate of queries
+- To ensure availability: Gracefully handling failures when one machine fails
+- Low latency: To keep the data geographically close to users
+- Increased throughput: To handle the increased rate of queries
 
 # Where it is needed
 - Multi datacenter deployments  
   - Serves two purposes: Reduced latency due to physically closer to client and Fault Tolerance due to redundancy
 
 # How to perform replication
-**Keeping several copies of data in sync**: When the data is updated, it should be updated on all replicas synchronously or asynchronously.
+**Keeping several copies of data in sync**: When the data in one of the copies is updated, it should be updated on all replicas synchronously or asynchronously.
 
-## Primary Syncing Mechanisms
+## Single leader
+- One of the replicas is leader.
+- All the write requests go to the leader that writes the data to its local storage.
+- The other replicas are followers. The leader sends the change stream to followers. Each follower updates its local copy by applying the change stream.
+- Reading can be done from any replica.
+
+### Synchronous vs Asynchronous Replication
+
+- Synchronous
+  - The leader waits until all other replicas confirm that they have received the writes
+  - All other replicas are guaranteed to be up-to-date, so in case of failure, any follower can become leader.
+  - If follower fails to respond to write request, the leader cannot continue.
+
+- Asynchronous 
+  - The leader just informs the followers and does not wait for any reponse from followers.
+  - The writes that are not replicated to followers, will be lost in case of leader failure.
+
+In practice, majority of followers can be synchronous and the rest can be Asynchronous.
+
+### Setting up new followers
+- How to make the new follower in-sync with leader?
+  - Take a snapshot of database(Snapshots can be stored on object storage)
+  - Copy the snapshot to new follower
+  - The follower requests the remaining changes(since the snapshot) 
+
+### Handling Follower failure
+Each failure keeps a log of local changes.
+In case of failure, it can recover from its logs. And then, it can requests the remaining changes(since its failure) from the leader.
+
+### Leader failure: Failover
+- Determing the leader has failed
+  - Failure detection mechanisms are discussed in [FailureDetection](./FailureDetection.md)
+- One of the follower must become leader
+  - The leader election algorithm is discussed in [Consensus Applications](./Consensus.md).
+  - The new leader might not have all the data if the replication is asynchronous
+  - Split brain: It can happen that the two nodes would assume leadership. Fencing is a technique where one of the leader would be shut down.
+- The clients have to be configured to send writes to new leader.
+- The other followers need to start consuming data changes from new leader
+
+### Replication logs
+- Statement-based
+  - Leader logs every write request as SQL statement and sends statements to followers 
+  - Can create issues in case of non-deterministic statements(now)
+- Write-ahead log shipping
+  - The logs(kept for durability on local node-WAL) can be sent to followers
+  - Contains low level details so tightly coupled to storage engine.
+- Logical(row-based)
+  - A separate log that contains row-level change details
+## Multi-leader
+## Leaderless
 
 ## Secondary Syncing Mechanisms
 Eventually consistent systems allow replica state divergence.
