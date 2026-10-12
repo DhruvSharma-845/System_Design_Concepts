@@ -68,6 +68,11 @@ In case of failure, it can recover from its logs. And then, it can requests the 
   - Contains low level details so tightly coupled to storage engine.
 - Logical(row-based)
   - A separate log that contains row-level change details
+
+### Replication Lag
+A client might see outdated information from a follower that has fallen behind.
+The problems that can occur due to replication lag are mentioned here.
+
 ## Multi-leader
 ## Leaderless
 
