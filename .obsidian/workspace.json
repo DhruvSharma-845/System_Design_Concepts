@@ -11,14 +11,14 @@
             "id": "5d8f5c03e8686cc3",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "01Foundation/Consistency.md",
-                "mode": "source",
-                "source": false
+                "aFile": ".obsidian/workspace.json",
+                "bFile": ".obsidian/workspace.json",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "Consistency"
+              "icon": "diff",
+              "title": "Diff: workspace.json  (Working Tree)"
             }
           }
         ]
@@ -212,6 +212,7 @@
   "active": "5d8f5c03e8686cc3",
   "lastOpenFiles": [
     "01Foundation/Replication.md",
+    "01Foundation/Consistency.md",
     "04Architectures/EventDrivenArchitecture.md",
     "04Architectures/Microservices.md",
     "03Patterns/WorkflowEngines.md",
@@ -225,7 +226,6 @@
     "01Foundation/Sharding.md",
     "01Foundation/Security.md",
     "01Foundation/FaultTolerance.md",
-    "01Foundation/Consistency.md",
     "01Foundation/Consensus.md",
     "01Foundation/Caching.md",
     "02BuildingBlocks/StreamProcessing.md",
