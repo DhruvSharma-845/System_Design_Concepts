@@ -5,8 +5,8 @@ summary: Introducing redundancy by maintaining multiple copies of data.
 ---
 
 # What it is
-It is a model to store multiple copies of data on more than one machines so that when one machine fails, the other ones can serve as failover.
-**Note**: If the data fits on single machine, replication is enough. Otherwise, [Sharding](./Partitioning.md) must be employed
+It is a model to store multiple copies of data on more than one machines so that when one machine fails, the other ones can serve as failover.  
+**Note**: If the data fits on single machine, replication is enough. Otherwise, [Sharding](./Sharding.md) must be employed
 
 # Why it is needed
 - To ensure availability: Gracefully handling failures when one machine fails
@@ -51,7 +51,7 @@ In case of failure, it can recover from its logs. And then, it can requests the 
 
 ### Leader failure: Failover
 - Determing the leader has failed
-  - Failure detection mechanisms are discussed in [FailureDetection](./FailureDetection.md)
+  - Failure detection mechanisms are discussed in [Failure Detection](./FaultTolerance.md)
 - One of the follower must become leader
   - The leader election algorithm is discussed in [Consensus Applications](./Consensus.md).
   - The new leader might not have all the data if the replication is asynchronous
@@ -71,7 +71,7 @@ In case of failure, it can recover from its logs. And then, it can requests the 
 
 ### Replication Lag
 A client might see outdated information from a follower that has fallen behind.
-The problems that can occur due to replication lag are mentioned here.
+The problems that can occur due to replication lag are mentioned in [Consistency](./Consistency.md).
 
 ## Multi-leader
 ## Leaderless
