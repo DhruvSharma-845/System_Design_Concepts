@@ -50,13 +50,20 @@ They helps in
 		- Every clock starts at the initial value and is incremented every time a new event arrives
 		- When receiving clock vectors from other processes, a process updates its local vector to the highest clock values per process from the received vectors.
 		- To use vector clocks for conflict resolution, whenever we make a write to the database, we first check if the value for the written key already exists locally. If the previous value already exists, we append a new version to the version vector and establish the causal relationship between the two writes. Otherwise, we start a new chain of events and initialize the value with a single version.
+
+
 # Session Consistency Models
 Focuses on how single client interacts with system. Client can connect to any available replica of the data for the write operation and it is possible that the write against one replica are not visible to other one yet.
-## Types of models
+## Types of models for asynchronous replication in single leader replication
 - Read-own-writes
-	- Every read operation following the write on the same or the other replica has to observe the updated value.
+	 - For a user, every read operation following the write on the same or the other replica has to observe the updated value. It does not make any guarantees about other users.
+  - Read user's own data from the leader.
 - Monotonic reads
-	- if the `read(x)` has observed the value `V`, the following reads have to observe a value at least as recent as `V` or some later value.
+	 - if the `read(x)` has observed the value `V`, the following reads have to observe a value at least as recent as `V` or some later value.
+  - can happen when the first request goes to a follower with lower lag and the second request goes to a follower with larger lag
+  - for a user, the read requests always go to the same follower
+- Consistent Prefix Reads
+  - Causal consistency: The readers would see the events happening in the same order as the writes happened.
 - Monotonic writes
 	- writes originating from the same client appear in the order this client has executed them.
 - Write-follow-reads
