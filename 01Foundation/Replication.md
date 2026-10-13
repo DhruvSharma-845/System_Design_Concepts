@@ -86,6 +86,16 @@ Synchronous replication is similar to synchronous single-leader replication.
 Asynchronous multi-leader replication is more often used in multi-region setup(geo-distributed setup). Each region will have a leader. Within each region, regular leader-follower replication is used. Between regions, each region's leader would replicate its changes to the leaders of other region.  
 The multi-leader setup provides weaker consistency guarantees than single-leader because leaders can accept conflicting writes.
 
+### Replication Topologies
+- All to all
+- Circular
+  - Each node is given an identifier
+  - The replication log contains the identifiers of all nodes that it has passed through.
+- Star
+
+### Sync engines and local first software
+An example would be a client app continue to work even when the internet is disconnected. Here, the different client apps acts as a leader and there is a multi-leader replication happening between client and server.
+
 ## Leaderless
 
 ## Secondary Syncing Mechanisms
