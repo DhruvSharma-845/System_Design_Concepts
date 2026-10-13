@@ -73,7 +73,19 @@ In case of failure, it can recover from its logs. And then, it can requests the 
 A client might see outdated information from a follower that has fallen behind.
 The problems that can occur due to replication lag are mentioned in [Consistency](./Consistency.md).
 
+### Multi-region setup
+Each write would go to the region containing the leader, thus, increasing latency.  
+In case the region containing the leader goes down, follower of some other region can be promoted to become leader.
+
 ## Multi-leader
+In Single leader replication, the leader becomes single point of failure.  
+More than one nodes can become leader. The write on one leader must be propagated to all other nodes.
+
+### Synchronous vs Asynchronous Replication
+Synchronous replication is similar to synchronous single-leader replication.  
+Asynchronous multi-leader replication is more often used in multi-region setup(geo-distributed setup). Each region will have a leader. Within each region, regular leader-follower replication is used. Between regions, each region's leader would replicate its changes to the leaders of other region.  
+The multi-leader setup provides weaker consistency guarantees than single-leader because leaders can accept conflicting writes.
+
 ## Leaderless
 
 ## Secondary Syncing Mechanisms
