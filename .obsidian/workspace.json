@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "41c149dffdfaeb7d",
+        "id": "6621292b45f1dd36",
         "type": "tabs",
         "children": [
           {
-            "id": "5d8f5c03e8686cc3",
+            "id": "f28d49c5e12e9283",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/workspace.json",
-                "bFile": ".obsidian/workspace.json",
-                "aRef": ""
+                "file": "01Foundation/Replication.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: workspace.json  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "Replication"
             }
           }
         ]
@@ -209,7 +209,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5d8f5c03e8686cc3",
+  "active": "f28d49c5e12e9283",
   "lastOpenFiles": [
     "01Foundation/Replication.md",
     "01Foundation/Consistency.md",

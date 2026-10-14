@@ -104,34 +104,14 @@ Please refer to its section below.
 
 ## Leaderless
 
-## Conflict Resolution
-Concurrent writes to multiple leaders can lead to conflicts that must be resolved. 
- 
-### Detection
+Allowing any replica to directly accept writes from clients. 
+Clients either directly sends its writes to several replicas, or a coordinator node does this on behalf of the client. Read requests are also sent to several nodes in parallel. For the client to determine which responses are up-to-date and which are outdated, every value that is written needs to be tagged with a version number or timestamp.
 
-### Resolution
-- Avoidance:
-  - All writes for a record go to the same leader
-  - Approach breaks down if we allow the leader to be changed.
-- Last write wins
-  - Attach a timestamp to each write and always use the write with most recent timestamp.
-  - Depends on clock synchronisation 
-- Manual Conflict Resolution
-  - Store all the concurrent writes for a record
-  - On next request, return all the values and let user resolve them.
-- Automatic Conflict Resolution
-  - Use an algorithm that automatically merges the concurrent writes
-  - It leads to **Strong Eventual Consistency**
-- Conflict-free replicated datatypes(CRDT)
-  - It plays with unique ids for the operations.
-- Operational Transformation
-  - It uses the index where the insertion/deletion/update is happening in the string and updates the indices based on the other operations.
+### How outdated data can be updated
 
-## Secondary Syncing Mechanisms
-Eventually consistent systems allow replica state divergence.
-### Entropy
+#### Entropy
 Entropy represents a degree of state divergence between the nodes. Since this property is undesired and its amount should be kept to a minimum, there are many techniques that help to deal with entropy.
-### Anti Entropy
+#### Anti Entropy
 Replica divergence can be resolved using anti-entropy mechanisms. It is used to bring the nodes back up-to-date in case the primary delivery mechanism has failed. 
 It lowers the convergence time bounds in eventually consistent systems.  
 A background(Merkel trees) or foreground(Read Repair, Hinted Handoff) process is triggered that compares and reconciles conflicting records.
@@ -158,6 +138,45 @@ A background(Merkel trees) or foreground(Read Repair, Hinted Handoff) process is
 - Bitmap Version vectors
 	- each node keeps a per-peer log of operations that have occurred locally or were replicated. 
 	- During anti-entropy, logs are compared, and missing data is replicated to the target node.
+
+### Quorum Read and Write
+If there are _n_ replicas, every write must be confirmed by _w_ nodes to be considered successful, and we must query at least _r_ nodes for each read. As long as _w_ + _r_ > _n_, we expect to get an up-to-date value when reading
+
+### Multi-region leaderless replication
+A client that wants to perform a multi-region write first chooses a node in its local region, called the _coordinator node_, and sends its write to that node. The coordinator node forwards the write to all replicas in its own region and to one replica in every other region, which then forwards it to the other replicas in that region.
+
+## Conflict Resolution
+Concurrent writes to multiple leaders can lead to conflicts that must be resolved. 
+
+ If nodes simply overwrote the value for a key whenever it received a write request from a client, the nodes would become permanently inconsistent.
+ To become eventually consistent, the replicas should converge toward the same value.
+### Detection
+An operation A _happens before_ another operation B if B knows about A, or depends on A, or builds upon A in some way.
+Two operations are concurrent if neither happens before the other.
+we need an algorithm to tell us whether two operations are concurrent. If the operations are concurrent, we have a conflict that needs to be resolved.
+For defining concurrency, exact time doesn’t matter. We simply call two operations concurrent if they are both unaware of each other, regardless of the physical time at which they occurred.
+
+**Version Vectors**
+
+
+### Resolution
+- Avoidance:
+  - All writes for a record go to the same leader
+  - Approach breaks down if we allow the leader to be changed.
+- Last write wins
+  - Attach a timestamp to each write and always use the write with most recent timestamp.
+  - Depends on clock synchronisation 
+- Manual Conflict Resolution
+  - Store all the concurrent writes for a record
+  - On next request, return all the values and let user resolve them.
+- Automatic Conflict Resolution
+  - Use an algorithm that automatically merges the concurrent writes
+  - It leads to **Strong Eventual Consistency**
+- Conflict-free replicated datatypes(CRDT)
+  - It plays with unique ids for the operations.
+- Operational Transformation
+  - It uses the index where the insertion/deletion/update is happening in the string and updates the indices based on the other operations.
+
 ### Gossip Dissemination
 Use cooperative propagation to disseminate information from one process to the rest of the cluster.
 - Gossip Mechanics:
