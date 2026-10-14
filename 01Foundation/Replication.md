@@ -177,7 +177,7 @@ For defining concurrency, exact time doesn’t matter. We simply call two opera
 - Operational Transformation
   - It uses the index where the insertion/deletion/update is happening in the string and updates the indices based on the other operations.
 
-### Gossip Dissemination
+## Gossip Dissemination
 Use cooperative propagation to disseminate information from one process to the rest of the cluster.
 - Gossip Mechanics:
 	- Processes periodically select `f` peers at random (where `f` is a configurable parameter, called _fanout_) and exchange currently “hot” information with them.
