@@ -94,9 +94,38 @@ The multi-leader setup provides weaker consistency guarantees than single-leader
 - Star
 
 ### Sync engines and local first software
-An example would be a client app continue to work even when the internet is disconnected. Here, the different client apps acts as a leader and there is a multi-leader replication happening between client and server.
+An example of offline-first would be a client app continue to work even when the internet is disconnected. Here, the different client apps acts as a leader and there is a multi-leader replication happening between different clients and server.  
+Real-time collaboration: The client perform the local changes and then, share the changes with other clients and servers. The other clients merges these changes with their local copy.  
+If multiple users have updated the same data concurrently, conflict resolution mechanisms have to be employed.  
+**Local first application** is a combination of offline-first and real-time collaborative. A sync engine in the client app with reactive programming to act on the update notifications from other clients, is a good way to implement it.
+
+### Conflict Resolution
+Please refer to its section below.
 
 ## Leaderless
+
+## Conflict Resolution
+Concurrent writes to multiple leaders can lead to conflicts that must be resolved. 
+ 
+### Detection
+
+### Resolution
+- Avoidance:
+  - All writes for a record go to the same leader
+  - Approach breaks down if we allow the leader to be changed.
+- Last write wins
+  - Attach a timestamp to each write and always use the write with most recent timestamp.
+  - Depends on clock synchronisation 
+- Manual Conflict Resolution
+  - Store all the concurrent writes for a record
+  - On next request, return all the values and let user resolve them.
+- Automatic Conflict Resolution
+  - Use an algorithm that automatically merges the concurrent writes
+  - It leads to **Strong Eventual Consistency**
+- Conflict-free replicated datatypes(CRDT)
+  - It plays with unique ids for the operations.
+- Operational Transformation
+  - It uses the index where the insertion/deletion/update is happening in the string and updates the indices based on the other operations.
 
 ## Secondary Syncing Mechanisms
 Eventually consistent systems allow replica state divergence.
