@@ -80,6 +80,7 @@ Isolation level describe the degree to which transactions are isolated from othe
 	- It is used for implementing snapshot isolation.
 
 # Distributed Transactions
+Managing the operations that need to write to several shards.
 ## Atomicity 
 Changes have to be durably propagated to all of the nodes involved in the transaction or none of them.
 

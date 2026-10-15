@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "6621292b45f1dd36",
+        "id": "98862503ef26c1a6",
         "type": "tabs",
         "children": [
           {
-            "id": "f28d49c5e12e9283",
+            "id": "2c07a095e569e97d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "01Foundation/Replication.md",
-                "mode": "source",
-                "source": false
+                "aFile": "01Foundation/Sharding.md",
+                "bFile": "01Foundation/Sharding.md",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "Replication"
+              "icon": "diff",
+              "title": "Diff: Sharding  (Working Tree)"
             }
           }
         ]
@@ -209,21 +209,22 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f28d49c5e12e9283",
+  "active": "2c07a095e569e97d",
   "lastOpenFiles": [
+    "01Foundation/Transactions.md",
+    "01Foundation/Sharding.md",
+    "04Architectures/Tenancy.md",
+    "04Architectures/EventDrivenArchitecture.md",
+    "04Architectures/SecurityArchitectures.md",
+    "04Architectures/Microservices.md",
     "01Foundation/Replication.md",
     "01Foundation/Consistency.md",
-    "04Architectures/EventDrivenArchitecture.md",
-    "04Architectures/Microservices.md",
     "03Patterns/WorkflowEngines.md",
     "01Foundation/NetworkCommunication.md",
-    "04Architectures/SecurityArchitectures.md",
     "01Foundation/DataModels.md",
     "01Foundation/StorageEngines.md",
-    "01Foundation/Transactions.md",
     "03Patterns/EventSourcingAndCQRS.md",
     "02BuildingBlocks/Authentication&Authorization.md",
-    "01Foundation/Sharding.md",
     "01Foundation/Security.md",
     "01Foundation/FaultTolerance.md",
     "01Foundation/Consensus.md",
