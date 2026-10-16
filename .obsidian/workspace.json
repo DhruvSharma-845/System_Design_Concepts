@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "98862503ef26c1a6",
+        "id": "9e0656658835cda6",
         "type": "tabs",
         "children": [
           {
-            "id": "2c07a095e569e97d",
+            "id": "2efb3e4173e92f1b",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "01Foundation/Sharding.md",
-                "bFile": "01Foundation/Sharding.md",
-                "aRef": ""
+                "file": "01Foundation/Transactions.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: Sharding  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "Transactions"
             }
           }
         ]
@@ -209,7 +209,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2c07a095e569e97d",
+  "active": "2efb3e4173e92f1b",
   "lastOpenFiles": [
     "01Foundation/Transactions.md",
     "01Foundation/Sharding.md",

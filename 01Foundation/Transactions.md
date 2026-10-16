@@ -4,21 +4,24 @@ domain: storage
 summary: ACID guarantees on single-node and distributed systems
 ---
 # Single Node Transactions
-A _transaction_ is a set of operations as indivisible logical unit of work, working as an atomic unit of execution.
+A _transaction_ is a set of operations(reads and writes) as indivisible logical unit of work, working as an atomic unit of execution.
+- Either the entire transaction succeeds resulting into commit or it fails resulting into abort/rollback. Partial failures cannot happen.
 - To improve efficiency, we need to allow concurrent transaction execution.
 - To preserve correctness, we have to ensure that concurrently executing transactions preserve ACID properties
 ## ACID Guarantees
 - Atomicity
 	- All results of the transaction execute successfully and become visible or none of them do.
-	- Rollback if the transaction cannot complete
+	- Rollback(Undo any writes it has done so far) if the transaction cannot complete
+	- If a transaction has a side effect outside the database, in case of rollback, those side-effects might not be revertable.
 	- The _log manager_ holds a history of operations (log entries) applied to cached pages but not yet synchronized with persistent storage to guarantee they won’t be lost in case of a crash. 
 	- In other words, the log is used to reapply these operations and reconstruct the cached state during startup. 
 	- Log entries can also be used to undo changes done by the aborted transactions.
 - Consistency
 	- a transaction should only bring the database from one valid state to another valid state, maintaining all database invariants (such as constraints, referential integrity, and others)
 - Isolation
-	- Multiple concurrently executing transactions should be able to run without interference, as if there were no other transactions executing at the same time 
-	- In realilty, many databases use isolation levels that are weaker
+	- Multiple concurrently executing transactions should be able to run without interference, as if there were no other transactions executing at the same time. Each transaction can pretend that it is the only transaction running on the entire database.
+	- The database ensures that when the transactions have committed, the result is the same as if they had run serially. In realilty, many databases use isolation levels that are weaker because serializability has performance cost.
+	- In isolation, it is also ensured that a transaction cannot read the partial updates of another transaction.
 	- The transaction manager coordinates and schedules the transactions.
 	- The _lock manager_ guards access to these resources and prevents concurrent accesses that would violate data integrity
 	- Schedules:
@@ -26,7 +29,9 @@ A _transaction_ is a set of operations as indivisible logical unit of work, wo
 		- A schedule is said to be _serial_ when transactions in it are executed completely independently and without any interleaving. Prevents concurrency.
 		- Serializability: When the order of execution of operations of transactions is equivalent to sequential(serial) execution of the transactions. Ensures concurrency as well as correctness. It produces the same result as if we executed a set of transactions one after another in _some_ order.
 - Durability
-	- Once a transaction has been committed, all database state modifications have to be persisted on disk and be able to survive power outages, system failures, and crashes
+	- Once a transaction has been committed, all database state modifications have to be persisted on disk and be able to survive power outages, system failures, and crashes.
+	- Databases usually also have a write-ahead log or similar feature which allows them to recover 
+	- In a replicated database, durability may mean that the data has been successfully copied to a certain number of nodes(Synchronous Replication).
 
 ## Atomicity
 - Commit Log
@@ -35,7 +40,8 @@ A _transaction_ is a set of operations as indivisible logical unit of work, wo
 	- Allow lost in-memory changes to be reconstructed from the operation log in case of a crash. The pre-crash database state is fully restored.
 	- Checkpoints are a way for a log to know that log records up to a certain mark are fully persisted and aren’t required anymore.
 ## Isolation
-### Isolation Issues if we allow multiple transactions to execute without coordination
+### When do Isolation Issues happen?
+If we allow multiple transactions to execute without coordination where one or all of them write a data that other transactions are reading.
 - Dirty Read: a transaction can read uncommitted changes from other transactions
 - Non-repeatable read: transaction queries the _same row_ twice and gets different results
 - Phantom Read: A _phantom read_ is when a transaction queries the same _set of rows_ twice and receives different results
@@ -46,15 +52,17 @@ To prevent isolation issues, additional coordination is required which negativel
 ### Isolation Levels
 Isolation level describe the degree to which transactions are isolated from other concurrently executing transactions.  
 - Read uncommitted: the transactional system allows one transaction to observe uncommitted changes of other concurrent transactions. Dirty Reads are allowed.
-- Read committed: dirty reads are not permitted, but phantom and nonrepeatable reads are. If there was a committed modification between two reads, two queries in the same transaction would yield different results.
+- Read committed: No dirty reads and writes, but phantom and nonrepeatable reads are. If there was a committed modification between two reads, two queries in the same transaction would yield different results.
+	- Row-level locks; hold the lock until the transaction is committed or aborted.
+	- Maintain old committed value and newly written value. While the transaction is going on, others transactions would see old committed value.
 - Repeatable Read: If we further disallow nonrepeatable reads in Read Committed, we get a repeatable read isolation level.
-- Serializable:  transaction outcomes will appear in _some_ order as if transactions were executed _serially_. It does not impose any ordering constraint(like in linearizability)
 - Snapshot Isolation
 	- Snapshot isolation guarantees that all reads made within the transaction are consistent with a snapshot of the database.
 	- The snapshot contains all values and transactions that were _committed before_ the transaction’s start timestamp.
 	- If there’s a _write-write conflict_ (i.e., when two concurrently running transactions attempt to make a write to the same cell), only one of them will commit. The others are aborted and rolled back.
 	- Prevents read skew: In between the transaction, cannot see the updated values by some other concurrent committed transaction. can only see the snapshot of the database.
 	- Prevents lost update: Whichever transaction attempts to commit first, will commit, and the other one will have to abort.
+- Serializable:  The database guarantees that transaction outcomes will appear in _some_ order as if transactions were executed _serially_. It does not impose any ordering constraint(like in linearizability)
 ### Concurrency Control Mechanisms
 - pessimistic - Lock-free
 	- determine transaction conflicts while they’re running and block or abort their execution.
