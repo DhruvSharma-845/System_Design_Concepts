@@ -37,6 +37,7 @@ A _transaction_ is a set of operations(reads and writes) as indivisible logica
 - Commit Log
 	- A _write-ahead log_ is an append-only auxiliary disk-resident structure used for crash and transaction recovery.
 	- Until the cached contents are flushed back to disk, the only disk-resident copy preserving the operation history is stored in the WAL.
+	- If the commit record was successfully written to disk before the crash, the transaction is considered committed. If not, any writes from that transaction are rolled back.
 	- Allow lost in-memory changes to be reconstructed from the operation log in case of a crash. The pre-crash database state is fully restored.
 	- Checkpoints are a way for a log to know that log records up to a certain mark are fully persisted and aren’t required anymore.
 ## Isolation
@@ -45,9 +46,15 @@ If we allow multiple transactions to execute without coordination where one or a
 - Dirty Read: a transaction can read uncommitted changes from other transactions
 - Non-repeatable read: transaction queries the _same row_ twice and gets different results
 - Phantom Read: A _phantom read_ is when a transaction queries the same _set of rows_ twice and receives different results
-- Lost Update: when transactions `T1` and `T2` both attempt to update the value of `V`, the results of `T1` might be overwritten by the results of `T2`
 - Dirty Write: one of the transactions takes an uncommitted value (i.e., dirty read), modifies it, and saves it.
+- Lost Update: when transactions `T1` and `T2` both attempt to update the value of `V`, the results of `T1` might be overwritten by the results of `T2`
+	- Atomic Write, Explicit Locking for read-modify-write cycle, Conditional Write(allowing an update to happen only if the value has not changed since you last read it)
+	- Allow transactions to execute in parallel and, if the transaction manager detects a lost update, abort the transaction
+	- In replicated databases, allow concurrent writes to create several conflicting versions of a value (also known as _siblings_) and to use application code or special data structures to resolve and merge these versions after the fact
 - Write Skew: each individual transaction respects the required invariants, but their combination does not satisfy these invariants.
+	- It usually happens with query functions(Count, Sum, GroupBy etc) and can involve multiple objects. Different transactions update different objects.
+	- Phantom: A write in one transaction changes the result of a search query in another transaction
+	- A solution is to explicitly lock the rows that the transaction depends on.
 To prevent isolation issues, additional coordination is required which negatively impacts the performance.
 ### Isolation Levels
 Isolation level describe the degree to which transactions are isolated from other concurrently executing transactions.  
@@ -55,14 +62,55 @@ Isolation level describe the degree to which transactions are isolated from othe
 - Read committed: No dirty reads and writes, but phantom and nonrepeatable reads are. If there was a committed modification between two reads, two queries in the same transaction would yield different results.
 	- Row-level locks; hold the lock until the transaction is committed or aborted.
 	- Maintain old committed value and newly written value. While the transaction is going on, others transactions would see old committed value.
-- Repeatable Read: If we further disallow nonrepeatable reads in Read Committed, we get a repeatable read isolation level.
-- Snapshot Isolation
-	- Snapshot isolation guarantees that all reads made within the transaction are consistent with a snapshot of the database.
-	- The snapshot contains all values and transactions that were _committed before_ the transaction’s start timestamp.
-	- If there’s a _write-write conflict_ (i.e., when two concurrently running transactions attempt to make a write to the same cell), only one of them will commit. The others are aborted and rolled back.
-	- Prevents read skew: In between the transaction, cannot see the updated values by some other concurrent committed transaction. can only see the snapshot of the database.
-	- Prevents lost update: Whichever transaction attempts to commit first, will commit, and the other one will have to abort.
+- Repeatable Read: If between two reads of same data record, some other transaction updates it and commit as well, then we can get different results.
+	- If we further disallow non-repeatable reads in Read Committed, we get a repeatable read isolation level.
+	- Snapshot Isolation
+		- Snapshot isolation guarantees that all reads made within the transaction are consistent with a snapshot of the database.
+		- The snapshot contains all values and transactions that were _committed before_ the transaction’s start timestamp.
+		- If there’s a _write-write conflict_ (i.e., when two concurrently running transactions attempt to make a write to the same cell), only one of them will commit. The others are aborted and rolled back.
+		- Prevents read skew: In between the transaction, cannot see the updated values by some other concurrent committed transaction. can only see the snapshot of the database.
+		- Prevents lost update: Whichever transaction attempts to commit first, will commit, and the other one will have to abort.
+		- Implementation: Multiversion Concurrency Control
+			- It is used for implementing snapshot isolation.
+			- Guarantees a consistent view of the database at some point in the past.
+			- allow multiple timestamped versions of the record to be present because  various in-progress transactions may need to see the state of the database at different points in time
+			- reads can continue accessing older values until the new ones are committed.
+			- Whenever a write happens, the data is tagged with transaction id.
+			- When a transaction reads from the database, transaction IDs are used to decide which row versions it can see and which are invisible.
+			- Any writes made by transactions with a later transaction ID are ignored
+			- Any writes made by the concurrent transactions are ignored.
+			- Indexes:  each index entry points at one of the versions of a row that matches the entry. A query that uses the index must then iterate over the rows to find one that is visible
 - Serializable:  The database guarantees that transaction outcomes will appear in _some_ order as if transactions were executed _serially_. It does not impose any ordering constraint(like in linearizability)
+	- Write skews can be solved through serializable isolation only.
+	- Linearly execute transactions in serial order
+		- Every transaction must be small and fast
+		- Sometimes runs faster because it can avoid the coordination overhead of locking.
+		- Shard the data so that each transaction needs to read and write data only within a single shard. Each shard can have its own transaction processing thread running independently from the others
+	- Pessimistic - Lock-based  
+		- Transactions to maintain locks on database records to prevent other transactions from modifying locked records and assessing records that are being modified until the transaction releases its locks.
+		- Two-phase locking
+			- In 2PL, writers don’t just block other writers; they also block readers, and vice versa.
+			- If a transaction wants to read an object, it must first acquire the lock in shared mode. Several transactions are allowed to hold the lock in shared mode simultaneously.
+			- If a transaction wants to write to an object, it must first acquire the lock in exclusive mode. No other transaction may hold the lock at the same time.
+			- The _growing phase_ (also called the _expanding phase_), during which all locks required by the transaction are acquired and no locks are released. It must continue to hold the lock until the end of the transaction
+			- The _shrinking phase_, during which all locks acquired during the growing phase are released.
+			- a transaction cannot acquire any locks as soon as it has released at least one of them.
+			- Deadlock: A situation may occur when two transactions, while attempting to acquire locks they require in order to proceed with execution, end up waiting for each other to release the other locks they hold. The solution is to introduce timeouts and abort long-running transactions under the assumption that they might be in a deadlock
+			- Reduced Concurrency: if two concurrent transactions try to do anything that may in any way result in a race condition, one has to wait for the other to complete.
+		- Predicate Locks
+			- Prevents write skew(caused by Phantom)
+			- It works similarly to the shared/exclusive lock described earlier, but rather than belonging to a particular object (e.g., one row in a table), it belongs to all objects that match a search condition
+	- Optimistic - Serializable Snapshot Isolation
+		- full serializability with only a small performance penalty
+		- all reads within a transaction are made from a consistent snapshot of the database
+		- Allows transactions to execute concurrent read and write operations in the hope that everything will turn out all right
+		- **Detection of serialization conflicts**: When a transaction wants to commit, the database determines whether or not the result of the combined execution is serializable before committing their results.
+		- Only transactions that executed serializably are allowed to commit.
+		- The transactions maintain histories of their operations, and check these histories for possible read/write conflicts before commit. If execution results in a conflict, one of the conflicting transactions is aborted
+		- How to detect if search result have changed(to avoid write skew)?
+			- Detecting reads of a stale MVCC object version(uncommitted write was ignored in MVCC but that write was committed before it itself is committed)
+			- Detecting writes that affect prior reads (the write occurs after the read)
+			- Bookkeeping overhead can become significant
 ### Concurrency Control Mechanisms
 - pessimistic - Lock-free
 	- determine transaction conflicts while they’re running and block or abort their execution.
@@ -71,29 +119,14 @@ Isolation level describe the degree to which transactions are isolated from othe
 	- _Read_ operations that attempt to read a value with a timestamp lower than `max_write_timestamp` cause the transaction they belong to be aborted, since there’s already a newer value
 	- _write_ operations with a timestamp lower than `max_read_timestamp`would conflict with a more recent read. However, _write_ operations with a timestamp lower than `max_write_timestamp` are allowed,
 	- Aborted transactions restart with a _new_ timestamp
-- Pessimistic - Lock-based  
-	- Transactions to maintain locks on database records to prevent other transactions from modifying locked records and assessing records that are being modified until the transaction releases its locks.
-	- Two-phase locking
-		- The _growing phase_ (also called the _expanding phase_), during which all locks required by the transaction are acquired and no locks are released.
-		- The _shrinking phase_, during which all locks acquired during the growing phase are released.
-		- a transaction cannot acquire any locks as soon as it has released at least one of them.
-		- Deadlock: A situation may occur when two transactions, while attempting to acquire locks they require in order to proceed with execution, end up waiting for each other to release the other locks they hold. The solution is to introduce timeouts and abort long-running transactions under the assumption that they might be in a deadlock
-- Try and validate(optimistic)
-	- Allows transactions to execute concurrent read and write operations, and determines whether or not the result of the combined execution is serializable before committing their results.
-	- The transactions maintain histories of their operations, and check these histories for possible read/write conflicts before commit. If execution results in a conflict, one of the conflicting transactions is aborted
-- Multiversion
-	- Guarantees a consistent view of the database at some point in the past.
-	- allow multiple timestamped versions of the record to be present.
-	- reads can continue accessing older values until the new ones are committed.
-	- It is used for implementing snapshot isolation.
 
 # Distributed Transactions
-Managing the operations that need to write to several shards.
+Multi-leader or leaderless replication: Managing the operations that need to write to several shards.
 ## Atomicity 
 Changes have to be durably propagated to all of the nodes involved in the transaction or none of them.
 
 ## Atomic Commitment algorithms
-Atomic commitment doesn’t allow disagreements between the participants: a transaction _will not_ commit if even one of the participants votes against it.
+Atomic commitment doesn’t allow disagreements between the participants: a transaction _will not_ commit if even one of the participants votes against it. Either all commit or all abort
 ### Two-phase commit
 - Assumes the presence of leader that holds state, collects votes. It can be picked by [Leader Election Algorithm](./Consensus.md) or assigned manually.
 - Phase 1(Prepare)
@@ -106,8 +139,9 @@ Atomic commitment doesn’t allow disagreements between the participants: a tran
 	- If even one of the cohorts votes to abort the transaction, the coordinator sends the `Abort` message to all of them. 
 	- Only if all cohorts have voted positively does the coordinator send them a final `Commit` message
 - During each step the coordinator and cohorts have to write the results of each operation to durable storage to be able to reconstruct the state and recover in case of local failures.
+- The protocol contains two crucial “points of no return”: when a participant votes yes, it promises that it will definitely be able to commit later (although the coordinator may still choose to abort); and once the coordinator decides, that decision is irrevocable. Those promises ensure the atomicity of 2PC.
 - **Cohort failure**: If one of the cohort fails, the coordinator stops the transaction. If the node fails in phase 2, it has to learn the actual outcome of the vote before it can server clients. The coordinator shares the decision with the failed participants.
-- **Coordinator failure**: If the coordinator fails in the second phase and does not share the decision, the participant can ask the peers about the decision. If the coordinator fails just after the first phase, all participants are blocked.
+- **Coordinator failure**: If the coordinator fails in the second phase and does not share the decision, the participant can ask the peers about the decision. If the coordinator fails just after the first phase, all participants are blocked. The participants can do nothing but wait
 ### Three-phase commit
 
 - Prevents undecided blocked state on coordinator failure.  
@@ -119,3 +153,24 @@ Atomic commitment doesn’t allow disagreements between the participants: a tran
 - Commit
 	- Cohorts are notified by the coordinator to commit the transaction.
 - **Coordinator failure**: In case of Network partition, some nodes successfully move to the prepared state, and now can proceed with commit after the timeout. Some can’t communicate with the coordinator, and will abort after the timeout
+- 3PC assumes a network with bounded delay and nodes with bounded response times; in most practical systems with unbounded network delay and process pauses; 3PC cannot guarantee atomicity.
+
+## Isolation
+- Serial transaction execution on sharded databases
+- Serializable Snapshot isolation can have serializability checkers in distributed settings as well.
+- Two-phase locking can also be configured for distributed systems.
+
+## Database-internal Distributed Transactions
+NewSQL: All the participating nodes are part of the same database running the same software.
+- Use 2PC to ensure atomicity: Replicate the coordinator and failover using consensus.
+## Transactions spanning heterogenous technologies
+The participants are two or more technologies.
+- Use XA transactions
+- it is very sensitive to faults in the coordinator and the application code driving the transaction
+### Exactly once semantics
+Atomically committing multiple operations, one of which contains message processing.
+The operations must be revertible(for eg, sending email is irrevertible).
+- An operation takes effect exactly once, even if a crash occurs while it is being processed and the processing needs to be retried.
+For a special case where the transaction contains write in database and message processing, the overhead of distributed transaction is not required.
+- Recording the message ID in the database makes the message processing _idempotent_, so that message processing can be safely retried without duplicating its side effects.
+- Used by Kafka Streams
