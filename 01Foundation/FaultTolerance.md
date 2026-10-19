@@ -35,6 +35,20 @@ There is a trade-off between efficiency and accuracy of detecting faulty process
 	- If any node did not update its counter for long enough, it is considered failed
 
 ## Unreliable clock
+
+Each machine has its own clock and therefore, has its own notion of time.  
+It is possible to synchronise the clocks but to some degree using NTP   
+
+Type of clocks
+- Time of day clock
+  - Is synchronised with NTP and can be jumped backward to a previous point in time.
+- Monotonic clock
+  - Will always move forward
+  - NTP can speed up or slow down the clock
+
+Faulty clock that has drifted very far from NTP, should be stopped. 
+
+
 # How it can be achieved
 
 ## Reducing the effects of failures
