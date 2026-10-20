@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "9e0656658835cda6",
+        "id": "aa5483641a4ef704",
         "type": "tabs",
         "children": [
           {
-            "id": "2efb3e4173e92f1b",
+            "id": "4abbce6372d22759",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "01Foundation/FaultTolerance.md",
-                "bFile": "01Foundation/FaultTolerance.md",
-                "aRef": ""
+                "file": "01Foundation/Transactions.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: FaultTolerance  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "Transactions"
             }
           }
         ]
@@ -209,28 +209,28 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2efb3e4173e92f1b",
+  "active": "4abbce6372d22759",
   "lastOpenFiles": [
-    "01Foundation/FaultTolerance.md",
-    "01Foundation/Transactions.md",
-    "01Foundation/Sharding.md",
+    "03Patterns/WorkflowEngines.md",
+    "03Patterns/IdentityAndAccessManagement.md",
     "04Architectures/Tenancy.md",
-    "04Architectures/EventDrivenArchitecture.md",
     "04Architectures/SecurityArchitectures.md",
     "04Architectures/Microservices.md",
-    "01Foundation/Replication.md",
-    "01Foundation/Consistency.md",
-    "03Patterns/WorkflowEngines.md",
-    "01Foundation/NetworkCommunication.md",
-    "01Foundation/DataModels.md",
+    "04Architectures/EventDrivenArchitecture.md",
+    "01Foundation/Transactions.md",
     "01Foundation/StorageEngines.md",
-    "03Patterns/EventSourcingAndCQRS.md",
-    "02BuildingBlocks/Authentication&Authorization.md",
+    "01Foundation/Sharding.md",
     "01Foundation/Security.md",
+    "01Foundation/Replication.md",
+    "01Foundation/NetworkCommunication.md",
+    "01Foundation/FaultTolerance.md",
+    "01Foundation/DataModels.md",
+    "01Foundation/Consistency.md",
     "01Foundation/Consensus.md",
     "01Foundation/Caching.md",
+    "03Patterns/EventSourcingAndCQRS.md",
+    "02BuildingBlocks/Authentication&Authorization.md",
     "02BuildingBlocks/StreamProcessing.md",
-    "03Patterns/IdentityAndAccessManagement.md",
     "assets/saml.png",
     "assets/oauth2authcodewithpkce.png",
     "assets",
