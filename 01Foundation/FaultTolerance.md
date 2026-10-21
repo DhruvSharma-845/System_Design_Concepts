@@ -76,6 +76,8 @@ Logical clocks are safer alternative for ordering events.
 	- The target service can block a writer that has older fencing token.
 - Remove single point of failure  
   - By introducing redundancy: [Replication](./Replication.md)
+  - But with replication comes read inconsistencies due to replication lag and data conflicts due to concurrent writes. Levels of consistency are discussed in [Consistency](./Consistency.md).
+
 # Byzantine Faults
 In distributed systems, there is a risk that nodes may “lie” (send arbitrary faulty or corrupted responses)—for example, a node might cast multiple contradictory votes in the same election. Such behavior is known as a _Byzantine fault_.  
 A system is _Byzantine fault-tolerant_ if it continues to operate correctly even if some of the nodes are malfunctioning and not obeying the protocol, or if malicious attackers are interfering with the network.
