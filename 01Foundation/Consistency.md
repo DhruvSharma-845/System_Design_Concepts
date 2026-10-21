@@ -28,20 +28,20 @@ They helps in
 
 ## Types of consistency models
 - Strict Consistency
-	- Any write by any process is instantly available for subsequent reads by any process.
- - Provides serializability for transactions and linerizability for concurrent reads and writes in distributed system.
-	- Just a theoretical model
+  - Any write by any process is instantly available for subsequent reads by any process.
+  - Provides serializability for transactions and linerizability for concurrent reads and writes in distributed system.
+  - Just a theoretical model
 - Linearizability
- - Behaves like single-node system
- - Provides recency guarantee: The value read is the most recent written value on any replica
- - If reads are concurrent with writes, the reads could see a value flipped back and forth between old and new value. This is not how single-node transactioned system works.
- - Defines total order of the events. Even though operations can overlap, their effects become visible in a way to make them sequential.
-	- Write becomes visible to all readers at some point in time between its start and end(Linearization point). Results have to take effect before completion.
-	- If one readers observe the new value, all subsequent read operation by any process will observe at least as recent as that one.
- - This model does not assume transaction isolation. Non-repeatable reads can happen, for example.
- - It provides read-after-write, monotonic reads guarantees.
- - Leader election and distributed leases should be linearizable operation: Solved by consensus algorithms
-	- Implementation Solution: Using locks to guard critical section
+  - Behaves like single-node system
+  - Provides recency guarantee: The value read is the most recent written value on any replica
+  - If reads are concurrent with writes, the reads could see a value flipped back and forth between old and new value. This is not how single-node transactioned system works.
+  - Defines total order of the events. Even though operations can overlap, their effects become visible in a way to make them sequential.
+	 - Write becomes visible to all readers at some point in time between its start and end(Linearization point). Results have to take effect before completion.
+	 - If one readers observe the new value, all subsequent read operation by any process will observe at least as recent as that one.
+  - This model does not assume transaction isolation. Non-repeatable reads can happen, for example.
+  - It provides read-after-write, monotonic reads guarantees.
+  - Leader election and distributed leases should be linearizable operation: Solved by consensus algorithms
+  - Implementation Solution: Using locks to guard critical section
 - Sequential Consistency
 	- Defines global order of the events.
 	- Order of operations from multiple processes may be ordered arbitrarily but all processes would observe the same order.
