@@ -10,20 +10,44 @@ It allows multiple processes to reach an agreement on a value.
 **Role of failure detection**
 Since failure detection is not always accurate, it is possible that the consensus algorithm is restarted because a process is incorrectly reported as faulty.
 
+# Single value consensus
+- CAS(Compare and set) as single value consensus: Initially set the object to a null value, then have each node that wants to propose a value perform a CAS, with the expected value being null and the new value being the value it wants to propose (assuming it is non-null). The decided value is then whatever value the object is set to.
+- Shared log as single value consensus: Every node that wants to propose a value requests that it be added to the log, and whichever value is read back in the first log entry is the value that is decided. Since all nodes read log entries in the same order, they are guaranteed to agree on which value is delivered first.
+
+# Use-cases
+- putting events in particular order
+- ensuring consistency among participants
+
 # How to achieve consensus
+
+## Shared Logs
+Most consensus systems provide shared logs.
+Database Replication: Each entry in shared log is a write to database and every replica processes the same writes in the same order.
+### How to implement
+A shared log is easy if a single leader is the only node allowed to append log entries.
+For consensus, we require that the algorithm can automatically choose a new leader in case of failures.
+Here, we need consensus to elect a leader, and we need a leader in order to solve consensus.
+-  a node believes that the current leader is dead because it hasn’t heard from the leader for some timeout, it may start a vote to elect a new leader. This election is given a new epoch number that is greater than any previous epoch number. If a conflict arises between two leaders in two epochs (perhaps because the previous leader wasn’t dead after all), then the leader with the higher epoch number prevails.
+- Before a leader is allowed to append the next entry to the shared log, it must first check that there isn’t another leader with a higher epoch number that might append a different entry. It can do this by collecting votes from a quorum of nodes
+- Two operations: a vote by a quorum of nodes elects a leader, and then another quorum vote is required for every entry that the leader wants to append to the log
+
 ## Broadcast
 It is used to disseminate information among a set of processes.
 
 ## Atomic Broadcast
 If we need to deliver messages in order, we have to use the atomic broadcast.
 - Virtual Synchrony delivers totally ordered messages to a _dynamic_ group of peers.
-# Use-cases
-- putting events in particular order
-- ensuring consistency among participants
+
+
 # Real-world application
+
+## Implementing locks and leases
+Single value consensus
 
 ## Electing leader
 It is a consensus problem. To elect a leader, we need to reach a consensus about its identity.
+Constructing an append-only log in distributed setting.
+One or more nodes may _propose_ values, and the consensus algorithm _decides_ on one of those values.
 
 ### Why leader is needed
 - The leader can help reaching a decision with reduced synchronisation overhead

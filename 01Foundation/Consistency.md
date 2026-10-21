@@ -14,8 +14,10 @@ With weakened guarantees or sometimes, violations, we can implement a system tha
 ## Two types of systems
 - CP(Consistent and Partition Tolerant)
   - Prefer failing the request to serving inconsistent data.
+  - Can provide linearizability 
 - AP(Available and Partition Tolerant)
   - Allow serving inconsistent data
+  - Can lose linearizability.
 
 ## Use it carefully
 Network partition does not mean node crash or failure. It means we can face consistency issues even when all nodes are up, but there are connectivity issues between them.
@@ -41,7 +43,11 @@ They helps in
   - This model does not assume transaction isolation. Non-repeatable reads can happen, for example.
   - It provides read-after-write, monotonic reads guarantees.
   - Leader election and distributed leases should be linearizable operation: Solved by consensus algorithms
-  - Implementation Solution: Using locks to guard critical section
+  - Implementation Solutions: 
+	  - Single Leader Replication: If the leader is accepting read and write, they are linearizable. But in case of split brain or asynchronous replication, the system can lose its linearizability property.
+		  - In multi-region setup, if there is a network partition, clients that can reach only a follower region(not leader region) will experience an outage until the network link is repaired.
+	  - Multi-leader Replication: Concurrently process writes so not linearizable.
+	  - Leaderless: Quorums are also non-linearizable.
 - Sequential Consistency
 	- Defines global order of the events.
 	- Order of operations from multiple processes may be ordered arbitrarily but all processes would observe the same order.

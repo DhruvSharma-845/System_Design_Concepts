@@ -156,7 +156,14 @@ Two operations are concurrent if neither happens before the other.
 we need an algorithm to tell us whether two operations are concurrent. If the operations are concurrent, we have a conflict that needs to be resolved.
 For defining concurrency, exact time doesn’t matter. We simply call two operations concurrent if they are both unaware of each other, regardless of the physical time at which they occurred.
 
-**Version Vectors**
+**Logical Clock**:
+- Helps in determining the order of events or tell whether they are concurrent.
+- Consistent with causality: if operation A happened before operation B, then A’s timestamp is less than B’s timestamp
+- Lamport Clock
+	- They provide total ordering but not linearizable.
+	- When multiple timestamps are generated concurrently, these algorithms order them ***arbitrarily***. This means that when you look at two timestamps, you generally can’t tell whether they were generated concurrently or one happened before the other
+- Vector Clock
+	- If you want to be able to determine when records were created concurrently, you need a different algorithm, such as a _vector clock_.
 
 
 ### Resolution
