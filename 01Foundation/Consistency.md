@@ -5,7 +5,8 @@ summary: Visibility and behavioral semantics in the presence of multiple copies 
 ---
 
 # What it is
-Consistency is a property of a system that ensures the data remains consistent among multiple copies. Also, the operations order on multiple nodes remains same i.e. linearlizable. 
+Consistency is a property of a system that ensures the data remains consistent among multiple copies. The data read should not be stale, irrespective of the replica it is read from. The data written should not have conflicting value.  
+Also, the operations order on multiple nodes remains same i.e. linearlizable. 
 
 # CAP Theorem
 It says we cannot implement a system that guarantees both availability and consistency in the presence of network partition. 
