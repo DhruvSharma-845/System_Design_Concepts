@@ -29,43 +29,49 @@ They helps in
 - describe what expectations clients might have in terms of possible returned values despite the existence of multiple copies of data and concurrent accesses to it.  
 
 
-## Types of consistency models
-- Strict Consistency
+
+## Strict Consistency
   - Any write by any process is instantly available for subsequent reads by any process.
-  - Provides serializability for transactions and linerizability for concurrent reads and writes in distributed system.
+  - Provides serializability for transactions and linearizability for concurrent reads and writes in distributed system.
   - Just a theoretical model
-- Linearizability
-  - Behaves like single-node system
-  - Provides recency guarantee: The value read is the most recent written value on any replica
-  - If reads are concurrent with writes, the reads could see a value flipped back and forth between old and new value. This is not how single-node transactioned system works.
-  - Defines total order of the events. Even though operations can overlap, their effects become visible in a way to make them sequential.
-	 - Write becomes visible to all readers at some point in time between its start and end(Linearization point). Results have to take effect before completion.
-	 - If one readers observe the new value, all subsequent read operation by any process will observe at least as recent as that one.
-  - This model does not assume transaction isolation. Non-repeatable reads can happen, for example.
-  - It provides read-after-write, monotonic reads guarantees.
-  - Leader election and distributed leases should be linearizable operation: Solved by consensus algorithms
-  - Implementation Solutions: 
-	  - Single Leader Replication: If the leader is accepting read and write, they are linearizable. But in case of split brain or asynchronous replication, the system can lose its linearizability property.
-		  - In multi-region setup, if there is a network partition, clients that can reach only a follower region(not leader region) will experience an outage until the network link is repaired.
-	  - Multi-leader Replication: Concurrently process writes so not linearizable.
-	  - Leaderless: Quorums are also non-linearizable.
-- Sequential Consistency
-	- Defines global order of the events.
-	- Order of operations from multiple processes may be ordered arbitrarily but all processes would observe the same order.
-	- Operations can overlap but the operations from each process are executed in the same order as they were executed by the original process.
-	- Implementation Solution: Memory Barriers
-- Causal Consistency
-	- Defines causal order of the events
-	- all processes have to see _causally related_ operations in the same order. 
-	- Concurrent writes with no causal relationship can be observed in a different order by different processors
-	- Even if the latter write propagates faster than the former one, it isn’t made visible until all of its dependencies arrive, and the event order is reconstructed from their logical timestamps.
-	- Implementation solution: Logical Clock -> Vector Clock
-		- Each operation has metadata, summarizing which operations logically precede the current one.
-		- When the update is received from the server, it contains the latest version of the context. Any operation can be processed only if all operations preceding it have already been applied. Until then, it is buffered. This ensures the causal order.
-		- Processes maintain vectors of _logical clocks_, with one clock per process. 
-		- Every clock starts at the initial value and is incremented every time a new event arrives
-		- When receiving clock vectors from other processes, a process updates its local vector to the highest clock values per process from the received vectors.
-		- To use vector clocks for conflict resolution, whenever we make a write to the database, we first check if the value for the written key already exists locally. If the previous value already exists, we append a new version to the version vector and establish the causal relationship between the two writes. Otherwise, we start a new chain of events and initialize the value with a single version.
+## Linearizability
+- Behaves like single-node system
+- Provides recency guarantee: The value read is the most recent written value on any replica
+- In the absence of linearizability: If reads are concurrent with writes, the reads could see a value flipped back and forth between old and new value. This is not how single-node transactioned system works.
+- Defines total order of the events. Even though operations can overlap, their effects become visible in a way to make them sequential.
+	- Write becomes visible to all readers at some point in time between its start and end(Linearization point). Results have to take effect before completion.
+	- If one readers observe the new value, all subsequent read operation by any process will observe at least as recent as that one.
+- This model does not assume transaction isolation. Non-repeatable reads, write skews can happen, for example.
+- It provides read-after-write, monotonic reads guarantees.
+
+### Where linearizability is needed
+- Leader election and distributed leases should be linearizable operation: Solved by consensus algorithms
+- Uniqueness constraint: Choosing a username and letting all replicas know.
+### Implementation Solutions: 
+- Single Leader Replication: If the leader is accepting read and write, they are linearizable. But in case of split brain or asynchronous replication, the system can lose its linearizability property.
+	- In multi-region setup, if there is a network partition, clients that can reach only a follower region(not leader region) will experience an outage until the network link is repaired.
+- Multi-leader Replication: Concurrently process writes so not linearizable. During conflict resolution, can return different values.
+- Leaderless: Quorums are also non-linearizable. Read can happen from nodes(even if they make up quorum majority) that are not updated yet.
+So, linerarizability is possible with single-leader replication only.
+  
+## Sequential Consistency
+- Defines global order of the events.
+- Order of operations from multiple processes may be ordered arbitrarily but all processes would observe the same order.
+- Operations can overlap but the operations from each process are executed in the same order as they were executed by the original process.
+- Implementation Solution: Memory Barriers
+
+## Causal Consistency
+- Defines causal order of the events
+- all processes have to see _causally related_ operations in the same order. 
+- Concurrent writes with no causal relationship can be observed in a different order by different processors
+- Even if the latter write propagates faster than the former one, it isn’t made visible until all of its dependencies arrive, and the event order is reconstructed from their logical timestamps.
+- Implementation solution: Logical Clock -> Vector Clock
+	- Each operation has metadata, summarizing which operations logically precede the current one.
+	- When the update is received from the server, it contains the latest version of the context. Any operation can be processed only if all operations preceding it have already been applied. Until then, it is buffered. This ensures the causal order.
+	- Processes maintain vectors of _logical clocks_, with one clock per process. 
+	- Every clock starts at the initial value and is incremented every time a new event arrives
+	- When receiving clock vectors from other processes, a process updates its local vector to the highest clock values per process from the received vectors.
+	- To use vector clocks for conflict resolution, whenever we make a write to the database, we first check if the value for the written key already exists locally. If the previous value already exists, we append a new version to the version vector and establish the causal relationship between the two writes. Otherwise, we start a new chain of events and initialize the value with a single version.
 
 
 # Session Consistency Models
