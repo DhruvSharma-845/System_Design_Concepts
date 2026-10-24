@@ -14,9 +14,11 @@ It authenticates the server in a client-server connection and encrypts communica
 It is a data file that contains important information for verifying a server's or device's identity, including the public key, a statement of who issued the certificate, and the certificate's expiration date.  
 TLS certificates are issued by a certificate authority: an external organization that checks if the certificate owner legitimately owns the associated domain
 ## TLS Handshake
+TLS connection establishment includes an exchange of certificates to verify the identity of the server (and optionally client), and the selection of an algorithm to check that the data is not tampered with in transit.
 It is process for verifying the TLS certificate and the server's possession of the private key.
 - Server presents its TLS certificate
 - Client verifies the server's certificate
+Once a connection is established, in-flight data is encrypted using symmetric cryptography, which has a negligible performance penalty as modern CPUs have dedicated encryption hardware.
 
 # mTLS
 It ensures that the parties at each end of a network connection are who they claim to be by verifying that they both have the correct private key. The information within their respective TLS certificates provides additional verification.
