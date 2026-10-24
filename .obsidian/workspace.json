@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02BuildingBlocks/StreamProcessing.md",
+                "file": "01Foundation/Consensus.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "StreamProcessing"
+              "title": "Consensus"
             }
           }
         ]
@@ -211,8 +211,10 @@
   },
   "active": "4abbce6372d22759",
   "lastOpenFiles": [
-    "02BuildingBlocks/BatchProcessing.md",
     "02BuildingBlocks/StreamProcessing.md",
+    "04Architectures/EventDrivenArchitecture.md",
+    "03Patterns/EventSourcingAndCQRS.md",
+    "02BuildingBlocks/BatchProcessing.md",
     "01Foundation/Consensus.md",
     "02BuildingBlocks/IDGenerator.md",
     "01Foundation/Replication.md",
@@ -225,14 +227,12 @@
     "04Architectures/Tenancy.md",
     "04Architectures/SecurityArchitectures.md",
     "04Architectures/Microservices.md",
-    "04Architectures/EventDrivenArchitecture.md",
     "01Foundation/StorageEngines.md",
     "01Foundation/Sharding.md",
     "01Foundation/Security.md",
     "01Foundation/NetworkCommunication.md",
     "01Foundation/DataModels.md",
     "01Foundation/Caching.md",
-    "03Patterns/EventSourcingAndCQRS.md",
     "assets/saml.png",
     "assets/oauth2authcodewithpkce.png",
     "assets",
