@@ -1,8 +1,20 @@
 ---
+title: "Transactions"
 type: concept
-domain: storage
-summary: ACID guarantees on single-node and distributed systems
+domain: [databases, distributed-systems]
+tags: [acid, isolation-levels, concurrency-control, two-phase-commit, distributed-transactions, exactly-once]
+summary: "ACID transactions on single nodes and distributed systems: isolation levels, concurrency control, 2PC/3PC, and exactly-once."
+use_when:
+  - "Correctness under concurrent writes"
+  - "Atomic updates across shards or services"
+  - "Choosing isolation levels"
+related:
+  - "01Foundation/Consensus.md"
+  - "01Foundation/Consistency.md"
+  - "03Patterns/WorkflowEngines.md"
+status: solid
 ---
+
 # Single Node Transactions
 A _transaction_ is a set of operations(reads and writes) as indivisible logical unit of work, working as an atomic unit of execution.
 - Either the entire transaction succeeds resulting into commit or it fails resulting into abort/rollback. Partial failures cannot happen.

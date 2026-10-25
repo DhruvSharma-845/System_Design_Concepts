@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01Foundation/Security.md",
+                "file": "AGENTS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Security"
+              "title": "AGENTS"
             }
           }
         ]
@@ -195,7 +195,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 414.51953125
+    "width": 502.94140625
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -209,43 +209,49 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4abbce6372d22759",
+  "active": "c7e036139d9ece4b",
   "lastOpenFiles": [
-    "01Foundation/Scalability.md",
-    "01Foundation/Replication.md",
-    "01Foundation/Consensus.md",
-    "01Foundation/Consistency.md",
-    "02BuildingBlocks/StreamProcessing.md",
-    "04Architectures/EventDrivenArchitecture.md",
-    "03Patterns/EventSourcingAndCQRS.md",
-    "02BuildingBlocks/BatchProcessing.md",
-    "02BuildingBlocks/IDGenerator.md",
-    "01Foundation/FaultTolerance.md",
-    "02BuildingBlocks/Authentication&Authorization.md",
-    "01Foundation/Transactions.md",
-    "03Patterns/WorkflowEngines.md",
-    "03Patterns/IdentityAndAccessManagement.md",
-    "04Architectures/Tenancy.md",
-    "04Architectures/SecurityArchitectures.md",
-    "04Architectures/Microservices.md",
-    "01Foundation/StorageEngines.md",
-    "01Foundation/Sharding.md",
-    "01Foundation/Security.md",
-    "01Foundation/NetworkCommunication.md",
-    "01Foundation/DataModels.md",
+    "skills/system-design-tutor/SKILL.md",
+    "skills/system-design-architect/SKILL.md",
+    "skills/system-design-architect/references/INDEX.md",
+    "skills/system-design-architect/templates/review-checklist.md",
+    "skills/system-design-tutor/references/README.md",
+    "skills/system-design-tutor/references/assets/saml.png",
+    "skills/system-design-tutor/references/assets/oauth2authcodewithpkce.png",
+    "skills/system-design-tutor/references/assets",
+    "skills/system-design-tutor/references/04Architectures/Tenancy.md",
+    "skills/system-design-tutor/references/04Architectures/SecurityArchitectures.md",
+    "skills/system-design-tutor/references/04Architectures/MonolithArchitecture.md",
+    "skills/system-design-tutor/references/04Architectures/Microservices.md",
+    "skills/system-design-tutor/references/04Architectures/EventDrivenArchitecture.md",
+    "skills/system-design-tutor/references/04Architectures",
     "01Foundation/Caching.md",
+    "skills/system-design-architect/references/README.md",
+    "README.md",
+    "dist/system-design-tutor.zip",
+    "dist/system-design-architect.zip",
+    "dist",
+    "skills/system-design-tutor/references/01Foundation/Transactions.md",
+    "skills/system-design-tutor/references/01Foundation/StorageEngines.md",
+    "skills/system-design-tutor/references/01Foundation/Sharding.md",
+    "skills/system-design-tutor/references/01Foundation/Security.md",
+    "skills/system-design-tutor/references/01Foundation/Scalability.md",
+    "skills/system-design-tutor/references/01Foundation/Replication.md",
+    "skills/system-design-tutor/references/01Foundation/NetworkCommunication.md",
+    "skills/system-design-tutor/references/01Foundation/FaultTolerance.md",
+    "skills/system-design-tutor/references/01Foundation/DataModels.md",
+    "skills/system-design-tutor/references/01Foundation/Consistency.md",
+    "skills/system-design-tutor/references/01Foundation/Consensus.md",
+    "skills/system-design-tutor/references/01Foundation/Caching.md",
+    "skills/system-design-tutor/references/03Patterns/WorkflowEngines.md",
+    "skills/system-design-tutor/references/03Patterns",
+    "skills/system-design-tutor/references/02BuildingBlocks",
+    "skills/system-design-tutor/references/01Foundation",
+    "skills/system-design-tutor/references",
+    "skills/system-design-architect/references/assets/oauth2authcodewithpkce.png",
+    "skills/system-design-architect/references/assets/saml.png",
+    "skills/system-design-architect/references/assets",
     "assets/saml.png",
-    "assets/oauth2authcodewithpkce.png",
-    "assets",
-    "Welcome.md",
-    "03Patterns",
-    "04Architectures",
-    "02BuildingBlocks",
-    "Untitled.md",
-    "Untitled 1.md",
-    "04Designs",
-    "03Patterns",
-    "02BuildingBlocks",
-    "01Foundation"
+    "assets/oauth2authcodewithpkce.png"
   ]
 }

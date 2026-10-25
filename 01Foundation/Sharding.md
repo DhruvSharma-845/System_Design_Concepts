@@ -1,8 +1,19 @@
 ---
+title: "Sharding"
 type: concept
-domain: database, distributed system
-summary: logical division of data into smaller manageable segments on multiple nodes
+domain: [databases, distributed-systems]
+tags: [partitioning, rebalancing, hot-spots, request-routing, secondary-indexes, multitenancy]
+summary: "Partitioning data across nodes: sharding strategies, rebalancing, skew, request routing, and secondary indexes."
+use_when:
+  - "Data or write throughput exceeds a single node"
+  - "Isolating tenants at the data layer"
+related:
+  - "01Foundation/Replication.md"
+  - "04Architectures/Tenancy.md"
+  - "01Foundation/Scalability.md"
+status: solid
 ---
+
 # What it is
 It is a logical division of data into smaller manageable segments(partitions). Each segment is a database of its own.  
 Sharding is usually combined with replication, so that copies of each shard are stored on multiple nodes. Each shard’s leader is assigned to one node, and its followers are assigned to other nodes.
@@ -40,7 +51,7 @@ Sharding is usually combined with replication, so that copies of each shard are
 	- A change in the ring affects only the _immediate neighbors_ of the leaving or joining node, and not an entire cluster.
 
 # Repartitioning(Rebalancing)
-When nodes are added to or removed from the cluster, the database has to re-partition the data to maintain the balanced load. 
+When nodes are added to or removed from the cluster, the database has to re-partition the data to maintain the balanced load( to ensure the processing and storage capacity of each node is equally utilized). 
 Automated vs manual rebalancing
 Key-range sharding:  
 - Shards are typically rebalanced by splitting the range into two subranges when a shard gets too big.

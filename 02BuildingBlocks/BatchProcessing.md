@@ -1,8 +1,18 @@
 ---
+title: "Batch Processing"
 type: building_block
-domain: data processing
-summary: Processing large amount of data in offline mode
+domain: [data-processing]
+tags: [mapreduce, spark, derived-data, offline, scheduling]
+summary: "Offline processing of bounded, immutable input into derived data, as in MapReduce or Spark, and workflow scheduling."
+use_when:
+  - "Periodic large-scale data processing"
+  - "Building derived datasets, ETL, or analytics"
+related:
+  - "02BuildingBlocks/StreamProcessing.md"
+  - "03Patterns/WorkflowEngines.md"
+status: partial
 ---
+
 # What it is
 A batch processing job takes input data (which is read-only, immutable) and produces output data.
 - The output is a form of _derived data_; that is, a dataset that can be re-created by running the batch process again

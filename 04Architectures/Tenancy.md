@@ -1,8 +1,18 @@
 ---
+title: "Tenancy"
 type: architecture
-domain: distributed system
-summary: It defines how the customer's privacy is maintained
+domain: [distributed-systems, multitenancy]
+tags: [multitenancy, isolation, saas]
+summary: "Multitenant architecture: isolating each customer's data and users, including shard-per-tenant strategies."
+use_when:
+  - "Designing SaaS products serving many customers"
+  - "Tenant data isolation requirements"
+related:
+  - "01Foundation/Sharding.md"
+  - "01Foundation/Security.md"
+status: partial
 ---
+
 # Multitenancy
 - Each tenant is a customer.
 - Multiple users may have logins on the same tenant.

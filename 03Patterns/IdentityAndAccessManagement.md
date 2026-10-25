@@ -1,8 +1,18 @@
 ---
+title: "Identity and Access Management"
 type: pattern
-domain: security, distributed systems
-summary: Managing authentication and authorization in distributed systems
+domain: [security, distributed-systems]
+tags: [iam, oauth2, oidc, user-management]
+summary: "IAM as a gatekeeper: combining authentication, authorization, and user management for applications and APIs."
+use_when:
+  - "Designing identity for a product or platform"
+  - "Centralizing access control"
+related:
+  - "02BuildingBlocks/Authentication&Authorization.md"
+  - "04Architectures/SecurityArchitectures.md"
+status: partial
 ---
+
 # Identity and Access Management(IAM)
 It is a gatekeeper to the resources you provide to customers as web applications, APIs, etc. It ensures that the right people access the right digital resources at the right time and for the right reasons.
 ## Authorization

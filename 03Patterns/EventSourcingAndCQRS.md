@@ -1,8 +1,19 @@
 ---
+title: "Event Sourcing and CQRS"
 type: pattern
-domain: event-driven systems
-summary: event sourcing and CQRS description
+domain: [event-driven, databases]
+tags: [event-sourcing, cqrs, cdc, materialized-views, event-log]
+summary: "Using an immutable event log as the source of truth, separate read models (CQRS), and change data capture."
+use_when:
+  - "Audit trails or replayable state"
+  - "Read and write workloads that need different models"
+  - "Syncing derived systems from a database"
+related:
+  - "02BuildingBlocks/StreamProcessing.md"
+  - "04Architectures/EventDrivenArchitecture.md"
+status: partial
 ---
+
 # Event Sourcing
 It is the mechanism of using events as source of truth for storing data and expressing every state change as an immutable event.
 The application logic is explicitly built on the basis of immutable events that are written to an event log.

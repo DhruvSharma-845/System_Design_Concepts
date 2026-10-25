@@ -1,7 +1,19 @@
 ---
+title: "Consensus"
 type: concept
-domain: distributed systems
-summary: Establishing consensus between multiple nodes of distributed system to reach a decision
+domain: [distributed-systems]
+tags: [consensus, leader-election, shared-log, atomic-broadcast, locks, leases, flp]
+summary: "How multiple nodes agree on a value: shared logs, atomic broadcast, leader election, locks and leases."
+use_when:
+  - "Leader election or failover without split brain"
+  - "Distributed locks, leases, or uniqueness constraints"
+  - "Building a linearizable or replicated log"
+related:
+  - "01Foundation/Replication.md"
+  - "01Foundation/Consistency.md"
+  - "01Foundation/FaultTolerance.md"
+  - "01Foundation/Transactions.md"
+status: solid
 ---
 
 # What it is

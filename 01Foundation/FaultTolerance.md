@@ -1,7 +1,17 @@
 ---
+title: "Fault Tolerance"
 type: concept
-domain: single-node system, distributed system
-summary: Ability of a system to continue operating correctly in the presence of the failure of its components
+domain: [distributed-systems]
+tags: [reliability, failure-detection, clocks, partial-failure, byzantine-faults]
+summary: "Faults in distributed systems (unreliable networks and clocks, pauses), failure detection, and mitigation."
+use_when:
+  - "Designing for high availability and reliability"
+  - "Handling timeouts, failure detection, or clock skew"
+related:
+  - "01Foundation/Replication.md"
+  - "01Foundation/Consistency.md"
+  - "01Foundation/Consensus.md"
+status: solid
 ---
 
 # What it is

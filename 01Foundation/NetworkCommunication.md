@@ -1,8 +1,19 @@
 ---
+title: "Network Communication"
 type: concept
-domain: network communication
-summary:
+domain: [networking]
+tags: [encoding, protobuf, avro, json, schema-evolution, rest, rpc, grpc]
+summary: "Data encoding formats, schema evolution and compatibility, and REST and RPC communication styles."
+use_when:
+  - "Designing service APIs"
+  - "Choosing serialization formats"
+  - "Planning backward and forward compatible schema changes"
+related:
+  - "01Foundation/DataModels.md"
+  - "04Architectures/Microservices.md"
+status: partial
 ---
+
 # Data Encoding
 It is a translation between in-memory representation of data and self-contained sequence of bytes that can be sent over network.
 - Language-specific formats: Java(java.io.Serializable), Python(pickle)

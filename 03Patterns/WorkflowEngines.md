@@ -1,6 +1,16 @@
 ---
+title: "Workflow Engines"
 type: pattern
-domain: distributed systems
+domain: [distributed-systems, data-processing]
+tags: [orchestration, dag, durable-execution, exactly-once, scheduler]
+summary: "Executing graphs of tasks with an orchestrator and executors: scheduling, retries, parallelism, and exactly-once."
+use_when:
+  - "Multi-step or long-running business processes"
+  - "Orchestrating batch jobs or sagas"
+related:
+  - "02BuildingBlocks/BatchProcessing.md"
+  - "01Foundation/Transactions.md"
+status: partial
 ---
 
 # What it is

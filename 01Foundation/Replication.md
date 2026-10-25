@@ -1,11 +1,23 @@
 ---
+title: "Replication"
 type: concept
-domain: database, distributed system
-summary: Introducing redundancy by maintaining multiple copies of data.
+domain: [databases, distributed-systems]
+tags: [single-leader, multi-leader, leaderless, failover, replication-lag, conflict-resolution, quorum, gossip]
+summary: "Keeping copies of data on multiple nodes: single-leader, multi-leader, and leaderless replication, plus conflict resolution."
+use_when:
+  - "High availability or failover"
+  - "Read scaling or geo-distributed low latency"
+  - "Multi-region or offline-first data"
+related:
+  - "01Foundation/Sharding.md"
+  - "01Foundation/Consistency.md"
+  - "01Foundation/Consensus.md"
+  - "01Foundation/FaultTolerance.md"
+status: solid
 ---
 
 # What it is
-It is a model to store multiple copies of data on more than one machines so that when one machine fails, the other ones can serve as failover.  
+It is a model to store multiple copies of data on more than one machines so that when one machine fails, the other ones can serve as failover. These multiple copies logically appear to the application as a single database.
 **Note**: If the data fits on single machine, replication is enough. Otherwise, [Sharding](./Sharding.md) must be employed
 
 # Why it is needed

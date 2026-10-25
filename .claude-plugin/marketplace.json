@@ -1,0 +1,22 @@
+{
+  "name": "system-design-concepts",
+  "owner": {
+    "name": "Dhruv Sharma"
+  },
+  "metadata": {
+    "description": "System design knowledge base packaged as agent skills: an architect for designing and reviewing systems, and a tutor for learning concepts.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "system-design",
+      "description": "Design and review system architectures (system-design-architect) and learn system design concepts (system-design-tutor), grounded in a curated knowledge base.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/system-design-architect",
+        "./skills/system-design-tutor"
+      ]
+    }
+  ]
+}

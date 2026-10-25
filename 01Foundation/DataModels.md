@@ -1,7 +1,16 @@
 ---
+title: "Data Models"
 type: concept
-domain: database, network communication
-summary: Modelling the real world data into easy to use format
+domain: [databases, networking]
+tags: [relational, document, graph, normalization, orm, graphql]
+summary: "Relational, document, and graph data models, their relationships, query languages, and GraphQL."
+use_when:
+  - "Choosing a database type for a domain"
+  - "Designing schemas and relationships"
+related:
+  - "01Foundation/StorageEngines.md"
+  - "01Foundation/NetworkCommunication.md"
+status: solid
 ---
 
 # What it is

@@ -1,8 +1,19 @@
 ---
+title: "Event-Driven Architecture"
 type: architecture
-domain: distributed system
-summary: Distributed systems architectures based on events
+domain: [event-driven, distributed-systems]
+tags: [events, actors, async-messaging]
+summary: "Architectures built on asynchronous events and messages, including the actor model."
+use_when:
+  - "Loosely coupled services reacting to events"
+  - "Highly concurrent, distributed message processing"
+related:
+  - "02BuildingBlocks/StreamProcessing.md"
+  - "03Patterns/EventSourcingAndCQRS.md"
+  - "04Architectures/Microservices.md"
+status: partial
 ---
+
 # Important Entities
 
 

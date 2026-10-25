@@ -1,8 +1,18 @@
 ---
+title: "ID Generator"
 type: building_block
-domain: distributed system
-summary:
+domain: [distributed-systems]
+tags: [unique-id, uuid, snowflake, logical-clock, ordering]
+summary: "Generating unique, optionally ordered IDs in single-node and distributed systems, such as UUIDs and timestamp-based IDs."
+use_when:
+  - "Unique IDs across shards or regions"
+  - "Time-ordered IDs such as URL shorteners or feeds"
+related:
+  - "01Foundation/Replication.md"
+  - "01Foundation/Consensus.md"
+status: partial
 ---
+
 # What it is
 In single-node databases, it is common to use an autoincrementing integer as unique ID, which has the advantage that it can be stored in only 64 bit.
 **How to implement**: Use the atomic increment instruction provided by your CPU, which allows multiple threads to safely increment the same counter

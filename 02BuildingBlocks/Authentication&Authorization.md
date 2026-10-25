@@ -1,8 +1,20 @@
 ---
+title: "Authentication & Authorization"
 type: building_block
-domain: security, distributed system
-summary: Authentication and Authorization mechanism between client-server and service-service systems
+domain: [security, distributed-systems]
+tags: [authn, authz, idp, oidc, sso, saml, rbac, oauth2, pkce, tokens]
+summary: "Authentication (IdP, OIDC, SSO, SAML) and authorization (RBAC, OAuth 2.0 grants, tokens) for clients and services."
+use_when:
+  - "User login or SSO"
+  - "API or service-to-service authorization"
+  - "Choosing an OAuth 2.0 grant type"
+related:
+  - "01Foundation/Security.md"
+  - "03Patterns/IdentityAndAccessManagement.md"
+  - "04Architectures/SecurityArchitectures.md"
+status: solid
 ---
+
 # Authentication
 It is the verification of a digital identity. Someone (or something) authenticates to prove that they’re the user they claim to be.  
 Generally, transmits info through an ID Token.

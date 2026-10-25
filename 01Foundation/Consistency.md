@@ -1,7 +1,18 @@
 ---
+title: "Consistency"
 type: concept
-domain: distributed system
-summary: Visibility and behavioral semantics in the presence of multiple copies of data.
+domain: [distributed-systems]
+tags: [cap, linearizability, causal-consistency, eventual-consistency, quorum, session-guarantees]
+summary: "Consistency models (linearizable, sequential, causal, session, eventual), CAP, and tunable quorum consistency."
+use_when:
+  - "Choosing consistency guarantees for replicated data"
+  - "Reasoning about CAP trade-offs"
+  - "Read-your-writes or monotonic-read requirements"
+related:
+  - "01Foundation/Replication.md"
+  - "01Foundation/Consensus.md"
+  - "01Foundation/Transactions.md"
+status: solid
 ---
 
 # What it is

@@ -1,8 +1,19 @@
 ---
+title: "Security Architectures"
 type: architecture
-domain: security, distributed systems
-summary: Architectures for distributed systems from security perspective
+domain: [security, distributed-systems]
+tags: [oauth2, pkce, bff, client-credentials, token-storage]
+summary: "Recommended auth flows per architecture: first-party apps, managed IdP, BFF, microservices, and third-party API access."
+use_when:
+  - "Choosing an auth flow for a given client type"
+  - "Securing service-to-service calls"
+related:
+  - "02BuildingBlocks/Authentication&Authorization.md"
+  - "03Patterns/IdentityAndAccessManagement.md"
+  - "01Foundation/Security.md"
+status: partial
 ---
+
 # First-party App + Backend
 # First-party App using managed IdP
 - The recommended approach is Authorization Code + PKCE([IAM](../03Patterns/IdentityAndAccessManagement)) with tokens stored 

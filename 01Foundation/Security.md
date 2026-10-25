@@ -1,8 +1,18 @@
 ---
+title: "Security"
 type: concept
-domain: security, cryptography
-summary: application security related concepts and cryptographic mechanism
+domain: [security]
+tags: [cryptography, public-key, signatures, tls, mtls, certificates, jwt]
+summary: "Cryptographic foundations: public-key crypto, signatures, TLS and mTLS, certificates, and JWT security tokens."
+use_when:
+  - "Securing transport between clients and services"
+  - "Choosing token formats such as JWT"
+related:
+  - "02BuildingBlocks/Authentication&Authorization.md"
+  - "04Architectures/SecurityArchitectures.md"
+status: partial
 ---
+
 # Cryptography
 ## Public-key cryptography
 - Relies on a pair of keys — a public key and a private key. Anything encrypted with the public key can be decrypted only with the _private_ key.

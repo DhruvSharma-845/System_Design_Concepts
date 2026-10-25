@@ -1,7 +1,16 @@
 ---
+title: "Storage Engines"
 type: concept
-domain: database
-summary: Database storage engines is the layer that manages the persistence of data on disk.
+domain: [databases]
+tags: [b-tree, lsm-tree, sstable, indexes, column-storage]
+summary: "How databases persist data on disk: B-trees, log-structured storage and SSTables, indexes, and columnar formats."
+use_when:
+  - "Choosing a database for read-heavy vs write-heavy workloads"
+  - "OLTP vs analytics storage decisions"
+related:
+  - "01Foundation/DataModels.md"
+  - "01Foundation/Transactions.md"
+status: solid
 ---
 
 # What it is
