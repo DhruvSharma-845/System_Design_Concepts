@@ -57,10 +57,13 @@ They helps in
 
 ### Where linearizability is needed
 - Leader election and distributed leases should be linearizable operation: Solved by consensus algorithms
-- Uniqueness constraint: Choosing a username and letting all replicas know.
+- Uniqueness constraint: Choosing a username and letting all replicas know.  
+
 ### Implementation Solutions: 
-- Single Leader Replication: If the leader is accepting read and write, they are linearizable. But in case of split brain or asynchronous replication, the system can lose its linearizability property.
-	- In multi-region setup, if there is a network partition, clients that can reach only a follower region(not leader region) will experience an outage until the network link is repaired.
+- Single Leader Replication: If the leader is accepting both read and write, they are linearizable. But in case of split brain or asynchronous replication, the system can lose its linearizability property.
+  - In case of reads, the active leadership of the leader must be checked before the leader processes the read request.
+  - Reads can also be done from quorum of followers only if the writes on leader follows quorum writes.
+  - In multi-region setup, if there is a network partition, clients that can reach only a follower region(not leader region) will experience an outage until the network link is repaired.
 - Multi-leader Replication: Concurrently process writes so not linearizable. During conflict resolution, can return different values.
 - Leaderless: Quorums are also non-linearizable. Read can happen from nodes(even if they make up quorum majority) that are not updated yet.
 So, linerarizability is possible with single-leader replication only.
