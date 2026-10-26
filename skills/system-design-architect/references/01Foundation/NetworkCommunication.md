@@ -36,15 +36,19 @@ It is a translation between in-memory representation of data and self-contained 
 - NoSQL: It is schema-less database so different versions of data formats can be written in the same database.
 
 ## Network Communication Schema
-
-### Application Layer
 New and old versions of data formats might coexist at the same time.
 - Rolling upgrade of a service
 - Some clients have not installed the update of the app.
 **Compatibility**
 - Backward compatibility: Ensures that newer code can read data written by older code
 - Forward compatibility: Ensures that older code can read data written by newer code
+
 # Network Communication
+
+## Data Transmission
+There are four layers of protocols and each layer builds upon the layer that is beneath it.
+
+### Application Layer
 - HTTP and REST: Clients(and servers) can connect to servers to make requests to server's API.
 	- Clients can be web browsers, native apps.
 	- Predefined schemas for inputs and outputs of APIs.
@@ -54,8 +58,15 @@ New and old versions of data formats might coexist at the same time.
 	- Request to remote service looks like calling a local function
 	- gRPC (Protocol Buffers) and Avro RPC
 
+### Transport Layer
+It consists of protocols that ensures best-effort delivery of data.
+Protocols:
+- TCP
+- UDP
+
 ### Network Layer
-Data is transmitted from source to destination using IP protocol.It consists of addressing and routing protocols.
+Data is transmitted from source to destination using IP protocol. It consists of addressing and routing protocols.
+IP defines how addresses are assigned to the nodes(IPv4 and IPv6)
 
 - Routers: They are the devices that help in transmitting the data from source to destination. They receive the data from one network connect and place it on other network based on its destination
 
