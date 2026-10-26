@@ -2,15 +2,17 @@
 title: "Fault Tolerance"
 type: concept
 domain: [distributed-systems]
-tags: [reliability, failure-detection, clocks, partial-failure, byzantine-faults]
-summary: "Faults in distributed systems (unreliable networks and clocks, pauses), failure detection, and mitigation."
+tags: [reliability, failure-detection, clocks, partial-failure, byzantine-faults, retries, idempotency, idempotency-keys]
+summary: "Faults in distributed systems (unreliable networks and clocks, pauses), failure detection, and safe retries using idempotency keys."
 use_when:
   - "Designing for high availability and reliability"
   - "Handling timeouts, failure detection, or clock skew"
+  - "Retrying state-changing requests without duplicating their effects"
 related:
   - "01Foundation/Replication.md"
   - "01Foundation/Consistency.md"
   - "01Foundation/Consensus.md"
+  - "01Foundation/Transactions.md"
 status: solid
 ---
 
@@ -23,7 +25,15 @@ The systems may suffer from partial failures, unreliable clocks, and processing 
 
 ## Unreliable network
 Machines in distributed system communicate over the network.  
-Between sending a request and getting a response, many things can go wrong. It is indistinguishable whether the request message did not reach the recipient or the response message has not reached the source.
+Between sending a request and getting a response, many things can go wrong. It is indistinguishable whether the request message did not reach the recipient or the response message has not reached the source. The failures do not provide any insight into the reason why a response has not been received.  
+
+**Idempotency**
+The typical solution that clients adopt to handle crash faults is to resend the request after a configured timeout period. But this can cause problems in case the operation is not idempotent.  Idempotent operations can be applied multiple times without changing the result beyond the initial application.
+- Clients include a unique _idempotency key_ in all requests that mutate state. The key identifies a single operation from the specific client or event source.
+- When the server receives a request, it checks to see if it has previously seen the idempotency key value by reading from a database that is uniquely designed for implementing idempotence. If the key is not in the database, this is a new request. The server therefore performs the business logic to update the application state. 
+- It also stores the idempotency key in a database(or fast lookup key-value DB) to indicate that the operation has been successfully applied.
+- If the idempotency key is in the database, this indicates that this request is a retry from the client and hence should not be processed.
+- Once a client receives an acknowledgment of a success for an individual operation, the idempotency key can be discarded.
 
 ### Failure Detection
 To tolerate faults, the first step is to _detect_ them.  
@@ -51,6 +61,8 @@ There is a trade-off between efficiency and accuracy of detecting faulty process
 
 Each machine has its own clock and therefore, has its own notion of time.  
 It is possible to synchronise the clocks but to some degree using NTP   
+
+If all the clocks on every machine were perfectly synchronized, we could always simply compare the timestamps on events across nodes to determine the precise order they occurred in.
 
 Type of clocks
 - Time of day clock

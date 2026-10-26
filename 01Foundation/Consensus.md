@@ -2,8 +2,8 @@
 title: "Consensus"
 type: concept
 domain: [distributed-systems]
-tags: [consensus, leader-election, shared-log, atomic-broadcast, locks, leases, flp]
-summary: "How multiple nodes agree on a value: shared logs, atomic broadcast, leader election, locks and leases."
+tags: [consensus, leader-election, shared-log, atomic-broadcast, locks, leases, flp, failure-detection, timeouts]
+summary: "How multiple nodes agree on a value: FLP limitations, practical timeout assumptions, shared logs, atomic broadcast, leader election, locks and leases."
 use_when:
   - "Leader election or failover without split brain"
   - "Distributed locks, leases, or uniqueness constraints"
@@ -17,8 +17,11 @@ status: solid
 ---
 
 # What it is
-It allows multiple processes to reach an agreement on a value.
+It allows multiple processes to reach an agreement on a value.  
+
 **FLP Impossibility** says that it is impossible to get consensus in an asynchronous system in bounded time.
+In reality, distributed systems reach consensus all the time. This is possible because while our networks are asynchronous, we can establish sensible practical bounds on message delays and retry after a timeout period.  
+
 **Role of failure detection**
 Since failure detection is not always accurate, it is possible that the consensus algorithm is restarted because a process is incorrectly reported as faulty.
 
@@ -120,4 +123,3 @@ One or more nodes may _propose_ values, and the consensus algorithm _decides_
 ### Single leader issues
 - The leader can become bottleneck.  
   - Possible Solution: Partion the system and have each partition a separate leader
-

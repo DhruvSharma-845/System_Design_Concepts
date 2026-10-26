@@ -2,8 +2,8 @@
 title: "Transactions"
 type: concept
 domain: [databases, distributed-systems]
-tags: [acid, isolation-levels, concurrency-control, two-phase-commit, distributed-transactions, exactly-once]
-summary: "ACID transactions on single nodes and distributed systems: isolation levels, concurrency control, 2PC/3PC, and exactly-once."
+tags: [acid, isolation-levels, concurrency-control, two-phase-commit, distributed-transactions, exactly-once, idempotency]
+summary: "ACID transactions on single nodes and distributed systems: isolation levels, concurrency control, 2PC/3PC, exactly-once, and idempotent message processing."
 use_when:
   - "Correctness under concurrent writes"
   - "Atomic updates across shards or services"
@@ -12,6 +12,7 @@ related:
   - "01Foundation/Consensus.md"
   - "01Foundation/Consistency.md"
   - "03Patterns/WorkflowEngines.md"
+  - "01Foundation/FaultTolerance.md"
 status: solid
 ---
 
@@ -184,5 +185,5 @@ Atomically committing multiple operations, one of which contains message process
 The operations must be revertible(for eg, sending email is irrevertible).
 - An operation takes effect exactly once, even if a crash occurs while it is being processed and the processing needs to be retried.
 For a special case where the transaction contains write in database and message processing, the overhead of distributed transaction is not required.
-- Recording the message ID in the database makes the message processing _idempotent_, so that message processing can be safely retried without duplicating its side effects.
+- Recording the message ID in the database makes the message processing _idempotent_, so that message processing can be safely retried without duplicating its side effects. Idempotency is described [here](./FaultTolerance.md)
 - Used by Kafka Streams

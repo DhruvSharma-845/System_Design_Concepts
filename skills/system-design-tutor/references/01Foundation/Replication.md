@@ -2,7 +2,7 @@
 title: "Replication"
 type: concept
 domain: [databases, distributed-systems]
-tags: [single-leader, multi-leader, leaderless, failover, replication-lag, conflict-resolution, quorum, gossip]
+tags: [single-leader, multi-leader, leaderless, failover, replication-lag, conflict-resolution, quorum, gossip, clocks, event-ordering]
 summary: "Keeping copies of data on multiple nodes: single-leader, multi-leader, and leaderless replication, plus conflict resolution."
 use_when:
   - "High availability or failover"
@@ -158,7 +158,9 @@ If there are _n_ replicas, every write must be confirmed by _w_ nodes to be 
 A client that wants to perform a multi-region write first chooses a node in its local region, called the _coordinator node_, and sends its write to that node. The coordinator node forwards the write to all replicas in its own region and to one replica in every other region, which then forwards it to the other replicas in that region.
 
 ## Conflict Resolution
-Concurrent writes to multiple leaders can lead to conflicts that must be resolved. 
+
+Concurrent writes to multiple leaders can lead to conflicts that must be resolved.   
+If all the clocks on every machine were perfectly synchronized, we could always simply compare the timestamps on events across nodes to determine the precise order they occurred in.
 
  If nodes simply overwrote the value for a key whenever it received a write request from a client, the nodes would become permanently inconsistent.
  To become eventually consistent, the replicas should converge toward the same value.

@@ -11,14 +11,14 @@
             "id": "4abbce6372d22759",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "AGENTS.md",
-                "mode": "source",
-                "source": false
+                "aFile": "02BuildingBlocks/DNS.md",
+                "bFile": "02BuildingBlocks/DNS.md",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "AGENTS"
+              "icon": "diff",
+              "title": "Diff: DNS  (Working Tree)"
             }
           }
         ]
@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "monotonic",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -83,7 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 276.75
+    "width": 239.390625
   },
   "right": {
     "id": "aed9bfafb33dc225",
@@ -195,7 +195,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 502.94140625
+    "width": 380.5390625
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -209,8 +209,25 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c7e036139d9ece4b",
+  "active": "f3a5cdf7fbcc0115",
   "lastOpenFiles": [
+    "skills/system-design-tutor/references/assets/rpc.png",
+    "skills/system-design-tutor/references/02BuildingBlocks/DNS.md",
+    "skills/system-design-architect/references/README.md",
+    "skills/system-design-architect/references/assets/rpc.png",
+    "skills/system-design-architect/references/02BuildingBlocks/DNS.md",
+    "01Foundation/FaultTolerance.md",
+    "01Foundation/Replication.md",
+    "01Foundation/Consistency.md",
+    "01Foundation/Consensus.md",
+    "01Foundation/Transactions.md",
+    "01Foundation/NetworkCommunication.md",
+    "Untitled.canvas",
+    "02BuildingBlocks/Authentication&Authorization.md",
+    "assets/rpc.png",
+    "assets/Screenshot 2026-10-26 at 10.23.07 PM.png",
+    "02BuildingBlocks/DNS.md",
+    "AGENTS.md",
     "skills/system-design-tutor/SKILL.md",
     "skills/system-design-architect/SKILL.md",
     "skills/system-design-architect/references/INDEX.md",
@@ -226,24 +243,11 @@
     "skills/system-design-tutor/references/04Architectures/EventDrivenArchitecture.md",
     "skills/system-design-tutor/references/04Architectures",
     "01Foundation/Caching.md",
-    "skills/system-design-architect/references/README.md",
     "README.md",
     "dist/system-design-tutor.zip",
     "dist/system-design-architect.zip",
     "dist",
     "skills/system-design-tutor/references/01Foundation/Transactions.md",
-    "skills/system-design-tutor/references/01Foundation/StorageEngines.md",
-    "skills/system-design-tutor/references/01Foundation/Sharding.md",
-    "skills/system-design-tutor/references/01Foundation/Security.md",
-    "skills/system-design-tutor/references/01Foundation/Scalability.md",
-    "skills/system-design-tutor/references/01Foundation/Replication.md",
-    "skills/system-design-tutor/references/01Foundation/NetworkCommunication.md",
-    "skills/system-design-tutor/references/01Foundation/FaultTolerance.md",
-    "skills/system-design-tutor/references/01Foundation/DataModels.md",
-    "skills/system-design-tutor/references/01Foundation/Consistency.md",
-    "skills/system-design-tutor/references/01Foundation/Consensus.md",
-    "skills/system-design-tutor/references/01Foundation/Caching.md",
-    "skills/system-design-tutor/references/03Patterns/WorkflowEngines.md",
     "skills/system-design-tutor/references/03Patterns",
     "skills/system-design-tutor/references/02BuildingBlocks",
     "skills/system-design-tutor/references/01Foundation",
