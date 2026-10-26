@@ -36,6 +36,8 @@ It is a translation between in-memory representation of data and self-contained 
 - NoSQL: It is schema-less database so different versions of data formats can be written in the same database.
 
 ## Network Communication Schema
+
+### Application Layer
 New and old versions of data formats might coexist at the same time.
 - Rolling upgrade of a service
 - Some clients have not installed the update of the app.
@@ -51,6 +53,21 @@ New and old versions of data formats might coexist at the same time.
 - Remote Procedure Call
 	- Request to remote service looks like calling a local function
 	- gRPC (Protocol Buffers) and Avro RPC
+
+### Network Layer
+Data is transmitted from source to destination using IP protocol.It consists of addressing and routing protocols.
+
+- Routers: They are the devices that help in transmitting the data from source to destination. They receive the data from one network connect and place it on other network based on its destination
+
+### Physical Layer
+It manages the transmission of data in a single network segment, from node A to node B.
+Network often comprises of heterogeneous machines, with different types of communication channels.
+- Wired
+  - LAN: Connect devices at small scale
+  - WAN: traverses globe and make up the internet, using high speed fiber optics data pipelines 
+- Wireless
+  - Wireless Ethernet networks that use 802.11 protocol for transmission.
+  - Cellular uses radio waves to transmit data between phone and cell towers that are connected through wire to the internet.
 
 
 
