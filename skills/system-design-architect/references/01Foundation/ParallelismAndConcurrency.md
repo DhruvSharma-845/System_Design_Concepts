@@ -23,6 +23,10 @@ With a multicore chip, the software that has been structured for parallel activi
     - Preemption: Once a scheduler gives the thread an execution time slot, it can interrupt the thread after time slot and schedule another one.
   - Threads Coordination
     - Using joins: It causes the calling thread to block until the other threads terminate.
+    - Using guarded blocks: Guarded blocks use a condition as a guard that must hold before the thread resumes the execution. wait() and notify() are its examples.
   - Race Conditions
     - In multi threading on single core, the threads execution is interleaved. If there is a shared data among the threads, writing to it can be in any non-deterministic order and can sometimes produce incorrect results.
-    - Protect critical sections
+    - Protect critical sections: It is a section of code that updates shared data and hence, must be executed atomically. When multiple threads want to update the shared data, only one thread is permitted to enter critical section and all other threads block. It can be implemented through locks
+    - Acquiring locks in different order by multiple processes can lead to deadlock where all threads are blocked on each other for acquisition of lock.
+  - Thread pools
+    - Helps in efficient utilization of resources and limits the overconsumption of resources in the absence of thread pool.
