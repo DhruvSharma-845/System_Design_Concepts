@@ -1,3 +1,19 @@
+---
+title: "Parallelism and Concurrency"
+type: concept
+domain: [distributed-systems]
+tags: [parallelism, concurrency, threads, processes, race-conditions, locks, deadlocks, thread-pools]
+summary: "Single-node concurrency using processes and threads: resource utilization, coordination, race conditions, locks, deadlocks, and thread pools."
+use_when:
+  - "Improving request throughput or resource utilization with concurrent execution"
+  - "Coordinating threads and protecting shared state"
+related:
+  - "01Foundation/Scalability.md"
+  - "01Foundation/Transactions.md"
+  - "04Architectures/MonolithArchitecture.md"
+status: partial
+---
+
 # What it is
 Executing multiple pieces of code parallely or concurrently on multiple processing nodes.
 

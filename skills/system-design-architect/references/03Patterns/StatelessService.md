@@ -1,3 +1,20 @@
+---
+title: "Stateless Service"
+type: pattern
+domain: [distributed-systems]
+tags: [stateless-services, stateful-services, session-state, self-contained-requests, scale-out]
+summary: "Stateful versus stateless services: session-state benefits and costs, and self-contained requests without retained client session state."
+use_when:
+  - "Choosing whether a service should retain client session state"
+  - "Scaling service replicas behind a load balancer"
+related:
+  - "01Foundation/Scalability.md"
+  - "02BuildingBlocks/LoadBalancer.md"
+  - "04Architectures/MonolithArchitecture.md"
+  - "04Architectures/Microservices.md"
+status: partial
+---
+
 # Stateful Service
 Conversation state represents any information that is retained between requests such that the request can assume that the service has retained knowledge about previous interactions.  
   

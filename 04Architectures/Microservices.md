@@ -2,12 +2,14 @@
 title: "Microservices"
 type: architecture
 domain: [distributed-systems]
-tags: [services, service-boundaries, independent-deployment, api, load-balancing, caching]
-summary: "Decomposing a system into cohesive, independently deployed services that communicate remotely (e.g., HTTP)."
+tags: [services, service-boundaries, independent-deployment, independent-scaling, api, load-balancing, caching]
+summary: "Decomposing a system into cohesive, independently deployed services that communicate remotely and scale according to each service's demand."
 use_when:
   - "Large systems with independent teams or deployment needs"
+  - "Scaling services independently based on demand"
 related:
   - "01Foundation/NetworkCommunication.md"
+  - "01Foundation/Scalability.md"
   - "02BuildingBlocks/LoadBalancer.md"
   - "01Foundation/Caching.md"
   - "04Architectures/MonolithArchitecture.md"

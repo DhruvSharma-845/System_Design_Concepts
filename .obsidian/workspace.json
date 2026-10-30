@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "aa5483641a4ef704",
+        "id": "6fd9dca1f0ab1bd6",
         "type": "tabs",
         "children": [
           {
-            "id": "4abbce6372d22759",
+            "id": "e147566651f1eb09",
             "type": "leaf",
             "state": {
               "type": "split-diff-view",
               "state": {
-                "aFile": "02BuildingBlocks/DNS.md",
-                "bFile": "02BuildingBlocks/DNS.md",
+                "aFile": "skills/system-design-architect/references/04Architectures/MonolithArchitecture.md",
+                "bFile": "skills/system-design-architect/references/04Architectures/MonolithArchitecture.md",
                 "aRef": ""
               },
               "icon": "diff",
-              "title": "Diff: DNS  (Working Tree)"
+              "title": "Diff: MonolithArchitecture  (Working Tree)"
             }
           }
         ]
@@ -209,11 +209,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f3a5cdf7fbcc0115",
+  "active": "e147566651f1eb09",
   "lastOpenFiles": [
+    "skills/system-design-tutor/references/README.md",
+    "skills/system-design-architect/references/README.md",
+    "02BuildingBlocks/LoadBalancer.md",
+    "04Architectures/MonolithArchitecture.md",
+    "04Architectures/Microservices.md",
+    "03Patterns/StatelessService.md",
+    "01Foundation/ParallelismAndConcurrency.md",
+    "skills/system-design-tutor/references/03Patterns/StatelessService.md",
+    "skills/system-design-architect/references/03Patterns/StatelessService.md",
+    "skills/system-design-tutor/references/01Foundation/ParallelismAndConcurrency.md",
+    "skills/system-design-architect/references/01Foundation/ParallelismAndConcurrency.md",
     "skills/system-design-tutor/references/assets/rpc.png",
     "skills/system-design-tutor/references/02BuildingBlocks/DNS.md",
-    "skills/system-design-architect/references/README.md",
     "skills/system-design-architect/references/assets/rpc.png",
     "skills/system-design-architect/references/02BuildingBlocks/DNS.md",
     "01Foundation/FaultTolerance.md",
@@ -232,22 +242,13 @@
     "skills/system-design-architect/SKILL.md",
     "skills/system-design-architect/references/INDEX.md",
     "skills/system-design-architect/templates/review-checklist.md",
-    "skills/system-design-tutor/references/README.md",
     "skills/system-design-tutor/references/assets/saml.png",
     "skills/system-design-tutor/references/assets/oauth2authcodewithpkce.png",
     "skills/system-design-tutor/references/assets",
-    "skills/system-design-tutor/references/04Architectures/Tenancy.md",
-    "skills/system-design-tutor/references/04Architectures/SecurityArchitectures.md",
-    "skills/system-design-tutor/references/04Architectures/MonolithArchitecture.md",
-    "skills/system-design-tutor/references/04Architectures/Microservices.md",
-    "skills/system-design-tutor/references/04Architectures/EventDrivenArchitecture.md",
     "skills/system-design-tutor/references/04Architectures",
-    "01Foundation/Caching.md",
-    "README.md",
     "dist/system-design-tutor.zip",
     "dist/system-design-architect.zip",
     "dist",
-    "skills/system-design-tutor/references/01Foundation/Transactions.md",
     "skills/system-design-tutor/references/03Patterns",
     "skills/system-design-tutor/references/02BuildingBlocks",
     "skills/system-design-tutor/references/01Foundation",
