@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "6fd9dca1f0ab1bd6",
+        "id": "d129d1eac693e71c",
         "type": "tabs",
         "children": [
           {
-            "id": "e147566651f1eb09",
+            "id": "2ffe85bca0c4b7f6",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "skills/system-design-architect/references/04Architectures/MonolithArchitecture.md",
-                "bFile": "skills/system-design-architect/references/04Architectures/MonolithArchitecture.md",
-                "aRef": ""
+                "file": "01Foundation/Caching.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: MonolithArchitecture  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "Caching"
             }
           }
         ]
@@ -209,12 +209,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e147566651f1eb09",
+  "active": "2ffe85bca0c4b7f6",
   "lastOpenFiles": [
+    "04Architectures/MonolithArchitecture.md",
+    "01Foundation/Caching.md",
     "skills/system-design-tutor/references/README.md",
     "skills/system-design-architect/references/README.md",
     "02BuildingBlocks/LoadBalancer.md",
-    "04Architectures/MonolithArchitecture.md",
     "04Architectures/Microservices.md",
     "03Patterns/StatelessService.md",
     "01Foundation/ParallelismAndConcurrency.md",
@@ -241,7 +242,6 @@
     "skills/system-design-tutor/SKILL.md",
     "skills/system-design-architect/SKILL.md",
     "skills/system-design-architect/references/INDEX.md",
-    "skills/system-design-architect/templates/review-checklist.md",
     "skills/system-design-tutor/references/assets/saml.png",
     "skills/system-design-tutor/references/assets/oauth2authcodewithpkce.png",
     "skills/system-design-tutor/references/assets",
