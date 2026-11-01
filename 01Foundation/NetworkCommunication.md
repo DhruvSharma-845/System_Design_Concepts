@@ -64,6 +64,21 @@ There are four layers of protocols and each layer builds upon the layer that is 
 	- gRPC (Protocol Buffers) and Avro RPC
 	- Marshalling and unmarshalling can become inefficient for complex object parameters. Cross-language marshalling—client in one language, server in another—can cause problems
 
+- Asynchronous messaging
+  - Clients send their messages to intermediary messaging service.
+  - Client(producer) fires and forget, confident that the message service would make the message reach the destination(consumer).
+  - Producers don't have to wait.
+  - Primitives of messaging systems
+    - Message Queue
+    - Producer
+    - Consumer
+    - Message broker: manages queues
+  - Producer send the message to a named queue on broker. Producer will wait for the acknowledgement from the broker.
+  - Consumer provides callback to broker which it invokes when a message is available.
+  - Brokers remove the message from queue when the acknowledgement from consumer is received.
+  - Durability: To guard against message loss in case of crash, queues can be configured to be persisted on disk. On reboot, the broker can restore to the state before crash.
+
+
 ### Transport Layer
 It consists of protocols that ensures best-effort delivery of data.
 Protocols:
