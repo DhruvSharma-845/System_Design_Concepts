@@ -2,11 +2,12 @@
 title: "Monolith Architecture"
 type: architecture
 domain: [distributed-systems]
-tags: [monolith, three-tier, application-server, tomcat, servlets, thread-pools, connection-pooling, stateless-services, scale-up, scale-out, caching]
-summary: "Three-tier monolith: request flow, application servers (Tomcat, servlets, threads, and database connection pools), limitations, and scaling."
+tags: [monolith, three-tier, application-server, tomcat, servlets, thread-pools, connection-pooling, load-balancing, stateless-services, scale-up, scale-out, caching]
+summary: "Three-tier monolith request flow, application-server handling (Tomcat, servlets, threads, and database connection pools), load balancing, limitations, and scaling."
 use_when:
   - "Early-stage or simple systems"
   - "Understanding application-server request handling and database connection pooling"
+  - "Distributing monolith requests across application-server instances"
   - "Deciding when a monolith needs scaling or decomposition into microservices"
 related:
   - "02BuildingBlocks/LoadBalancer.md"

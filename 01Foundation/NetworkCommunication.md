@@ -2,12 +2,13 @@
 title: "Network Communication"
 type: concept
 domain: [networking]
-tags: [encoding, protobuf, avro, json, schema-evolution, rest, rpc, grpc, rmi, tcp, udp, sockets, ip, dns]
-summary: "Data encoding and schema evolution, REST and RPC/RMI, and network layers including TCP, UDP, sockets, IP, and DNS."
+tags: [encoding, protobuf, avro, json, schema-evolution, rest, rpc, grpc, rmi, asynchronous-messaging, message-brokers, queues, publish-subscribe, acknowledgments, durability, tcp, udp, sockets, ip, dns]
+summary: "Data encoding and schema evolution, REST and RPC/RMI, asynchronous messaging with brokers and queues, and network layers including TCP, UDP, sockets, IP, and DNS."
 use_when:
   - "Designing service APIs"
   - "Choosing serialization formats"
   - "Planning backward and forward compatible schema changes"
+  - "Choosing asynchronous messaging patterns, broker delivery guarantees, or consumption models"
   - "Choosing transport protocols or understanding service name resolution"
 related:
   - "01Foundation/DataModels.md"

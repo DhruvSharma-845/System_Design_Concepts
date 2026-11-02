@@ -10,12 +10,18 @@ tags:
   - distributed-cache
   - cache-aside
   - cache-invalidation
+  - web-caching
+  - cdn
+  - http-caching
+  - etag
   - latency
   - read-scaling
-summary: Reducing database load and latency with database caching and distributed key-value caches (cache-aside, invalidation). Web Caching
+summary: "Reducing database load and latency with database and distributed caches, plus web caching through browsers, proxies, and CDNs using HTTP freshness and revalidation."
 use_when:
   - Read-heavy workloads or hot keys
   - Reducing latency or database load
+  - Serving static content with browser, proxy, or CDN caches
+  - Controlling HTTP cache freshness and revalidation
 related:
   - 01Foundation/Scalability.md
   - 01Foundation/Consistency.md
