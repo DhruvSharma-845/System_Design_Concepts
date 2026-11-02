@@ -77,6 +77,14 @@ There are four layers of protocols and each layer builds upon the layer that is 
   - Consumer provides callback to broker which it invokes when a message is available.
   - Brokers remove the message from queue when the acknowledgement from consumer is received.
   - Durability: To guard against message loss in case of crash, queues can be configured to be persisted on disk. On reboot, the broker can restore to the state before crash.
+  - One-to-one messaging: Only one consumer consumes the message.
+  - Publish-subscribe: Multiple consumers can consume the message.
+    - publishers and subscribes are decoupled, new subscribers can be added without changing the system
+  - Fault tolerance
+    - Broker is single point of failure
+    - Queues can be replicated across multiple brokers.
+    - messages published to leader are replicated to followers. Removal also follow the same.
+
 
 
 ### Transport Layer
