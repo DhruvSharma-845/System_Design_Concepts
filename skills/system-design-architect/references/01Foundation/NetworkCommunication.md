@@ -66,26 +66,41 @@ There are four layers of protocols and each layer builds upon the layer that is 
 	- Marshalling and unmarshalling can become inefficient for complex object parameters. Cross-language marshalling—client in one language, server in another—can cause problems
 
 - Asynchronous messaging
-  - Clients send their messages to intermediary messaging service.
-  - Client(producer) fires and forget, confident that the message service would make the message reach the destination(consumer).
-  - Producers don't have to wait.
-  - Primitives of messaging systems
-    - Message Queue
-    - Producer
-    - Consumer
-    - Message broker: manages queues
-  - Producer send the message to a named queue on broker. Producer will wait for the acknowledgement from the broker.
-  - Consumer provides callback to broker which it invokes when a message is available.
-  - Brokers remove the message from queue when the acknowledgement from consumer is received.
-  - Durability: To guard against message loss in case of crash, queues can be configured to be persisted on disk. On reboot, the broker can restore to the state before crash.
-  - One-to-one messaging: Only one consumer consumes the message.
-  - Publish-subscribe: Multiple consumers can consume the message.
-    - publishers and subscribes are decoupled, new subscribers can be added without changing the system
-  - Fault tolerance
-    - Broker is single point of failure
-    - Queues can be replicated across multiple brokers.
-    - messages published to leader are replicated to followers. Removal also follow the same.
-
+	- Clients send their messages to intermediary messaging service.
+	- Client(producer) fires and forget, confident that the message service would make the message reach the destination(consumer).
+	- A message broker runs as a server, with producers and consumers connecting to it as clients.
+	- Consumer provides callback to broker which it invokes when a message is available.
+	- Brokers remove the message from queue when the acknowledgement from consumer is received.
+	- **Asynchronous**:
+		- Producers don't have to wait. Messages are buffered in queue in case consumer is not available or the producer is sending messages at speed far greater than what consumer can handle.
+		- The delivery to consumers will happen at an undetermined future point in time.
+	- Primitives of messaging systems
+	    - Message Queue
+	    - Producer
+	    - Consumer
+	    - Message broker: manages queues
+	- **Durability**:
+		- Some message brokers only keep messages in memory, while others (depending on configuration) write them to disk so that they are not lost in case of a broker crash.
+		- Some message brokers automatically delete a message when it has been successfully delivered to its consumers. If you add a new consumer to a messaging system, it typically starts receiving messages sent only after the time it was registered.
+		- On reboot, the broker can restore to the state before crash.
+	- **Fault tolerance**:
+		- Producer send the message to a named queue on broker. Producer will wait for the acknowledgement from the broker.
+		- To ensure that the message is not lost, message brokers use _acknowledgments_: a client must explicitly tell the broker when it has finished processing a message so that the broker can remove it from the queue
+		- If the acknowledgement is not received, broker redelivers the message. The combination of load balancing with redelivery inevitably leads to messages being reordered. 
+		- Broker is single point of failure. Queues can be replicated across multiple brokers.
+		- Messages published to leader are replicated to followers. Removal also follow the same.
+		- With leader-follower message replication, the follower is known as a hot standby, basically a replica of the leader that is available if the leader fails. They do not support load balancing.
+	- **Consumption patterns**:
+		- Load balancing: Each message is delivered to _one_ of the consumers, so the consumers can share the work of processing the messages in the topic.
+		- Competing consumers: Running multiple consumer threads and/or processes that concurrently processes messages.
+		- Fan-out: Each message is delivered to _all_ the consumers.
+		- Publish-subscribe:  When a consumer group subscribes to a topic, each message in the topic is sent to one of the consumers in the group (balancing load across the consumers in the group). If two separate consumer groups subscribe to the same topic, each message is sent to one consumer in each group (providing fan-out across consumer groups).
+	- Exactly-once processing
+		- Two sources for duplicate message processing
+			- producer retrying a message due to acknowledgement not received: Message brokers support duplicate detection using client-generated, unique _idempotency key_ values for each message.
+			- consumer fails to send acknowledgement to broker cause broker to resend: Maintaining a cache of idempotency keys.
+	- Poison messages
+		- The solution to poison message handling is to limit the number of times a message can be redelivered. When the redelivery limit is reached, the message is automatically moved to a queue where problematic requests are collected. This queue is traditionally and rather macabrely known as the _dead-letter queue_
 
 
 ### Transport Layer
@@ -116,5 +131,4 @@ Network often comprises of heterogeneous machines, with different types of commu
 - Wireless
   - Wireless Ethernet networks that use 802.11 protocol for transmission.
   - Cellular uses radio waves to transmit data between phone and cell towers that are connected through wire to the internet.
-
 

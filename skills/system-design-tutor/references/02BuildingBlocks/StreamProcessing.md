@@ -35,22 +35,7 @@ Related events are grouped into an event stream or topic.
 - Brokerless messaging; no intermediary nodes
 - Assumes that producers and consumers are constantly online.
 ## Queue-based message brokers
-- A message broker runs as a server, with producers and consumers connecting to it as clients.
-- Allows multiple producer nodes to send messages to the same topic 
-- Allows multiple consumer nodes to receive messages in a topic
-- Messages are buffered in queue in case consumer is not available or the producer is sending messages at speed far greater than what consumer can handle.
-- **Durability**:
-	- Some message brokers only keep messages in memory, while others (depending on configuration) write them to disk so that they are not lost in case of a broker crash.
-	- Some message brokers automatically delete a message when it has been successfully delivered to its consumers. If you add a new consumer to a messaging system, it typically starts receiving messages sent only after the time it was registered.
-- **Asynchronous**:
-	- The delivery to consumers will happen at an undetermined future point in time.
-- **Fault Tolerance**:
-	- To ensure that the message is not lost, message brokers use _acknowledgments_: a client must explicitly tell the broker when it has finished processing a message so that the broker can remove it from the queue
-	- If the acknowledgement is not received, broker redelivers the message. The combination of load balancing with redelivery inevitably leads to messages being reordered. 
-- **Consumption patterns**:
-	- Load balancing: Each message is delivered to _one_ of the consumers, so the consumers can share the work of processing the messages in the topic.
-	- Fan-out: Each message is delivered to _all_ the consumers.
-	- **Kafka as an example**:  When a consumer group subscribes to a topic, each message in the topic is sent to one of the consumers in the group (balancing load across the consumers in the group). If two separate consumer groups subscribe to the same topic, each message is sent to one consumer in each group (providing fan-out across consumer groups).
+- Covered in [Asynchronous Messaging](../01Foundation/NetworkCommunication.md)
 
 ## Log-based message brokers
 - A producer sends a message by appending it to the end of the log, and a consumer receives messages by reading the log sequentially. If a consumer reaches the end of the log, it waits for a notification that a new message has been appended.
