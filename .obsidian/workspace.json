@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "d129d1eac693e71c",
+        "id": "55077b11dbe8653f",
         "type": "tabs",
         "children": [
           {
-            "id": "2ffe85bca0c4b7f6",
+            "id": "1443f26a15c300b4",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "01Foundation/NetworkCommunication.md",
-                "bFile": "01Foundation/NetworkCommunication.md",
-                "aRef": ""
+                "file": "04Architectures/Microservices.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: NetworkCommunication  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "Microservices"
             }
           }
         ]
@@ -209,8 +209,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2ffe85bca0c4b7f6",
+  "active": "1443f26a15c300b4",
   "lastOpenFiles": [
+    "02BuildingBlocks/APIGateway.md",
+    "04Architectures/Microservices.md",
     "03Patterns/ServerlessProcessingSystem.md",
     "skills/system-design-tutor/references/README.md",
     "skills/system-design-tutor/references/assets/saml.png",
@@ -245,7 +247,6 @@
     "01Foundation/ParallelismAndConcurrency.md",
     "01Foundation/FaultTolerance.md",
     "01Foundation/DataModels.md",
-    "01Foundation/Caching.md",
     "Untitled.canvas",
     "assets/rpc.png",
     "assets/Screenshot 2026-10-26 at 10.23.07 PM.png",
