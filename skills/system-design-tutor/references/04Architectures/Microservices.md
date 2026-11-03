@@ -19,10 +19,29 @@ status: partial
 ---
 
 # What it is
-It consists of cohesive services that are independently deployed processes and communicate using remote communications mechanisms such as HTTP.
+It consists of fine-grained cohesive services that are independently deployed processes and communicate using remote communications mechanisms such as HTTP.
+
+### Characteristics
+- A microservice is scoped around a business capability.
+- Small agile teams can iterate and evolve features quickly.
+- Each microservice is self-contained,encapsulating its own data storage and offers APIs for communication.
+- Lesser code complexity due to narrower scope of service.
+- Individual services can be independently scaled out
+
+
+
 # How it works
  A service can call one or more dependent services, which in turn are replicated and load-balanced and employs caching to provide high performance and availability.
 
 # Advantages
 - By breaking the application into multiple independent services, you can scale each based on the service demand
 - can be separately built, tested, deployed.
+
+# Decomposing system into microservices
+
+## Important factors to be considered
+- Communication cost
+- Monitoring complexity
+
+## Domain-driven design
+It maps each microservice to the bounded context.
