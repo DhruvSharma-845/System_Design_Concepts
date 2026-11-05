@@ -68,6 +68,9 @@ The application service code exploits a server execution environment that enabl
 
 # Scaling of database 
 
+## Scale up
+- run on machines with multiple CPUs, disks, and large shared memories
+
 ## Caching
 - Scaling up by increasing the number of CPUs, memory, and disks in a database server can go a long way.
 - A highly effective approach is querying the database as infrequently as possible from your services. This can be achieved by employing [distributed caching](../01Foundation/Caching.md).
