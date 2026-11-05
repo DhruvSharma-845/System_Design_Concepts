@@ -16,7 +16,7 @@ status: solid
 
 # What it is
 It is a logical division of data into smaller manageable segments(partitions). Each segment is a database of its own.  
-Sharding is usually combined with replication, so that copies of each shard are stored on multiple nodes. Each shard’s leader is assigned to one node, and its followers are assigned to other nodes.
+Sharding is usually combined with replication, so that copies of each shard are stored on multiple nodes. Each shard’s leader is assigned to one node, and its followers are assigned to other nodes. If one node becomes unavailable, the application can continue to execute by accessing one of the replicas.  
 
 # Why it is needed
 - Volume of the data that a single node cannot store
@@ -26,9 +26,15 @@ Sharding is usually combined with replication, so that copies of each shard are
 - Either each tenant is given a separate shard, or multiple small tenants may be grouped together into a larger shard
 - Provides resource isolation, schema migrations can be rolled out gradually, one tenant at a time. 
 
+# Inefficient partitioning
+If a single request needs to access data from multiple nodes, or join data from distributed partitioned tables, a high level of network traffic and request coordination is required.
+Common strategies to achieve this are:
+- Define reference tables that are relatively small, rarely change, and need to be joined against frequently. These reference tables can be copied to each node so that join operations can execute locally and in parallel on each partitioned node.
+- Use partition keys or secondary indexes in joins. Again, this allows joins to execute locally and in parallel on each partition
+
 # Types of sharding
  You typically have to decide which records to put in which shard by choosing a _partition key_; all records with the same partition key are placed in the same shard.  
- The goal with sharding is to spread the data and the query load evenly across nodes.  
+ The goal with sharding is to spread the data and the query load evenly across nodes. A sharding algorithm should evenly distribute data across the available resources.  
  
 - Range partitioning
 	- splitting the data into ranges and assign ranges to shards. Each shard will handle a range.

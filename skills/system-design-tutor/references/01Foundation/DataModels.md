@@ -27,6 +27,7 @@ Each layer hides the complexity of the layer below it.
 - A table is unordered collection of tuples(rows)
 - Better support for joins
 - Schema on write: The schema is explicit and the database ensures that all data conforms to it when the data is written
+- encourages normalization, reducing data redundancy
 
 ### Types of relationship
 - One-to-many
@@ -51,11 +52,13 @@ SQL
 
 ## Document
 - Represents data as interconnected graph of self-contained JSON
+- Each document in the database has a unique key.
 - Fits more naturally to represent the object structure graph(especially one-to-many relationships), thus, reducing the impedance mismatch.
 - Relaxed schema constraints(schemaless) but more appropriately, it is schema on read(interpreted only when the data is read)
-	- Advantageous if the items in the collection don’t all have the same structure
+	- Advantageous if the items in the collection don’t all have the same structure. There is no need for every object in a logical collection to have the same format.
+	- It becomes the responsibility of the application to discover the structure of the data it reads. This requires data objects to be stored in the database along with metadata (basically field names) that make structure discovery possible
 - Better performance due to data locality
-- Most often, denormalized data schema is used. And relationships are rare.
+- Most often, denormalized data schema is used(duplicated data). And relationships are rare. Less capabilities to execute join queries.
 
 ### Types of relationship
 - One-to-many: Fits naturally
@@ -65,6 +68,7 @@ JSONPath, $lookup etc.
 
 ## Graph
 - Suitable for complex many-to-many relationships 
+- treat relationships between database objects as first-class citizens. 
 - Can store heterogeneous data types as vertices in single database
 - queries potentially need to traverse multiple hops to find the data of interest
 
@@ -78,6 +82,21 @@ JSONPath, $lookup etc.
   - Every information is stored in three-part statements: Subject, predicate and object
   - Query Languages
     - SPARQL: Uses RDF data model
+
+## Key-value
+Key-value (KV) databases are basically a hash map. Every object in the database has a unique key that is used to retrieve data associated with that key. Example databases are Redis.
+
+### Query Language
+KV databases may offer little more than APIs that support CRUD operations based on individual key values
+
+## Wide Column
+Organize the data associated with a key in named columns.  
+It’s essentially a two-dimensional hash map, enabling columns within a row to be uniquely identified and sorted using the column name. Like a document database, each row in a collection can have different columns.  
+Example database is Cassandra.
+
+### Query Language
+Cassandra Query Language (CQL) is modeled on SQL and provides a declarative language for accessing the underlying wide column store
+
 
 # GraphQL
 It is a query language that allows the clients to request the data from server with a specific JSON structure.  
