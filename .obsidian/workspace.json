@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01Foundation/Sharding.md",
+                "file": "01Foundation/Replication.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sharding"
+              "title": "Replication"
             }
           }
         ]
@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "version",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -211,17 +211,19 @@
   },
   "active": "1443f26a15c300b4",
   "lastOpenFiles": [
+    "01Foundation/Consistency.md",
+    "01Foundation/Replication.md",
+    "01Foundation/Transactions.md",
+    "01Foundation/Sharding.md",
+    "skills/system-design-tutor/references/02BuildingBlocks/APIGateway.md",
+    "skills/system-design-architect/references/02BuildingBlocks/APIGateway.md",
     "01Foundation/DataModels.md",
     "01Foundation/FaultTolerance.md",
     "01Foundation/NetworkCommunication.md",
     "01Foundation/ParallelismAndConcurrency.md",
     "01Foundation/StorageEngines.md",
-    "01Foundation/Sharding.md",
     "01Foundation/Scalability.md",
-    "01Foundation/Replication.md",
     "04Architectures/MonolithArchitecture.md",
-    "01Foundation/Transactions.md",
-    "01Foundation/Consistency.md",
     "01Foundation/Consensus.md",
     "01Foundation/Caching.md",
     "04Architectures/Microservices.md",
@@ -244,9 +246,7 @@
     "skills/system-design-architect/references/04Architectures/SecurityArchitectures.md",
     "skills/system-design-architect/references/04Architectures/MonolithArchitecture.md",
     "skills/system-design-architect/references/04Architectures/Microservices.md",
-    "skills/system-design-architect/references/04Architectures/EventDrivenArchitecture.md",
     "skills/system-design-architect/references/04Architectures",
-    "Untitled.md",
     "Untitled.canvas",
     "assets/rpc.png",
     "assets/Screenshot 2026-10-26 at 10.23.07 PM.png",
