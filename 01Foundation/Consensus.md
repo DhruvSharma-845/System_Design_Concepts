@@ -30,7 +30,7 @@ Since failure detection is not always accurate, it is possible that the consensu
 	- A database can be linearizable if you have only a single leader and you make all reads and writes on that leader. But how do you fail over if that leader fails, while avoiding split brain?
 - Linearizable ID generator with fault tolerance
 	- On a single node, it is just a counter with an atomic fetch-and-add instruction—what if it crashes?
-- putting events in particular order
+- putting events in particular order. For example: All updates to replicas for an object must be applied in the same order at every replica.
 - ensuring consistency among participants
 # Single value consensus
 One or more nodes may _propose_ values, and the consensus algorithm _decides_ on one of those values.
@@ -61,7 +61,11 @@ It is used to disseminate information among a set of processes.
 
 ## Atomic Broadcast
 If we need to deliver messages in order, we have to use the atomic broadcast.
+- A single leader receives clients requests, establishes their order, and performs an atomic broadcast to the followers to ensure a consistent order of updates
+- Raft is leader-based atomic broadcast algorithm
 - Virtual Synchrony delivers totally ordered messages to a _dynamic_ group of peers.
+Fault Tolerance: When a leader fails, a single new leader must be elected and all followers must agree on the same leader.  
+Quorums are used both for acknowledging atomic broadcasts and for leader election. As long as a quorum of the participating nodes are available and agree, the algorithm can make progress
 
 
 # Real-world application

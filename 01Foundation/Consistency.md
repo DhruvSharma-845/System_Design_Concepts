@@ -44,11 +44,12 @@ They helps in
 
 ## Strict Consistency
   - Any write by any process is instantly available for subsequent reads by any process.
-  - Provides serializability for transactions and linearizability for concurrent reads and writes in distributed system.
+  - Provides serializability for transactions(similar to sequential execution) and linearizability(recency guarantee) for concurrent reads and writes in distributed system.
+  - The basic effect is that transactions execute in a serial order (serializability), and that order is defined by the wall clock times of the transactions (linearizability
   - Just a theoretical model
 ## Linearizability
 - Behaves like single-node system
-- Provides recency guarantee: The value read is the most recent written value on any replica
+- Provides recency guarantee: The value read is the most recent written value on any replica. Once a write to a data object succeeds, all subsequent reads that occur after the write must return the value of that write, until the object is modified again.
 - In the absence of linearizability: If reads are concurrent with writes, the reads could see a value flipped back and forth between old and new value. This is not how single-node transactioned system works.
 - Defines total order of the events. Even though operations can overlap, their effects become visible in a way to make them sequential.
 	- Write becomes visible to all readers at some point in time between its start and end(Linearization point). Results have to take effect before completion.
@@ -90,7 +91,7 @@ So, linerarizability is possible with single-leader replication only.
 
 
 # Eventual Consistency
-- Updates propagate through the system asynchronously.
+- Updates propagate through the system asynchronously. After a data object has been updated, different clients may see either the old or new value for the object until all replicas converge on the latest value.
 - The inconsistency window in an eventually consistent system is the duration it takes for an update to a data object to propagate to all replicas.
 - We don’t have control over the duration of the inconsistency window. Eventually all accesses return the latest written value
 - In case of a conflict, the notion of _latest_ value might change, as the values from diverged replicas are reconciled using a conflict resolution strategy, such as last-write-wins or using vector clock.

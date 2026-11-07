@@ -13,6 +13,10 @@ related:
   - "04Architectures/Microservices.md"
 status: partial
 ---
+# What it is
+
+Message producers simply store a message on a queue, without concern about how it is processed by consumers. There can be one or many consumers, and the collection of producers and consumers can evolve over time.   
+This buys you immense architectural flexibility and has benefits in improving service responsiveness, smoothing out request arrival spikes through buffering, and maintaining system processing in the face of unavailable consumers.
 
 # Important Entities
 
