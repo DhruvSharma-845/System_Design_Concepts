@@ -16,6 +16,7 @@ status: solid
 ---
 
 # What it is
+When the database is a distributed system, it has to deal with all the issues inherent with highly variable network latencies, and communication and machine failures. These failures mean your database replicas may remain inconsistent for longer periods.
 Consistency is a property of a system that ensures the data remains consistent among multiple copies. The data read should not be stale, irrespective of the replica it is read from. The data written should not have conflicting value.  
 Also, the operations order on multiple nodes remains same i.e. linearlizable. 
 
@@ -43,11 +44,12 @@ They helps in
 
 ## Strict Consistency
   - Any write by any process is instantly available for subsequent reads by any process.
-  - Provides serializability for transactions and linearizability for concurrent reads and writes in distributed system.
+  - Provides serializability for transactions(similar to sequential execution) and linearizability(recency guarantee) for concurrent reads and writes in distributed system.
+  - The basic effect is that transactions execute in a serial order (serializability), and that order is defined by the wall clock times of the transactions (linearizability
   - Just a theoretical model
 ## Linearizability
 - Behaves like single-node system
-- Provides recency guarantee: The value read is the most recent written value on any replica
+- Provides recency guarantee: The value read is the most recent written value on any replica. Once a write to a data object succeeds, all subsequent reads that occur after the write must return the value of that write, until the object is modified again.
 - In the absence of linearizability: If reads are concurrent with writes, the reads could see a value flipped back and forth between old and new value. This is not how single-node transactioned system works.
 - Defines total order of the events. Even though operations can overlap, their effects become visible in a way to make them sequential.
 	- Write becomes visible to all readers at some point in time between its start and end(Linearization point). Results have to take effect before completion.
@@ -88,12 +90,39 @@ So, linerarizability is possible with single-leader replication only.
 	- To use vector clocks for conflict resolution, whenever we make a write to the database, we first check if the value for the written key already exists locally. If the previous value already exists, we append a new version to the version vector and establish the causal relationship between the two writes. Otherwise, we start a new chain of events and initialize the value with a single version.
 
 
+# Eventual Consistency
+- Updates propagate through the system asynchronously. After a data object has been updated, different clients may see either the old or new value for the object until all replicas converge on the latest value.
+- The inconsistency window in an eventually consistent system is the duration it takes for an update to a data object to propagate to all replicas.
+- We don’t have control over the duration of the inconsistency window. Eventually all accesses return the latest written value
+- In case of a conflict, the notion of _latest_ value might change, as the values from diverged replicas are reconciled using a conflict resolution strategy, such as last-write-wins or using vector clock.
+## Tunable Consistency
+Tunable consistency is based on specifying the number of replicas that a request must access to complete a database request.
+- Replication Factor `N`: Number of nodes that will store a copy of data.
+- Write Consistency `W`: Number of nodes that have to acknowledge a write for it to succeed.
+- Read Consistency `R`: Number of nodes that have to respond to a read operation for it to succeed.
+- If W is equal to N, all replicas will be consistent after the write completes. This is sometimes called immediate consistency(Favoring CP over AP in CAP theorem).
+	- Reads that occur while the replicas are being updated may still see different values depending on the replicas they access.
+- If we set _R_ = _N_, then the request coordinator will read from all replicas, determine which is the latest update, and return that value to the client(Favoring AP over CP in CAP theorem).
+- Increasing read or write consistency levels increases latencies and raises requirements for node availability during requests
+### Quorum 
+- Use majority to serve consistent data
+- Choosing consistency levels where (`R + W > N`), the system can guarantee returning the most recent written value and it can balance the performance of reads and writes.
+- Having `n` copy and `m` witness replicas has same availability guarantees as `n + m` copies.
+- **Availability Demands**: Writes and reads will fail if a quorum of nodes is not available. A network failure that partitions a group of replicas such that the partition visible to a client does not contain a quorum will cause that client’s requests to fail.
+- **Sloppy Quorum**: [Hinted Handoff](./Replication.md) can be used.
+## Strong Eventual Consistency
+ - Under this model, updates are allowed to propagate to servers late or out of order, but when all updates finally propagate to target nodes, conflicts between them can be resolved and they can be merged to produce the same valid state  
+ - Implementation approach to reconcile after divergence: Conflict-Free Replicated Data Types.  
+	 - CRDTs are specialized data structures that preclude the existence of conflict and allow operations on these data types to be applied in any order without changing the result.  
+	 - Replicas can execute operations locally, without prior synchronization with other nodes, and operations eventually propagate to all other replicas, potentially out of order. CRDTs allow us to reconstruct the complete system state from local individual states or operation sequences.
+
 # Session Consistency Models
 Focuses on how single client interacts with system. Client can connect to any available replica of the data for the write operation and it is possible that the write against one replica are not visible to other one yet.
 ## Types of models for asynchronous replication in single leader replication
 - Read-own-writes
 	 - For a user, every read operation following the write on the same or the other replica has to observe the updated value. It does not make any guarantees about other users.
-	 - Read user's own data from the leader.
+	 - It ensures if a client makes a persistent change to data, the updated data value is guaranteed to be returned by any subsequent reads from the same client.
+	 - Read user's own data from the leader only.
 - Monotonic reads
 	 - if the `read(x)` has observed the value `V`, the following reads have to observe a value at least as recent as `V` or some later value.
 	 - can happen when the first request goes to a follower with lower lag and the second request goes to a follower with larger lag
@@ -104,21 +133,3 @@ Focuses on how single client interacts with system. Client can connect to any av
 	- writes originating from the same client appear in the order this client has executed them.
 - Write-follow-reads
 	-  writes are ordered after writes that were observed by previous read operations.
-# Eventual Consistency
-- Updates propagate through the system asynchronously.
-- Eventually all accesses return the latest written value
-- In case of a conflict, the notion of _latest_ value might change, as the values from diverged replicas are reconciled using a conflict resolution strategy, such as last-write-wins or using vector clock.
-## Tunable Consistency
-### Quorum 
-- Use majority to serve consistent data
-- Replication Factor `N`: Number of nodes that will store a copy of data.
-- Write Consistency `W`: Number of nodes that have to acknowledge a write for it to succeed.
-- Read Consistency `R`: Number of nodes that have to respond to a read operation for it to succeed.
-- Choosing consistency levels where (`R + W > N`), the system can guarantee returning the most recent written value
-- Increasing read or write consistency levels increases latencies and raises requirements for node availability during requests.
-- Having `n` copy and `m` witness replicas has same availability guarantees as `n + m` copies,
-## Strong Eventual Consistency
- - Under this model, updates are allowed to propagate to servers late or out of order, but when all updates finally propagate to target nodes, conflicts between them can be resolved and they can be merged to produce the same valid state  
- - Implementation approach to reconcile after divergence: Conflict-Free Replicated Data Types.  
-	 - CRDTs are specialized data structures that preclude the existence of conflict and allow operations on these data types to be applied in any order without changing the result.  
-	 - Replicas can execute operations locally, without prior synchronization with other nodes, and operations eventually propagate to all other replicas, potentially out of order. CRDTs allow us to reconstruct the complete system state from local individual states or operation sequences.

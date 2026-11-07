@@ -132,6 +132,7 @@ A background(Merkel trees) or foreground(Read Repair, Hinted Handoff) process is
 - Read Repair
 	- Scope: Actively read data
 	- During the read, request the data from each replica and fix(sends the updates to) the stale replicas if their responses do not match and inconsistencies are observed.
+	- When a read arrives at a coordinator node, it requests the latest value for each replica. If any of the values are inconsistent, the coordinator sends back the latest value to update the stale replicas
 	- The same can be applied on quorum reads as well.
 	- Detection of which records are stale: Specialised iterators with merge listeners.
 - Digest Read
@@ -142,18 +143,22 @@ A background(Merkel trees) or foreground(Read Repair, Hinted Handoff) process is
 - Hinted Handoff
 	- Scope: Actively written data
 	- If a write fails on any replica, the coordinator or one of the replicas store a special record, which is replayed to the target replica as soon as it is ready.
+	- If a given write cannot achieve quorum due to the unavailability of replicas nodes, the update can be stored temporarily on another reachable node. When the home node(s) for the replica(s) become available again, the node storing the update performs what is called a _hinted handoff_
 - Merkle Trees
-	- Scope: Entire dataset
+	- Scope: Passively anti-entropy repair of entire dataset
+	- Runs periodically
 	- Merkle trees compose a compact hashed representation of the local data, building a tree of hashes. 
 	- The lowest level of this hash tree is built by scanning an entire table holding data records, and computing hashes of record ranges. 
 	- Higher tree levels contain hashes of the lower-level hashes, building a hierarchical representation.
 	- To determine whether or not there’s an inconsistency between the two replicas, we only need to compare the root-level hashes from their Merkle trees. By comparing hashes pairwise from top to bottom, it is possible to locate ranges holding differences between the nodes, and repair data records contained in them.
+	- Used by Riak and Cassandra
 - Bitmap Version vectors
 	- each node keeps a per-peer log of operations that have occurred locally or were replicated. 
 	- During anti-entropy, logs are compared, and missing data is replicated to the target node.
 
 ### Quorum Read and Write
-If there are _n_ replicas, every write must be confirmed by _w_ nodes to be considered successful, and we must query at least _r_ nodes for each read. As long as _w_ + _r_ > _n_, we expect to get an up-to-date value when reading
+If there are _n_ replicas, every write must be confirmed by _w_ nodes to be considered successful, and we must query at least _r_ nodes for each read. As long as _w_ + _r_ > _n_, we expect to get an up-to-date value when reading.
+Described in [Tunable Consistency](./Consistency.md)
 
 ### Multi-region leaderless replication
 A client that wants to perform a multi-region write first chooses a node in its local region, called the _coordinator node_, and sends its write to that node. The coordinator node forwards the write to all replicas in its own region and to one replica in every other region, which then forwards it to the other replicas in that region.
@@ -179,25 +184,35 @@ For defining concurrency, exact time doesn’t matter. We simply call two opera
 	- When multiple timestamps are generated concurrently, these algorithms order them ***arbitrarily***. This means that when you look at two timestamps, you generally can’t tell whether they were generated concurrently or one happened before the other
 - Vector Clock
 	- If you want to be able to determine when records were created concurrently, you need a different algorithm, such as a _vector clock_.
+	- Single node multiple clients algorithm:
+		- When a client reads a database object, the object and its version are returned.
+		- When a client updates a database object, it writes the new data values and the version of the object that was received from the previous read.
+		- The database checks that the version in the write request is the same as the object’s version in the database, and if it is, it accepts the write and increments the version number.
+		- If the version number accompanying a write does not match the database object version, a conflict has occurred, and the database must take remedial action to ensure data is not lost. It may return an error to the client and make it reread the new version. Alternatively, it may store both updates and inform the client that a conflict has occurred.
+	- Multiple replicas
+		- As writes may be handled by any replica, we need to maintain the version number for each unique object and each replica. 
+		- Replicas maintain their own version as writes are processed, and also keep track of the versions of the other replicas it has seen. This creates what is known as a _version vector_
+		- When a replica accepts a write from a client, it updates its own version number and sends the update request along with its version vector to the other replicas. The version vector is used by a replica to decide whether the update should be accepted or if siblings should be created.
 
 
 ### Resolution
 - Avoidance:
-  - All writes for a record go to the same leader
-  - Approach breaks down if we allow the leader to be changed.
+	- All writes for a record go to the same leader
+	- Approach breaks down if we allow the leader to be changed.
 - Last write wins
-  - Attach a timestamp to each write and always use the write with most recent timestamp.
-  - Depends on clock synchronisation 
+	- Attach a timestamp to each write and always use the write with most recent timestamp.
+	- Depends on clock synchronisation; clocks on machines drift. This means one node’s clock may be ahead of others, making comparing timestamps meaningless. In reality, we can’t determine the order of the events.
+	- It can cause lost updates.
 - Manual Conflict Resolution
-  - Store all the concurrent writes for a record
-  - On next request, return all the values and let user resolve them.
+	- Store all the concurrent writes for a record
+	- On next request, return all the values and let user resolve them.
 - Automatic Conflict Resolution
-  - Use an algorithm that automatically merges the concurrent writes
-  - It leads to **Strong Eventual Consistency**
+	- Use an algorithm that automatically merges the concurrent writes
+	- It leads to **Strong Eventual Consistency**
 - Conflict-free replicated datatypes(CRDT)
-  - It plays with unique ids for the operations.
+	- It plays with unique ids for the operations.
 - Operational Transformation
-  - It uses the index where the insertion/deletion/update is happening in the string and updates the indices based on the other operations.
+	- It uses the index where the insertion/deletion/update is happening in the string and updates the indices based on the other operations.
 
 ## Gossip Dissemination
 Use cooperative propagation to disseminate information from one process to the rest of the cluster.

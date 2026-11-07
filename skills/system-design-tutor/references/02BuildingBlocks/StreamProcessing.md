@@ -17,7 +17,8 @@ status: solid
 
 # What it is
 In Stream Processing, the job doesn’t finish running when it has processed the input, but instead continues watching the input and processes changes in the input shortly after they happen.
-Batch Processing processes the data belonging to a fixed duration of time. Stream Processing takes this idea to extreme and processes every event as and when it comes.
+Batch Processing processes the data belonging to a fixed duration of time. Stream Processing takes this idea to extreme and processes every event as and when it comes(real-time).  
+It has the capabilities to process data streams in memory, without the need to persist the data to get the required results. This is often called _data-in-motion_
 
 # Where it is needed
 - Unbounded data, coming gradually over time.
@@ -26,7 +27,7 @@ Batch Processing processes the data belonging to a fixed duration of time. Strea
 It is a small, self-contained, immutable object containing the details of something that happened at a point in time.  
 Message brokers typically don’t enforce any particular data model. A message is just a sequence of bytes with some metadata, so you can use any encoding format.  
 A common approach is to use Protocol Buffers, Avro, or JSON, and to deploy a schema registry alongside the message broker to store all the valid schema versions and check their compatibility.    
-An event is generated once by a _producer_ (also known as a _publisher_ or _sender_) and then potentially processed by multiple _consumers_ (_subscribers_ or _recipients_).
+An event is generated once by a _producer_ (also known as a _publisher_ or _sender_) and then potentially processed by multiple _consumers_ (_subscribers_ or _recipients_) who register to receive events.  
 Related events are grouped into an event stream or topic.
 
 # Types of messaging systems
@@ -39,14 +40,17 @@ Related events are grouped into an event stream or topic.
 
 ## Log-based message brokers
 - A producer sends a message by appending it to the end of the log, and a consumer receives messages by reading the log sequentially. If a consumer reaches the end of the log, it waits for a notification that a new message has been appended.
+- topics are the equivalent of queues. Consumers read events by specifying the name of the topic
 - **Durability**: 
+	- keeping a permanent record of immutable events in a simple log data structure has some useful characteristics.
 	- Messages are stored permanently and not deleted even after receiving acknowledgement.
+	- can introduce new event consumers at any time. The log stores a permanent, immutable record of events and a new consumer has access to this complete history of events.
 	- Many log-based message brokers now store messages in object storage to increase their storage capacity
 - **Scalability**: 
 	- the log can be _sharded_. Kafka calls each shard as partition.
 	- A topic can be defined as a group of shards(partitions) that all carry messages of the same type
 - Within each shard, the broker assigns a monotonically increasing sequence number, or _offset_, to every message.
--  There is no ordering guarantee across different partitions.
+-  There is no ordering guarantee across different partitions. There is no total order of events across partitions.
 - **Consumption patterns**:
 	- supports fan-out messaging, because several consumers can independently read the log
 	- Each consumer in the consumer group is assigned a shard(partition) from the topic.
@@ -57,8 +61,11 @@ Related events are grouped into an event stream or topic.
 	- If a consumer node fails, another node in the consumer group is assigned the failed consumer’s shards, and it starts consuming messages at the last recorded offset.
 - **Log Compaction**:
 	- The storage engine periodically looks for log records with the same key, throws away any duplicates, and keeps only the most recent update for each key. This can make log segments much smaller
+- Kafka is an example
 
 # Processing Stream
+Stream processing nodes ingest data objects from data sources and perform transformations, aggregations, and application-specific business logic. Nodes are organized as a directed acyclic graph (DAG). Data objects originating from the source are processed as a stream. 
+
 - You can take the data in the events and write it to a database, cache, search index, or similar storage system.
 - You can push the events to users in some way—for example, by sending email alerts or push notifications etc.
 - You can process one or more input streams to produce one or more output streams. Streams may go through a pipeline consisting of several such processing stages before they eventually end up at an output.
