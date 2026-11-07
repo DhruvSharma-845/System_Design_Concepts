@@ -86,6 +86,7 @@ A client might see outdated information from a follower that has fallen behind.
 The problems that can occur due to replication lag are mentioned in [Consistency](./Consistency.md).
 
 ### Multi-region setup
+Followers may be physically located in different data centers or different continents to support global clients.  
 Each write would go to the region containing the leader, thus, increasing latency.  
 In case the region containing the leader goes down, follower of some other region can be promoted to become leader.
 
