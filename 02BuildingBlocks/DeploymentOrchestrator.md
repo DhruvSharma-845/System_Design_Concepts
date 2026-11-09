@@ -13,6 +13,23 @@ related:
   - "02BuildingBlocks/LoadBalancer.md"
 status: partial
 ---
+# Container
+
+### Benefits
+- Solves the problems of dependency management(Language runtime etc).
+- Provides encapsulation
+
+### Container Image
+Container image is a binary package that bundles a program and its dependencies into a single artifact under a root filesystem.  
+Container images are constructed with a series of filesystem layers, where each layer inherits and modifies the layers that came before it.   
+Container images are typically combined with a container configuration file, which provides instructions on how to set up the container environment and execute an application entry point.  
+
+### Multistage Image Build
+If we keep the actual program compilation as part of the construction of the application container image, it increases the size of the image. It leaves all of the unnecessary development tools, which are usually quite large, lying around inside your image and slowing down your deployments.  
+With multistage builds, rather than producing a single image, a Docker file can actually produce multiple images. Each image is considered a stage. Artifacts can be copied from preceding stages to the current stage.
+
+
+
 # Kubernetes
 Kubernetes is an open source orchestrator for deploying containerized applications. It provides the software necessary to successfully build and deploy reliable, scalable distributed systems.
 
@@ -34,5 +51,17 @@ Kubernetes is an open source orchestrator for deploying containerized applicatio
 	- Kubernetes provides tools that automate the distribution of applications across a cluster of machines, ensuring higher levels of utilization than are possible with traditional tooling.
 - Cloud native ecosystem
 
+## Control Plane vs Worker Plane
+In Kubernetes, nodes are separated into `control-plane` nodes that contain containers like the API server, scheduler, etc., which manage the cluster, and `worker` nodes where your containers will run.  
+Kubernetes won’t generally schedule work onto `control-plane` nodes to ensure that user workloads don’t harm the overall operation of the cluster.
+
+### Cluster Components
+- Kubernetes Proxy: The Kubernetes proxy is responsible for routing network traffic to load-balanced services in the Kubernetes cluster. To do its job, the proxy must be present on every node in the cluster.
+- Kubernetes DNS: It provides naming and discovery for the services that are defined in the cluster. This DNS server also runs as a replicated service on the cluster
+
 ## Operators
  With operators, more advanced logic needed to maintain, scale, and heal a specific piece of software is encoded into an operator application that runs as a container in the cluster. The code in the operator is responsible for more targeted and advanced health detection and healing than can be achieved via Kubernetes’s generic self-healing.
+
+## CRI Interface
+Kubernetes relies on container-specific APIs native to the target OS to interact with container runtime.
+The interface to this container runtime is defined by the Container Runtime Interface (CRI) standard
