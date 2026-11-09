@@ -9,7 +9,7 @@ use_when:
   - "Read and write workloads that need different models"
   - "Syncing derived systems from a database"
 related:
-  - "02BuildingBlocks/StreamProcessing.md"
+  - "01Foundation/StreamProcessing.md"
   - "04Architectures/EventDrivenArchitecture.md"
 status: partial
 ---
@@ -21,7 +21,7 @@ The application logic is explicitly built on the basis of immutable events that 
 - For reading, materialized views or projections can be created from the event log.  All materialized views process the events in exactly the same order as they appear in the log. Whenever there is a new addition in event log, the materialized views need to be refreshed.  
 - Read-own-write is difficult to achieve:  A user could make a write to the log, then read from a derived view and find that their write has not yet been reflected in the view. To solve it, we need distributed transaction.
 
-Log-based message brokers are well-suited for event sourcing. [Log-based messaging systems](../02BuildingBlocks/StreamProcessing.md).
+Log-based message brokers are well-suited for event sourcing. [Log-based messaging systems](../01Foundation/StreamProcessing.md).
 # Command Query Responsibility Segregation(CQRS)
 It is the principle of maintaining separate read-optimized representations and deriving them from the write-optimized representation.
 

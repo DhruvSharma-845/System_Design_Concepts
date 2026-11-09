@@ -8,7 +8,7 @@ use_when:
   - "Loosely coupled services reacting to events"
   - "Highly concurrent, distributed message processing"
 related:
-  - "02BuildingBlocks/StreamProcessing.md"
+  - "01Foundation/StreamProcessing.md"
   - "03Patterns/EventSourcingAndCQRS.md"
   - "04Architectures/Microservices.md"
 status: partial

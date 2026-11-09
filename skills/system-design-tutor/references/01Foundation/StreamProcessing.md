@@ -1,17 +1,25 @@
 ---
-title: "Stream Processing"
-type: building_block
-domain: [data-processing, event-driven]
-tags: [events, message-brokers, queues, log-based-brokers, kafka, stream-joins]
+title: Stream Processing
+type: concept
+domain:
+  - data-processing
+  - event-driven
+tags:
+  - events
+  - message-brokers
+  - queues
+  - log-based-brokers
+  - kafka
+  - stream-joins
 summary: "Continuous processing of unbounded event streams: message brokers (queue and log based), stream joins, and fault tolerance."
 use_when:
-  - "Real-time or near-real-time processing"
-  - "Async communication between services"
-  - "Choosing a queue vs a log-based broker"
+  - Real-time or near-real-time processing
+  - Async communication between services
+  - Choosing a queue vs a log-based broker
 related:
-  - "02BuildingBlocks/BatchProcessing.md"
-  - "03Patterns/EventSourcingAndCQRS.md"
-  - "04Architectures/EventDrivenArchitecture.md"
+  - 01Foundation/BatchProcessing.md
+  - 03Patterns/EventSourcingAndCQRS.md
+  - 04Architectures/EventDrivenArchitecture.md
 status: solid
 ---
 

@@ -12,8 +12,8 @@ Check each dimension against the notes listed. Skip dimensions that don't apply,
 | 6 | Transactions & correctness | Are multi-entity or cross-service updates atomic? What isolation level? Are operations idempotent and exactly-once? | `01Foundation/Transactions.md`, `03Patterns/WorkflowEngines.md` |
 | 7 | Caching | What strategy? How is invalidation handled? Is staleness acceptable? What happens on cache failure or stampede? | `01Foundation/Caching.md` |
 | 8 | Storage choice | Does the data model fit the access patterns? What engine (OLTP vs analytics)? | `01Foundation/DataModels.md`, `01Foundation/StorageEngines.md` |
-| 9 | Communication | Sync vs async? Are API and schema changes backward and forward compatible? Are timeouts and retries set? | `01Foundation/NetworkCommunication.md`, `02BuildingBlocks/StreamProcessing.md` |
-| 10 | Async & events | Queue vs log broker? Ordering, replay, CDC, event sourcing? | `02BuildingBlocks/StreamProcessing.md`, `03Patterns/EventSourcingAndCQRS.md`, `04Architectures/EventDrivenArchitecture.md` |
+| 9 | Communication | Sync vs async? Are API and schema changes backward and forward compatible? Are timeouts and retries set? | `01Foundation/NetworkCommunication.md`, `01Foundation/StreamProcessing.md` |
+| 10 | Async & events | Queue vs log broker? Ordering, replay, CDC, event sourcing? | `01Foundation/StreamProcessing.md`, `03Patterns/EventSourcingAndCQRS.md`, `04Architectures/EventDrivenArchitecture.md` |
 | 11 | Fault tolerance | Single points of failure? Failure detection, clock assumptions, partial failures? | `01Foundation/FaultTolerance.md` |
 | 12 | IDs | Are IDs unique across nodes? Are ordering requirements met? | `02BuildingBlocks/IDGenerator.md` |
 | 13 | Security | Authn/authz flow, token handling, TLS/mTLS, service-to-service auth | `01Foundation/Security.md`, `02BuildingBlocks/Authentication&Authorization.md`, `04Architectures/SecurityArchitectures.md` |

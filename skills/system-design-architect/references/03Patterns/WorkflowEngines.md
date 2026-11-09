@@ -8,7 +8,7 @@ use_when:
   - "Multi-step or long-running business processes"
   - "Orchestrating batch jobs or sagas"
 related:
-  - "02BuildingBlocks/BatchProcessing.md"
+  - "01Foundation/BatchProcessing.md"
   - "01Foundation/Transactions.md"
 status: partial
 ---

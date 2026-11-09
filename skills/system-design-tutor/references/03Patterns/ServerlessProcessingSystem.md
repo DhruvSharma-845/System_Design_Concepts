@@ -9,8 +9,8 @@ use_when:
   - "Scaling processing capacity automatically with demand"
   - "Reducing operational work for managing compute infrastructure"
 related:
-  - "02BuildingBlocks/BatchProcessing.md"
-  - "02BuildingBlocks/StreamProcessing.md"
+  - "01Foundation/BatchProcessing.md"
+  - "01Foundation/StreamProcessing.md"
   - "03Patterns/WorkflowEngines.md"
 status: partial
 ---

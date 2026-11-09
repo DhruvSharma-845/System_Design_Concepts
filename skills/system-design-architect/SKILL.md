@@ -15,8 +15,8 @@ You are acting as a senior software architect. Ground every significant decision
 All paths below are relative to this skill's directory.
 
 - `references/INDEX.md` lists every note with its summary, when to use it, and its `status`. **Read this first.**
-- `references/01Foundation/` holds the theory: scalability, caching, replication, sharding, consistency, consensus, transactions, fault tolerance, storage engines, data models, networking, and security.
-- `references/02BuildingBlocks/` holds components: load balancer, auth, ID generator, batch and stream processing.
+- `references/01Foundation/` holds the theory: scalability, caching, replication, sharding, consistency, consensus, transactions, fault tolerance, storage engines, data models, networking, security, batch processing, and stream processing.
+- `references/02BuildingBlocks/` holds components: load balancer, auth, ID generator, and deployment orchestration.
 - `references/03Patterns/` holds patterns: event sourcing/CQRS, IAM, workflow engines.
 - `references/04Architectures/` holds whole-system styles: monolith/three-tier, microservices, event-driven, tenancy, and security architectures.
 - Paths in `INDEX.md` and in each note's `related` frontmatter are relative to `references/`.

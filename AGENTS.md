@@ -14,8 +14,8 @@ Notes are layered from fundamentals up to whole-system architectures:
 
 | Folder | `type` | Contains |
 |---|---|---|
-| `01Foundation/` | `concept` | Core distributed-systems and database theory (scalability, caching, replication, sharding, consistency, consensus, transactions, ...) |
-| `02BuildingBlocks/` | `building_block` | Reusable components (load balancer, auth, ID generation, batch and stream processing, ...) |
+| `01Foundation/` | `concept` | Core distributed-systems, database, and data-processing theory (scalability, caching, replication, sharding, consistency, consensus, transactions, batch and stream processing, ...) |
+| `02BuildingBlocks/` | `building_block` | Reusable components (load balancer, auth, ID generation, deployment orchestration, ...) |
 | `03Patterns/` | `pattern` | Design patterns composed from building blocks (event sourcing/CQRS, IAM, workflow engines, ...) |
 | `04Architectures/` | `architecture` | Whole-system styles (monolith/three-tier, microservices, event-driven, multitenancy, security architectures, ...) |
 | `assets/` | — | Images referenced by notes (agents: rely on the surrounding text, not the image) |

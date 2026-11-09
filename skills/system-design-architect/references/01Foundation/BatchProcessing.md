@@ -1,15 +1,21 @@
 ---
-title: "Batch Processing"
-type: building_block
-domain: [data-processing]
-tags: [mapreduce, spark, derived-data, offline, scheduling]
-summary: "Offline processing of bounded, immutable input into derived data, as in MapReduce or Spark, and workflow scheduling."
+title: Batch Processing
+type: concept
+domain:
+  - data-processing
+tags:
+  - mapreduce
+  - spark
+  - derived-data
+  - offline
+  - scheduling
+summary: Offline processing of bounded, immutable input into derived data, as in MapReduce or Spark, and workflow scheduling.
 use_when:
-  - "Periodic large-scale data processing"
-  - "Building derived datasets, ETL, or analytics"
+  - Periodic large-scale data processing
+  - Building derived datasets, ETL, or analytics
 related:
-  - "02BuildingBlocks/StreamProcessing.md"
-  - "03Patterns/WorkflowEngines.md"
+  - 01Foundation/StreamProcessing.md
+  - 03Patterns/WorkflowEngines.md
 status: partial
 ---
 
