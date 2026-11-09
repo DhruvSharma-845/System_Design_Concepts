@@ -59,9 +59,28 @@ Kubernetes won’t generally schedule work onto `control-plane` nodes to ensur
 - Kubernetes Proxy: The Kubernetes proxy is responsible for routing network traffic to load-balanced services in the Kubernetes cluster. To do its job, the proxy must be present on every node in the cluster.
 - Kubernetes DNS: It provides naming and discovery for the services that are defined in the cluster. This DNS server also runs as a replicated service on the cluster
 
-## Operators
- With operators, more advanced logic needed to maintain, scale, and heal a specific piece of software is encoded into an operator application that runs as a container in the cluster. The code in the operator is responsible for more targeted and advanced health detection and healing than can be achieved via Kubernetes’s generic self-healing.
-
 ## CRI Interface
 Kubernetes relies on container-specific APIs native to the target OS to interact with container runtime.
 The interface to this container runtime is defined by the Container Runtime Interface (CRI) standard
+
+## Concepts
+- Namespace: organizes objects in the cluster. You can think of each namespace as a folder that holds a set of objects
+- Objects: Objects in the Kubernetes API are represented as JSON or YAML files. These files are either returned by the server in response to a query or posted to the server as part of an API request.
+- Pod
+	- groups multiple containers into a single atomic unit called a _Pod_
+	- smallest deployable artifact in a Kubernetes cluster.
+	- Each container within a Pod runs in its own cgroup, but they share a number of Linux namespaces.
+	- Applications running in the same Pod share the same IP address and port space (network namespace), have the same hostname (UTS namespace), and can communicate using native interprocess communication channels over System V IPC or POSIX message queues (IPC namespace)
+	- Pod _manifest_, which is just a text-file representation of the Kubernetes API object. The Kubernetes API server accepts and processes Pod manifests before storing them in persistent storage (`etcd`). 
+	- The scheduler also uses the Kubernetes API to find Pods that haven’t been scheduled to a node. It then places the Pods onto healthy nodes in the cluster.
+- Persisted Volumes
+	- When a Pod is deleted or a container restarts, any and all data in the container’s filesystem is also deleted.
+	- Provides access to persistent storage structure
+	- They can be mounted into the pod.
+
+## Operators
+ With operators, more advanced logic needed to maintain, scale, and heal a specific piece of software is encoded into an operator application that runs as a container in the cluster. The code in the operator is responsible for more targeted and advanced health detection and healing than can be achieved via Kubernetes’s generic self-healing.
+
+
+
+

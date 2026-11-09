@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "55077b11dbe8653f",
+        "id": "7fe7adb8f5990bb0",
         "type": "tabs",
         "children": [
           {
-            "id": "1443f26a15c300b4",
+            "id": "fe3b5df71bc04454",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/workspace.json",
-                "bFile": ".obsidian/workspace.json",
-                "aRef": ""
+                "file": "02BuildingBlocks/DeploymentOrchestrator.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: workspace.json  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "DeploymentOrchestrator"
             }
           }
         ]
@@ -209,8 +209,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1443f26a15c300b4",
+  "active": "fe3b5df71bc04454",
   "lastOpenFiles": [
+    "02BuildingBlocks/Authentication&Authorization.md",
+    "01Foundation/Security.md",
     "02BuildingBlocks/DeploymentOrchestrator.md",
     "01Foundation/NetworkCommunication.md",
     "mcp-server.log",
@@ -236,7 +238,6 @@
     "skills/system-design-architect/references/02BuildingBlocks/APIGateway.md",
     "01Foundation/DataModels.md",
     "01Foundation/FaultTolerance.md",
-    "01Foundation/ParallelismAndConcurrency.md",
     "skills/system-design-tutor/references/assets/saml.png",
     "skills/system-design-tutor/references/assets/rpc.png",
     "skills/system-design-tutor/references/assets/oauth2authcodewithpkce.png",
