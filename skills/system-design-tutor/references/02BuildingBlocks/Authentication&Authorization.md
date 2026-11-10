@@ -30,23 +30,25 @@ Identity providers don’t share your authentication credentials with the apps t
 **Multi-factor authentication(MFA)**: Uses one or many authentication factors to verify identity.
 
 ## Open ID
-Identity layer that sits on top of OAuth2.0. 
-Reuse an existing account and user profile from an identity provider, for example Apple, Google, or Microsoft to sign-in to any OpenID-enabled applications and websites without creating a new registration and password. Makes it easy to verify user's identity.
-Your password is authenticated with your identity provider, and that provider then confirms your identity to the application or website. Applications and websites do not collect, store, or manage your password
+- Identity layer that sits on top of OAuth2.0. 
+- Should be used when authentication(login) using external IdP(Google, Facebook) is to be supported.
+- Reuse an existing account and user profile from an identity provider, for example Apple, Google, or Microsoft to sign-in to any OpenID-enabled applications and websites without creating a new registration and password.
+- Your password is authenticated with your identity provider, and that provider then confirms your identity to the application or website by sending an ID token(containing user data). 
+- Applications and websites do not collect, store, or manage your password
 
 ## Single-Sign on(SSO) 
 centralized location to redirect your users for authentication
 
 ### Consumer context: OpenID Connect SSO
 ### Enterprise context: SAML
-Used when the end-user is logged in to a business app and the business app is taking the user to some other third-party app(Service Provider). No need for logging-in again. 
-Federated Identity: Service providers do not manage user authentication. Instead, the business share("federate") the user identities with the service provider. And the service provider integrates with existing IdP of the business.
+- Used when the end-user is logged in to a business app and the business app is taking the user to some other third-party app(Service Provider). No need for logging-in again. 
+- **Federated Identity**: Service providers do not manage user authentication. Instead, the business share("federate") the user identities with the service provider. And the service provider integrates with existing IdP of the business.
 
 **SAML**: It is an open-standard, XML-based data format that lets businesses communicate user authentication and authorization information to partner companies and enterprise applications that their employees use.
 Service Provider and an Identity Provider configure their systems to establish mutual recognition and trust.
 
 Workflow:
-- The third-party app(Service Provider) sends the user back to authorization server with a SAML Request that asks authorization server to authenticate the user. 
+- The third-party app(Service Provider) sends the user back to authorization server(of the source business) with a SAML Request that asks authorization server to authenticate the user. 
 - Since the user has already authenticated, authorization server verifies that the session is still valid and sends the user back to third-party app with a SAML Response(User identity information). 
 - The third-party app checks this response, and if it looks good, the user is granted access.
 - ![SAML](../assets/saml.png)
@@ -60,7 +62,7 @@ People who have the same role have the same access to resources
 It enables a third-party application to obtain limited access to a resource residing on a resource server(HTTP service) on behalf of the resource owner(user) without ever sharing the user’s credentials.
 
 ### Use-cases
-Allowing a third party (like Spotify) to access resources on another service (like Google Drive) on behalf of a user without seeing their password.
+Allowing a third party (like Spotify) to access resources on another service (like Google Drive) on behalf of a user without seeing their password. If login using external IdP is the intention, then the combination of OAuth2.0 and OIDC must be used.
 ### Entities involved
 - Third-party application or Client
 - Resource
