@@ -77,6 +77,19 @@ The interface to this container runtime is defined by the Container Runtime Int
 	- When a Pod is deleted or a container restarts, any and all data in the container’s filesystem is also deleted.
 	- Provides access to persistent storage structure
 	- They can be mounted into the pod.
+- _Labels_ are key/value pairs that can be attached to Kubernetes objects such as Pods and ReplicaSets. They can be arbitrary and are useful for attaching identifying information to Kubernetes objects
+- Annotations provide a place to store additional metadata for Kubernetes objects where the sole purpose of the metadata is assisting tools and libraries.
+- Service
+	- It helps in [service discovery](./ServiceDiscovery.md)
+	- A Service object is a way to create a named label selector.
+	- The service is assigned a new type of virtual IP called a _cluster IP_. This is a special IP address the system will load balance across all of the Pods that are identified by the selector.
+	- Because the cluster IP is virtual, it is stable, and it is appropriate to give it a DNS name. Kubernetes provides a "**DNS service**" exposed to Pods running in the cluster. This Kubernetes DNS service was installed as a system component when the cluster was first created. The DNS service is, itself, managed by Kubernetes
+	- Service Object track which of your Pods are ready via a readiness check.
+- NodePort
+	- The system picks a port (or the user can specify one), and every node in the cluster then forwards traffic targeting to that port to the configured service.
+	- if you can reach any node in the cluster, you can contact a service.
+- Load Balancer Service
+	- A load balancer is added to cluster that forwards the incoming traffic from public internet to the service.
 
 ## Operators
  With operators, more advanced logic needed to maintain, scale, and heal a specific piece of software is encoded into an operator application that runs as a container in the cluster. The code in the operator is responsible for more targeted and advanced health detection and healing than can be achieved via Kubernetes’s generic self-healing.
