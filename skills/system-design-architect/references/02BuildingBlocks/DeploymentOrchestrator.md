@@ -85,11 +85,28 @@ The interface to this container runtime is defined by the Container Runtime Int
 	- The service is assigned a new type of virtual IP called a _cluster IP_. This is a special IP address the system will load balance across all of the Pods that are identified by the selector.
 	- Because the cluster IP is virtual, it is stable, and it is appropriate to give it a DNS name. Kubernetes provides a "**DNS service**" exposed to Pods running in the cluster. This Kubernetes DNS service was installed as a system component when the cluster was first created. The DNS service is, itself, managed by Kubernetes
 	- Service Object track which of your Pods are ready via a readiness check.
-- NodePort
-	- The system picks a port (or the user can specify one), and every node in the cluster then forwards traffic targeting to that port to the configured service.
-	- if you can reach any node in the cluster, you can contact a service.
-- Load Balancer Service
-	- A load balancer is added to cluster that forwards the incoming traffic from public internet to the service.
+	- NodePort
+		- The system picks a port (or the user can specify one), and every node in the cluster then forwards traffic targeting to that port to the configured service.
+		- if you can reach any node in the cluster, you can contact a service.
+		- If there are many services in cluster, have clients connect to a unique port per service
+	- Load Balancer Service
+		- A load balancer is added to cluster that forwards the incoming traffic from public internet to the service.
+		- allocating (often expensive or scarce) cloud resources for each service
+- HTTP Load Balancing - Ingress
+	- Enable services to be exposed outside of the cluster
+	- A common load balancer or reverse proxy that accepts incoming connections on HTTP (80) and HTTPS (443) ports and based on the `Host` header and the URL path that is requested, proxies the HTTP call to right upstream server.
+	- Ingress proxy is exposed outside the cluster using a service of `type: LoadBalancer`. This proxy sends requests to “upstream” servers.
+	- Ingress Operator reads Ingress Objects and configures Ingress Proxy to route the traffic accordingly.
+	- Ingress Controller is pluggable and is abstraction over the plugged load balancer(Envoy etc.).
+	- You can map multiple hostnames to a single external endpoint and the Ingress controller will direct incoming requests to the appropriate upstream service based on that hostname.
+- ReplicaSets
+	- A user managing a replicated set of Pods considers them as a single entity to be defined and managed—and that’s precisely what a ReplicaSet is. 
+	- A ReplicaSet acts as a cluster-wide Pod manager, ensuring that the right types and numbers of Pods are running at all times.
+	- **Reconciliation Loops**: The actual act of managing the replicated Pods is an example of a _reconciliation loop_. The reconciliation loop is constantly running, observing the current state of the world and taking action to try to make the observed state match the desired state.
+	- Every Pod the ReplicaSet controller creates is entirely homogeneous. 
+	- Typically, these Pods are then fronted by a Kubernetes service load balancer, which spreads traffic across the Pods that make up the service
+	- ReplicaSets monitor cluster state using a set of Pod labels to filter Pod listings and track Pods running within a cluster
+	- Autoscaling requires the presence of the `metrics-server` in your cluster. The `metrics-server` keeps track of metrics and provides an API for consuming metrics that HPA uses when making scaling decisions. Scaling based on CPU usage is the most common use case for Pod autoscaling.
 
 ## Operators
  With operators, more advanced logic needed to maintain, scale, and heal a specific piece of software is encoded into an operator application that runs as a container in the cluster. The code in the operator is responsible for more targeted and advanced health detection and healing than can be achieved via Kubernetes’s generic self-healing.
