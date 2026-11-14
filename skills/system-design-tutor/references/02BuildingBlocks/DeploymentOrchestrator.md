@@ -13,6 +13,23 @@ related:
   - "02BuildingBlocks/LoadBalancer.md"
 status: partial
 ---
+# Container
+
+### Benefits
+- Solves the problems of dependency management(Language runtime etc).
+- Provides encapsulation
+
+### Container Image
+Container image is a binary package that bundles a program and its dependencies into a single artifact under a root filesystem.  
+Container images are constructed with a series of filesystem layers, where each layer inherits and modifies the layers that came before it.   
+Container images are typically combined with a container configuration file, which provides instructions on how to set up the container environment and execute an application entry point.  
+
+### Multistage Image Build
+If we keep the actual program compilation as part of the construction of the application container image, it increases the size of the image. It leaves all of the unnecessary development tools, which are usually quite large, lying around inside your image and slowing down your deployments.  
+With multistage builds, rather than producing a single image, a Docker file can actually produce multiple images. Each image is considered a stage. Artifacts can be copied from preceding stages to the current stage.
+
+
+
 # Kubernetes
 Kubernetes is an open source orchestrator for deploying containerized applications. It provides the software necessary to successfully build and deploy reliable, scalable distributed systems.
 
@@ -34,5 +51,49 @@ Kubernetes is an open source orchestrator for deploying containerized applicatio
 	- Kubernetes provides tools that automate the distribution of applications across a cluster of machines, ensuring higher levels of utilization than are possible with traditional tooling.
 - Cloud native ecosystem
 
+## Control Plane vs Worker Plane
+In Kubernetes, nodes are separated into `control-plane` nodes that contain containers like the API server, scheduler, etc., which manage the cluster, and `worker` nodes where your containers will run.  
+Kubernetes won’t generally schedule work onto `control-plane` nodes to ensure that user workloads don’t harm the overall operation of the cluster.
+
+### Cluster Components
+- Kubernetes Proxy: The Kubernetes proxy is responsible for routing network traffic to load-balanced services in the Kubernetes cluster. To do its job, the proxy must be present on every node in the cluster.
+- Kubernetes DNS: It provides naming and discovery for the services that are defined in the cluster. This DNS server also runs as a replicated service on the cluster
+
+## CRI Interface
+Kubernetes relies on container-specific APIs native to the target OS to interact with container runtime.
+The interface to this container runtime is defined by the Container Runtime Interface (CRI) standard
+
+## Concepts
+- Namespace: organizes objects in the cluster. You can think of each namespace as a folder that holds a set of objects
+- Objects: Objects in the Kubernetes API are represented as JSON or YAML files. These files are either returned by the server in response to a query or posted to the server as part of an API request.
+- Pod
+	- groups multiple containers into a single atomic unit called a _Pod_
+	- smallest deployable artifact in a Kubernetes cluster.
+	- Each container within a Pod runs in its own cgroup, but they share a number of Linux namespaces.
+	- Applications running in the same Pod share the same IP address and port space (network namespace), have the same hostname (UTS namespace), and can communicate using native interprocess communication channels over System V IPC or POSIX message queues (IPC namespace)
+	- Pod _manifest_, which is just a text-file representation of the Kubernetes API object. The Kubernetes API server accepts and processes Pod manifests before storing them in persistent storage (`etcd`). 
+	- The scheduler also uses the Kubernetes API to find Pods that haven’t been scheduled to a node. It then places the Pods onto healthy nodes in the cluster.
+- Persisted Volumes
+	- When a Pod is deleted or a container restarts, any and all data in the container’s filesystem is also deleted.
+	- Provides access to persistent storage structure
+	- They can be mounted into the pod.
+- _Labels_ are key/value pairs that can be attached to Kubernetes objects such as Pods and ReplicaSets. They can be arbitrary and are useful for attaching identifying information to Kubernetes objects
+- Annotations provide a place to store additional metadata for Kubernetes objects where the sole purpose of the metadata is assisting tools and libraries.
+- Service
+	- It helps in [service discovery](./ServiceDiscovery.md)
+	- A Service object is a way to create a named label selector.
+	- The service is assigned a new type of virtual IP called a _cluster IP_. This is a special IP address the system will load balance across all of the Pods that are identified by the selector.
+	- Because the cluster IP is virtual, it is stable, and it is appropriate to give it a DNS name. Kubernetes provides a "**DNS service**" exposed to Pods running in the cluster. This Kubernetes DNS service was installed as a system component when the cluster was first created. The DNS service is, itself, managed by Kubernetes
+	- Service Object track which of your Pods are ready via a readiness check.
+- NodePort
+	- The system picks a port (or the user can specify one), and every node in the cluster then forwards traffic targeting to that port to the configured service.
+	- if you can reach any node in the cluster, you can contact a service.
+- Load Balancer Service
+	- A load balancer is added to cluster that forwards the incoming traffic from public internet to the service.
+
 ## Operators
  With operators, more advanced logic needed to maintain, scale, and heal a specific piece of software is encoded into an operator application that runs as a container in the cluster. The code in the operator is responsible for more targeted and advanced health detection and healing than can be achieved via Kubernetes’s generic self-healing.
+
+
+
+
