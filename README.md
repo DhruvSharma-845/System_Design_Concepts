@@ -64,10 +64,10 @@ You can just ask, and the agent picks the skill from its description. For exampl
 ## Maintaining
 
 1. Edit notes as usual. Keep the frontmatter and [INDEX.md](INDEX.md) in sync (see [AGENTS.md](AGENTS.md)).
-2. Push to `main`. The [`skills` workflow](.github/workflows/skills.yml) then:
+2. To publish updated skill zips, open **Actions** on GitHub, select **Sync and release skills**, choose **Run workflow**, select `main`, and run it. The [`skills` workflow](.github/workflows/skills.yml):
    - re-syncs `skills/*/references/`
    - commits the result
    - republishes the zips to the `skills-latest` release
 
-   To do the same locally, run `scripts/sync-skills.sh`, or `scripts/package-skills.sh` to also build `dist/*.zip`.
+   Pushes do not run the workflow automatically. Only a run on `main` publishes a release. To sync locally, run `scripts/sync-skills.sh`, or `scripts/package-skills.sh` to also build `dist/*.zip`.
 3. Don't edit `skills/*/references/` by hand. It's generated, and hidden from Obsidian.

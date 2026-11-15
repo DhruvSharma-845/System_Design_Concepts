@@ -3,7 +3,7 @@ title: "Monolith Architecture"
 type: architecture
 domain: [distributed-systems]
 tags: [monolith, three-tier, application-server, tomcat, servlets, thread-pools, connection-pooling, load-balancing, stateless-services, scale-up, scale-out, caching]
-summary: "Three-tier monolith request flow, application-server handling (Tomcat, servlets, threads, and database connection pools), load balancing, limitations, and scaling."
+summary: "Monolith benefits and complexity, three-tier request flow, application-server handling, load balancing, and scaling."
 use_when:
   - "Early-stage or simple systems"
   - "Understanding application-server request handling and database connection pooling"
@@ -20,6 +20,15 @@ related:
   - "04Architectures/Microservices.md"
 status: partial
 ---
+# Definition
+
+Monolith style of architecture structures a system as a single executable or deployable component.
+
+# Advantages
+- Simple to develop
+- Easy to make code and schema changes to the application
+- Straightforward to test
+- Straightforward to deploy
 
 # Three-tier
 It comprises of a client tier, application service tier, and a database tier.
@@ -46,11 +55,13 @@ When a servlet wishes to submit a query to the database, it requests a connectio
 ## Concurrent handling of requests
 The application service code exploits a server execution environment that enables multiple requests from multiple users to be processed simultaneously.
 
-# Issues with monolith
-- Monoliths tend to grow in complexity as the application becomes more feature-rich.
-- hard to modify and test rapidly
-- the execution footprint can become extremely heavyweight
+# Issues with monolith - Monolithic Hell
+- Monoliths tend to grow in complexity as the application becomes more feature-rich. Fixing bugs and correctly implementing new features have become difficult and time consuming.
+- Hard to modify and test rapidly. Each change makes the code base incrementally more complex and harder to understand. Testing the application thoroughly is difficult, due to its large size. This lack of testability means bugs make their way into production.
+- The execution footprint can become extremely heavyweight
 - if request loads keep growing, latencies will increase as the service has insufficient CPU/memory capacity for the concurrent request volume.
+- Go-to-market time is long
+- Development is slow
 
 # How to scale
 - Scale-up: Scaling up the hardware.

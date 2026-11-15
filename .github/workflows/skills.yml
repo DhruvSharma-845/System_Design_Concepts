@@ -1,11 +1,6 @@
 name: Sync and release skills
 
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - "skills/*/references/**"
-      - ".obsidian/**"
   workflow_dispatch:
 
 permissions:
@@ -17,6 +12,7 @@ concurrency:
 
 jobs:
   sync-and-release:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +26,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add skills
-            git commit -m "chore: sync skill references [skip ci]"
+            git commit -m "chore: sync skill references"
             git push
           else
             echo "references already in sync"
@@ -43,6 +39,6 @@ jobs:
           TAG=skills-latest
           if ! gh release view "$TAG" >/dev/null 2>&1; then
             gh release create "$TAG" --title "Skills (latest)" --latest \
-              --notes "Upload-ready skill zips, rebuilt automatically on every push to main. See README for install instructions."
+              --notes "Upload-ready skill zips, rebuilt by manually running the skills workflow on main. See README for install instructions."
           fi
           gh release upload "$TAG" dist/*.zip --clobber

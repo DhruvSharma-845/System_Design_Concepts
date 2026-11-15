@@ -2,15 +2,18 @@
 title: "Microservices"
 type: architecture
 domain: [distributed-systems]
-tags: [services, service-boundaries, independent-deployment, independent-scaling, api, load-balancing, caching]
-summary: "Decomposing a system into cohesive, independently deployed services that communicate remotely and scale according to each service's demand."
+tags: [services, service-boundaries, loose-coupling, independent-deployment, independent-scaling, api, load-balancing, caching, resilience]
+summary: "Decomposing a system into loosely coupled, independently deployed services, with independent scaling and resilience."
 use_when:
   - "Large systems with independent teams or deployment needs"
   - "Scaling services independently based on demand"
+  - "Managing failures and resilience across service boundaries"
 related:
   - "01Foundation/NetworkCommunication.md"
   - "01Foundation/Scalability.md"
   - "02BuildingBlocks/LoadBalancer.md"
+  - "02BuildingBlocks/APIGateway.md"
+  - "02BuildingBlocks/ServiceDiscovery.md"
   - "01Foundation/Caching.md"
   - "04Architectures/MonolithArchitecture.md"
   - "04Architectures/EventDrivenArchitecture.md"
@@ -19,7 +22,9 @@ status: partial
 ---
 
 # What it is
-It consists of fine-grained cohesive services that are independently deployed processes and communicate using remote communications mechanisms such as HTTP.
+It consists of fine-grained cohesive and loosely coupled services that are independently deployed processes and communicate using remote communications mechanisms such as HTTP.
+
+It solves the problem of increasing development and application complexity.
 
 ## Characteristics
 - A microservice is scoped around a business capability.

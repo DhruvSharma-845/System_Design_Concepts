@@ -1,3 +1,18 @@
+---
+title: "Service Discovery"
+type: building_block
+domain: [distributed-systems, networking]
+tags: [service-discovery, dns, name-resolution, load-balancing]
+summary: "Finding service processes and their addresses, including DNS-based discovery and its caching and load-balancing limitations."
+use_when:
+  - "Locating service instances whose addresses can change"
+  - "Evaluating DNS-based service discovery and stale records"
+related:
+  - "02BuildingBlocks/DNS.md"
+  - "02BuildingBlocks/LoadBalancer.md"
+  - "02BuildingBlocks/DeploymentOrchestrator.md"
+status: partial
+---
 
 # What it is
 Service-discovery tools help solve the problem of finding which processes are listening at which addresses for which services.

@@ -74,7 +74,7 @@ status: solid                              # stub | partial | solid
 - Keep each note to **one topic**. Split a note when it grows past one concept.
 - Put a new note in the folder that matches its `type`, and give it the full frontmatter above.
 - **Add a row to `INDEX.md`** in the same change. Keep the index and the notes in sync.
-- Then run `scripts/sync-skills.sh` so the skills' `references/` folders match. CI also does this on every push to `main`.
+- Then run `scripts/sync-skills.sh` so the skills' `references/` folders match. The skills workflow also syncs and publishes when manually run on `main` from GitHub Actions; pushes do not trigger it.
 - When editing a skill's `SKILL.md` or templates, keep the `name` matching its folder and the `description` under 1024 characters. Update `README.md` if install or usage changes.
 - In the body, use **standard relative markdown links** (`[Sharding](../01Foundation/Sharding.md)`). Don't use `[[wikilinks]]`, and always include the `.md` extension.
 - Prefer **Mermaid or text diagrams**. If you add an image, describe what it shows in text next to it.

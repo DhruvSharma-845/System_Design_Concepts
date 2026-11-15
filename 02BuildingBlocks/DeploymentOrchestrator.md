@@ -2,15 +2,17 @@
 title: "Kubernetes Deployment Orchestrator"
 type: building_block
 domain: [distributed-systems]
-tags: [kubernetes, containers, deployment, orchestration, self-healing]
-summary: "Using Kubernetes to deploy, scale, and maintain containerized applications through declarative configuration and controllers."
+tags: [kubernetes, containers, pods, replicasets, service-discovery, deployment, orchestration, self-healing]
+summary: "Containers and Kubernetes cluster components, Pods, Services, ReplicaSets, and controllers for deploying and scaling applications."
 use_when:
   - "Deploying and scaling containerized applications"
   - "Automating recovery and desired-state management across a cluster"
   - "Improving infrastructure portability and resource utilization"
+  - "Understanding Pods, service discovery, and ReplicaSet reconciliation"
 related:
   - "04Architectures/Microservices.md"
   - "02BuildingBlocks/LoadBalancer.md"
+  - "02BuildingBlocks/ServiceDiscovery.md"
 status: partial
 ---
 # Container
@@ -103,7 +105,7 @@ The interface to this container runtime is defined by the Container Runtime Int
 	- A user managing a replicated set of Pods considers them as a single entity to be defined and managed—and that’s precisely what a ReplicaSet is. 
 	- A ReplicaSet acts as a cluster-wide Pod manager, ensuring that the right types and numbers of Pods are running at all times.
 	- **Reconciliation Loops**: The actual act of managing the replicated Pods is an example of a _reconciliation loop_. The reconciliation loop is constantly running, observing the current state of the world and taking action to try to make the observed state match the desired state.
-	- Every Pod the ReplicaSet controller creates is entirely homogeneous. 
+	- Every Pod the ReplicaSet controller creates is entirely homogeneous.
 	- Typically, these Pods are then fronted by a Kubernetes service load balancer, which spreads traffic across the Pods that make up the service
 	- ReplicaSets monitor cluster state using a set of Pod labels to filter Pod listings and track Pods running within a cluster
 	- Autoscaling requires the presence of the `metrics-server` in your cluster. The `metrics-server` keeps track of metrics and provides an API for consuming metrics that HPA uses when making scaling decisions. Scaling based on CPU usage is the most common use case for Pod autoscaling.

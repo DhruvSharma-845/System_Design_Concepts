@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copy the knowledge base (INDEX.md, note folders, assets) into each skill's references/ folder.
-# Run this after editing notes. The GitHub Action also runs it on every push to main.
+# Run this after editing notes. The manually triggered GitHub Action also runs it.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

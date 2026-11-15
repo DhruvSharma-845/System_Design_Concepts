@@ -2,7 +2,7 @@
 title: "Authentication & Authorization"
 type: building_block
 domain: [security, distributed-systems]
-tags: [authn, authz, idp, oidc, sso, saml, rbac, oauth2, pkce, tokens]
+tags: [authn, authz, idp, oidc, sso, saml, federated-identity, rbac, oauth2, pkce, tokens]
 summary: "Authentication (IdP, OIDC, SSO, SAML) and authorization (RBAC, OAuth 2.0 grants, tokens) for clients and services."
 use_when:
   - "User login or SSO"
