@@ -22,12 +22,14 @@ status: partial
 ---
 
 # What it is
-It consists of fine-grained cohesive and loosely coupled services that are independently deployed processes and communicate using remote communications mechanisms such as HTTP.
+It consists of fine-grained cohesive and loosely coupled services that are independently deployed processes and communicate using remote communications mechanisms such as HTTP API.
 
 It solves the problem of increasing development and application complexity.
 
 ## Characteristics
+- It uses service as a fundamental unit of modularity
 - A microservice is scoped around a business capability.
+- Each service has its own datastore whose schema is not exposed outside service
 - Small agile teams can iterate and evolve features quickly.
 - Each microservice is self-contained,encapsulating its own data storage and offers APIs for communication.
 - Lesser code complexity due to narrower scope of service.
@@ -40,6 +42,13 @@ It solves the problem of increasing development and application complexity.
 # Advantages
 - By breaking the application into multiple independent services, you can scale each based on the service demand
 - can be separately built, tested, deployed.
+- Enables continuous delivery
+- better fault isolation
+
+# Drawbacks
+- Finding right size of services is challenging 
+- Deploying features that span multiple services require coordination
+- Observability is complex because a request can bound around multiple services
 
 # Principles
 - Modeled around a business domain
