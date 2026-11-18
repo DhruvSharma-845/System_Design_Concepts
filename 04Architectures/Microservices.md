@@ -22,16 +22,18 @@ status: partial
 ---
 
 # What it is
-It consists of fine-grained cohesive and loosely coupled services that are independently deployed processes and communicate using remote communications mechanisms such as HTTP API.
+It consists of fine-grained, cohesive and loosely coupled services that are independently deployed processes and communicate using remote communications mechanisms such as HTTP API.
 
 It solves the problem of increasing development and application complexity.
 
 ## Characteristics
 - It uses service as a fundamental unit of modularity
 - A microservice is scoped around a business capability.
+- Each service can follow hexagonal architecture for itself.
 - Each service has its own datastore whose schema is not exposed outside service
 - Small agile teams can iterate and evolve features quickly.
-- Each microservice is self-contained,encapsulating its own data storage and offers APIs for communication.
+- Each microservice is self-contained, encapsulating its own data storage and offers APIs for communication, leading to loose coupling
+    - Database schema can change without coordinating with the consumers of the service.
 - Lesser code complexity due to narrower scope of service.
 - Individual services can be independently scaled out
 
@@ -63,6 +65,9 @@ It solves the problem of increasing development and application complexity.
 - Communication cost
 - Monitoring complexity
 
+# How to model service
+Each service should be modeled around business concern. 
+
 ## Domain-driven design
 It maps each microservice to the bounded context.
 
@@ -91,5 +96,10 @@ To ensure your systems don’t fail suddenly as loads increase, there are a numb
 		- Avoid starvation of requests for threads on the service
 		-  It can be used to ensure requests to one API in a microservice don’t utilize all available resources during a request burst.
 		- we could specify that the new order request has a maximum of 150 threads of the shared thread pool available for its exclusive use. This ensures that when a new order request burst occurs, we can still handle status requests with acceptable response times because there is additional capacity in the thread pool.
+
+# Monolith to Microservices
+
+# Identify Services
+Functional decomposition needs to be done identify microservices from a monolith application.  
 
 
