@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "ffef53d235ca0c64",
+        "id": "3f96b4d8d8690d2c",
         "type": "tabs",
         "children": [
           {
-            "id": "d3c70c1861f0865b",
+            "id": "9486b3c266268a7b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "04Architectures/Microservices.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Microservices"
             }
           }
         ]
@@ -191,7 +195,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 368.109375
+    "width": 504.22265625
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -205,8 +209,17 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f3a5cdf7fbcc0115",
+  "active": "9486b3c266268a7b",
   "lastOpenFiles": [
+    "skills/system-design-tutor/references/README.md",
+    "skills/system-design-tutor/references/04Architectures/Tenancy.md",
+    "skills/system-design-tutor/references/04Architectures/SecurityArchitectures.md",
+    "skills/system-design-tutor/references/04Architectures/MonolithArchitecture.md",
+    "skills/system-design-tutor/references/04Architectures/Microservices.md",
+    "skills/system-design-tutor/references/04Architectures/EventDrivenArchitecture.md",
+    "skills/system-design-tutor/references/04Architectures",
+    "skills/system-design-architect/references/README.md",
+    "skills/system-design-architect/references/assets/oauth2authcodewithpkce.png",
     "04Architectures/Microservices.md",
     "04Architectures/SecurityArchitectures.md",
     "04Architectures/MonolithArchitecture.md",
@@ -218,7 +231,6 @@
     "01Foundation/Security.md",
     "01Foundation/NetworkCommunication.md",
     "mcp-server.log",
-    "skills/system-design-architect/references/README.md",
     "skills/system-design-tutor/references/02BuildingBlocks/DeploymentOrchestrator.md",
     "skills/system-design-tutor/references/01Foundation/BatchProcessing.md",
     "skills/system-design-tutor/references/01Foundation/StreamProcessing.md",
@@ -228,12 +240,6 @@
     "01Foundation/Scalability.md",
     "01Foundation/BatchProcessing.md",
     "02BuildingBlocks/APIGateway.md",
-    "01Foundation/StreamProcessing.md",
-    "03Patterns/EventSourcingAndCQRS.md",
-    "04Architectures/EventDrivenArchitecture.md",
-    "01Foundation/Consensus.md",
-    "01Foundation/Transactions.md",
-    "01Foundation/Consistency.md",
     "skills/system-design-tutor/references/assets/saml.png",
     "skills/system-design-tutor/references/assets/rpc.png",
     "skills/system-design-tutor/references/assets/oauth2authcodewithpkce.png",
@@ -241,13 +247,11 @@
     "skills/system-design-architect/references/INDEX.md.bak",
     "skills/system-design-architect/references/assets/saml.png",
     "skills/system-design-architect/references/assets/rpc.png",
-    "skills/system-design-architect/references/assets/oauth2authcodewithpkce.png",
     "skills/system-design-architect/references/assets",
     "skills/system-design-architect/references/04Architectures",
     "Untitled.canvas",
     "assets/rpc.png",
     "assets/Screenshot 2026-10-26 at 10.23.07 PM.png",
-    "skills/system-design-tutor/references/04Architectures",
     "dist/system-design-tutor.zip",
     "dist/system-design-architect.zip",
     "dist",

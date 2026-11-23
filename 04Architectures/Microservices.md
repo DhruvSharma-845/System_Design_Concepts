@@ -32,14 +32,21 @@ It solves the problem of increasing development and application complexity.
 - Each service can follow hexagonal architecture for itself.
 - Each service has its own datastore whose schema is not exposed outside service
 - Small agile teams can iterate and evolve features quickly.
-- Each microservice is self-contained, encapsulating its own data storage and offers APIs for communication, leading to loose coupling
+- Each microservice is self-contained, encapsulating its own data storage and offers APIs for system operations, leading to loose coupling
     - Database schema can change without coordinating with the consumers of the service.
 - Lesser code complexity due to narrower scope of service.
 - Individual services can be independently scaled out
 
+# Principles
+- Modeled around a business domain
+- Monitoring of each service is essential to ensure they are behaving as expected
+- Hide implementation details: Microservices are black boxes. Their API is a contract which they are guaranteed to support
+- The failure of one microservice should not propagate to others and bring down the application.
+- Every microservice should be independently deployable
+- Culture of automation
 
 # How it works
- A service can call one or more dependent services, which in turn are replicated and load-balanced and employs caching to provide high performance and availability.
+A service can call one or more dependent services, which in turn are replicated and load-balanced and employs caching to provide high performance and availability.
 
 # Advantages
 - By breaking the application into multiple independent services, you can scale each based on the service demand
@@ -52,24 +59,23 @@ It solves the problem of increasing development and application complexity.
 - Deploying features that span multiple services require coordination
 - Observability is complex because a request can bound around multiple services
 
-# Principles
-- Modeled around a business domain
-- Monitoring of each service is essential to ensure they are behaving as expected
-- Hide implementation details: Microservices are black boxes. Their API is a contract which they are guaranteed to support
-- The failure of one microservice should not propagate to others and bring down the application.
-- Every microservice should be independently deployable
-- Culture of automation
-# Decomposing system into microservices
-
-## Important factors to be considered
-- Communication cost
-- Monitoring complexity
 
 # How to model service
 Each service should be modeled around business concern. 
 
-## Domain-driven design
-It maps each microservice to the bounded context.
+## Important factors to be considered
+- Communication cost
+	- A particular decomposition would be impractical due to too many round-trips between services.
+	- Synchronous communication between services reduces availability.
+- Maintain data consistency across services.
+- Monitoring complexity
+
+## Identify Services
+Functional decomposition needs to be done identify microservices from a monolith application.  
+
+### Domain-driven design
+It maps each microservice to the bounded context. It organize services around domain-driven design subdomains.
+
 
 # Microservices Deployment
 
@@ -97,9 +103,10 @@ To ensure your systems don’t fail suddenly as loads increase, there are a numb
 		-  It can be used to ensure requests to one API in a microservice don’t utilize all available resources during a request burst.
 		- we could specify that the new order request has a maximum of 150 threads of the shared thread pool available for its exclusive use. This ensures that when a new order request burst occurs, we can still handle status requests with acceptable response times because there is additional capacity in the thread pool.
 
-# Monolith to Microservices
 
-# Identify Services
-Functional decomposition needs to be done identify microservices from a monolith application.  
+
+
+
+
 
 
