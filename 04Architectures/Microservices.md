@@ -59,7 +59,6 @@ A service can call one or more dependent services, which in turn are replicated 
 - Deploying features that span multiple services require coordination
 - Observability is complex because a request can bound around multiple services
 
-
 # How to model service
 Each service should be modeled around business concern. 
 
@@ -71,10 +70,11 @@ Each service should be modeled around business concern.
 - Monitoring complexity
 
 ## Identify Services
-Functional decomposition needs to be done identify microservices from a monolith application.  
-
-### Domain-driven design
-It maps each microservice to the bounded context. It organize services around domain-driven design subdomains.
+Functional decomposition needs to be done identify microservices from a monolith application. 
+- Decomposition by business capability
+- Decomposition by sub-domain 
+    - Domain-driven design: It maps each microservice to the bounded context. It organize services around domain-driven design subdomains.
+    - Define a separate domain model for each subdomain 
 
 
 # Microservices Deployment
@@ -102,11 +102,5 @@ To ensure your systems don’t fail suddenly as loads increase, there are a numb
 		- Avoid starvation of requests for threads on the service
 		-  It can be used to ensure requests to one API in a microservice don’t utilize all available resources during a request burst.
 		- we could specify that the new order request has a maximum of 150 threads of the shared thread pool available for its exclusive use. This ensures that when a new order request burst occurs, we can still handle status requests with acceptable response times because there is additional capacity in the thread pool.
-
-
-
-
-
-
 
 
