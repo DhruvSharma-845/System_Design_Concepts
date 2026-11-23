@@ -63,6 +63,7 @@ It solves the problem of increasing development and application complexity.
 
 ## Important factors to be considered
 - Communication cost
+- Synchronous communication reduces availability
 - Monitoring complexity
 
 # How to model service
@@ -101,5 +102,8 @@ To ensure your systems don’t fail suddenly as loads increase, there are a numb
 
 # Identify Services
 Functional decomposition needs to be done identify microservices from a monolith application.  
+- Decomposition by business capability
+- Decomposition by sub-domain 
+    - Define a separate domain model for each subdomain
 
 
