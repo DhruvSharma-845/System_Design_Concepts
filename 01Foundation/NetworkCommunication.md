@@ -52,12 +52,12 @@ New and old versions of data formats might coexist at the same time.
 There are four layers of protocols and each layer builds upon the layer that is beneath it.
 
 ### Application Layer
-- HTTP and REST: Clients(and servers) can connect to servers to make requests to server's API.
+- Synchronous HTTP and REST: Clients(and servers) can connect to servers to make requests to server's API.
 	- Clients can be web browsers, native apps.
 	- Predefined schemas for inputs and outputs of APIs.
 	- REST emphasizes simple data formats, using URLs for identifying resources and using HTTP features for cache control, authentication, and content type negotiation
 	- Service developers often use an IDL to define and document their service’s API endpoints and data models, and to evolve them over time. Other developers can then use the service definition to determine how to query the service.
-- Remote Procedure Call(or RMI)
+- Synchronous Remote Procedure Call(or RMI)
 	- Request to remote service looks like calling a local function
 	- Define the explicit server interface and call them across the network just like a method call in sequential code.
 	- Provides location transparency with registry
