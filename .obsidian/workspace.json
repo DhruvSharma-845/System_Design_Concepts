@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "3f96b4d8d8690d2c",
+        "id": "92b2f94e675efe2f",
         "type": "tabs",
         "children": [
           {
-            "id": "9486b3c266268a7b",
+            "id": "83b414e9bc01782b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "04Architectures/Microservices.md",
-                "mode": "source",
-                "source": false
+                "aFile": ".obsidian/appearance.json",
+                "bFile": ".obsidian/appearance.json",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "Microservices"
+              "icon": "diff",
+              "title": "Diff: appearance.json  (Working Tree)"
             }
           }
         ]
@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "version",
+                "query": "API",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -209,8 +209,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9486b3c266268a7b",
+  "active": "83b414e9bc01782b",
   "lastOpenFiles": [
+    "02BuildingBlocks/ServiceDiscovery.md",
+    "01Foundation/FaultTolerance.md",
+    "01Foundation/NetworkCommunication.md",
+    "04Architectures/Microservices.md",
     "skills/system-design-tutor/references/README.md",
     "skills/system-design-tutor/references/04Architectures/Tenancy.md",
     "skills/system-design-tutor/references/04Architectures/SecurityArchitectures.md",
@@ -220,16 +224,13 @@
     "skills/system-design-tutor/references/04Architectures",
     "skills/system-design-architect/references/README.md",
     "skills/system-design-architect/references/assets/oauth2authcodewithpkce.png",
-    "04Architectures/Microservices.md",
     "04Architectures/SecurityArchitectures.md",
     "04Architectures/MonolithArchitecture.md",
     "skills/system-design-tutor/references/02BuildingBlocks/ServiceDiscovery.md",
     "skills/system-design-architect/references/02BuildingBlocks/ServiceDiscovery.md",
     "02BuildingBlocks/DeploymentOrchestrator.md",
-    "02BuildingBlocks/ServiceDiscovery.md",
     "02BuildingBlocks/Authentication&Authorization.md",
     "01Foundation/Security.md",
-    "01Foundation/NetworkCommunication.md",
     "mcp-server.log",
     "skills/system-design-tutor/references/02BuildingBlocks/DeploymentOrchestrator.md",
     "skills/system-design-tutor/references/01Foundation/BatchProcessing.md",
@@ -239,7 +240,6 @@
     "skills/system-design-architect/references/01Foundation/StreamProcessing.md",
     "01Foundation/Scalability.md",
     "01Foundation/BatchProcessing.md",
-    "02BuildingBlocks/APIGateway.md",
     "skills/system-design-tutor/references/assets/saml.png",
     "skills/system-design-tutor/references/assets/rpc.png",
     "skills/system-design-tutor/references/assets/oauth2authcodewithpkce.png",

@@ -56,6 +56,11 @@ There is a trade-off between efficiency and accuracy of detecting faulty process
 	- Each member maintains a list of other members, their _heartbeat counters_, and timestamps, specifying when the heartbeat counter was incremented for the last time. 
 	- Periodically, each member increments its heartbeat counter and distributes its list to a random neighbors. Upon the message receipt, the neighboring node merges the list with its own, updating heartbeat counters for the other neighbors.
 	- If any node did not update its counter for long enough, it is considered failed
+### Making the clients robust
+Circuit Breaker
+- Prevent partial failures from cascading throughout the application.
+- Track the number of successful and failed requests, and if the error rate exceeds some threshold, trip the circuit breaker so that further attempts fail immediately.
+- After a timeout period, the client should try again, and, if successful, close the circuit breaker.
 
 ## Unreliable clock
 

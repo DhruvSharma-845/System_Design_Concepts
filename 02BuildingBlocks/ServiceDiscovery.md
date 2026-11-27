@@ -16,11 +16,24 @@ status: partial
 
 # What it is
 Service-discovery tools help solve the problem of finding which processes are listening at which addresses for which services.
+In order to make a request to a service, the code needs to know the network location (IP address and port) of a service instance.  
+Since IP addresses do not remain static, an application must use a dynamic service discovery mechanism.  
 
 # Characteristics
-- Clients should be updated as soon as possible after the information associated with a service changes.
+- Its key component is a service registry, which is a database of the network locations of an application’s service instances.
+- The service discovery mechanism updates the service registry when service instances start and stop.
+- When a client invokes a service, the service discovery mechanism queries the service registry to obtain a list of available service instances and routes the request to one of them.
+- A client might cache the service instances. The service client then uses a load-balancing algorithm, such as a round-robin or random, to select a service instance
 
-# How DNS acts as service discovery
+# Self-Registration
+ A service instance invokes the service registry’s registration API to register its network location. It may also supply a health check URL.
+
+# Platform-provided service discovery
+The deployment platform gives each service a DNS name, a virtual IP (VIP) address, and a DNS name that resolves to the VIP address.  
+A service client makes a request to the DNS name/VIP, and the deployment platform automatically routes the request to one of the available service instances.  
+One drawback of platform-provided service discovery is that it only supports the discovery of services that have been deployed using the platform.  
+
+## How DNS acts as service discovery
 DNS is designed for relatively stable name resolution with wide and efficient caching
 
 ## Issues with DNS
